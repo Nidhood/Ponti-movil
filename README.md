@@ -21,13 +21,13 @@ Conoce al equipo detrás de **Ponti-Movil**:
   <tr>
     <td align="center">
       <a href="https://github.com/DavzC" target="_blank">
-        <img src="https://github.com/Nidhood/Ponti-movil/blob/main/photos/default.jpg?s=100" alt="David" width="100" height="100">
+        <img src="https://github.com/Nidhood/Ponti-movil/blob/main/photos/default.png?s=100" alt="David" width="100" height="100">
         <p><strong>David</strong><br>Backend & Frontend Developer</p>
       </a>
     </td>
     <td align="center">
       <a href="https://github.com/judagogu8" target="_blank">
-        <img src="https://github.com/Nidhood/Ponti-movil/blob/main/photos/default.jpg?s=100" alt="Juan Guatoque" width="100" height="100">
+        <img src="https://github.com/Nidhood/Ponti-movil/blob/main/photos/default.png?s=100" alt="Juan Guatoque" width="100" height="100">
         <p><strong>Juan Guatoque</strong><br>Backend & Frontend Developer</p>
       </a>
     </td>
