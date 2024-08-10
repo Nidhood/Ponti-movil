@@ -17,26 +17,28 @@
 
 Conoce al equipo detrás de **Ponti-Movil**:
 
-<div style="display: flex; justify-content: space-around; flex-wrap: wrap; gap: 20px;">
-  <div style="text-align: center;">
-    <a href="https://github.com/DavzC" target="_blank">
-      <img src="https://avatars.githubusercontent.com/u/12345678?s=100" alt="David" style="border-radius: 50%; width: 100px; height: 100px; object-fit: cover;">
-      <p><strong>David</strong><br>Backend & Frontend Developer</p>
-    </a>
-  </div>
-  <div style="text-align: center;">
-    <a href="https://github.com/judagogu8" target="_blank">
-      <img src="https://avatars.githubusercontent.com/u/12345678?s=100" alt="Juan Guatoque" style="border-radius: 50%; width: 100px; height: 100px; object-fit: cover;">
-      <p><strong>Juan Guatoque</strong><br>Backend & Frontend Developer</p>
-    </a>
-  </div>
-  <div style="text-align: center;">
-    <a href="https://github.com/Nidhood" target="_blank">
-      <img src="https://avatars.githubusercontent.com/u/12345678?s=100" alt="Ivan Dario Orozco" style="border-radius: 50%; width: 100px; height: 100px; object-fit: cover;">
-      <p><strong>Ivan Dario Orozco</strong><br>Backend & Frontend Developer</p>
-    </a>
-  </div>
-</div>
+<table>
+  <tr>
+    <td align="center">
+      <a href="https://github.com/DavzC" target="_blank">
+        <img src="https://github.com/Nidhood/Ponti-movil/blob/main/photos/default.jpg?s=100" alt="David" width="100" height="100">
+        <p><strong>David</strong><br>Backend & Frontend Developer</p>
+      </a>
+    </td>
+    <td align="center">
+      <a href="https://github.com/judagogu8" target="_blank">
+        <img src="https://github.com/Nidhood/Ponti-movil/blob/main/photos/default.jpg?s=100" alt="Juan Guatoque" width="100" height="100">
+        <p><strong>Juan Guatoque</strong><br>Backend & Frontend Developer</p>
+      </a>
+    </td>
+    <td align="center">
+      <a href="https://github.com/Nidhood" target="_blank">
+        <img src="https://github.com/Nidhood/Ponti-movil/blob/main/photos/Ivan-Orozco.jpeg?s=100" alt="Ivan Dario Orozco" width="100" height="100">
+        <p><strong>Ivan Dario Orozco</strong><br>Backend & Frontend Developer</p>
+      </a>
+    </td>
+  </tr>
+</table>
 
 ## Dependencias
 
