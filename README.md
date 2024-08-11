@@ -27,8 +27,8 @@ Conoce al equipo detrás de **Ponti-Movil**:
     </td>
     <td align="center">
       <a href="https://github.com/judagogu8" target="_blank">
-        <img src="https://github.com/Nidhood/Ponti-movil/blob/main/photos/default.png?s=100" alt="Juan Guatoque" width="100" height="100">
-        <p><strong>Juan Guatoque</strong><br>Backend & Frontend Developer</p>
+        <img src="https://github.com/Nidhood/Ponti-movil/blob/main/photos/JuanGonzalez.JPG?s=100" alt="Juan Guatoque" width="100" height="100">
+        <p><strong>Juan David González</strong><br>CEO Ponti-Movil</p>
       </a>
     </td>
     <td align="center">
