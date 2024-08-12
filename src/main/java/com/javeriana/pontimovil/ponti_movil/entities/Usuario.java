@@ -34,6 +34,16 @@ public class Usuario {
     @Column(name = "correo", nullable = false, length = 320)
     private String correo;
 
+    public Usuario() {}
+
+    public Usuario(String nombre, String apellido, String nombreUsuario, String contrasena, String correo) {
+        this.nombre = nombre;
+        this.apellido = apellido;
+        this.nombreUsuario = nombreUsuario;
+        this.contrasena = contrasena;
+        this.correo = correo;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.ColumnDefault;
 
+import java.util.Objects;
 import java.util.UUID;
 
 @Getter
@@ -25,4 +26,32 @@ public class Ruta {
     @JoinColumn(name = "horario_id", nullable = false)
     private Horario horario;
 
+    public Ruta() {}
+
+    public Ruta(String codigo, Horario horario) {
+        this.codigo = codigo;
+        this.horario = horario;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Ruta ruta = (Ruta) o;
+        return Objects.equals(getId(), ruta.getId()) && Objects.equals(getCodigo(), ruta.getCodigo()) && Objects.equals(getHorario(), ruta.getHorario());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getId(), getCodigo(), getHorario());
+    }
+
+    @Override
+    public String toString() {
+        return "Ruta{" +
+                "id=" + id +
+                ", codigo='" + codigo + '\'' +
+                ", horario=" + horario +
+                '}';
+    }
 }

@@ -22,6 +22,17 @@ public class Estacion {
     @Column(name = "nombre", nullable = false, length = 20)
     private String nombre;
 
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "direccion_id", nullable = false)
+    private Direccion direccion;
+
+    public Estacion() {}
+
+    public Estacion(String nombre, Direccion direccion) {
+        this.nombre = nombre;
+        this.direccion = direccion;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

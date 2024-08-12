@@ -23,8 +23,20 @@ public class AsignacionBusRuta {
     @JoinColumn(name = "bus_id", nullable = false)
     private Bus bus;
 
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "ruta_id", nullable = false)
+    private Ruta ruta;
+
     @Column(name = "dia_semana", nullable = false, length = 20)
     private String diaSemana;
+
+    public AsignacionBusRuta() {}
+
+    public AsignacionBusRuta(Bus bus, Ruta ruta, String diaSemana) {
+        this.bus = bus;
+        this.ruta = ruta;
+        this.diaSemana = diaSemana;
+    }
 
     @Override
     public boolean equals(Object o) {
