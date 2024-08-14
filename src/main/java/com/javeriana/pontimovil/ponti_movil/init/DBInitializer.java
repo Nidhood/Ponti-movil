@@ -4,8 +4,7 @@ import com.javeriana.pontimovil.ponti_movil.entities.Bus;
 import com.javeriana.pontimovil.ponti_movil.entities.Horario;
 import com.javeriana.pontimovil.ponti_movil.exceptions.NotFoundBusException;
 import com.javeriana.pontimovil.ponti_movil.exceptions.NotFoundHorarioException;
-import com.javeriana.pontimovil.ponti_movil.repositories.BusRepository;
-import com.javeriana.pontimovil.ponti_movil.repositories.HorarioRepository;
+import com.javeriana.pontimovil.ponti_movil.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
@@ -27,6 +26,21 @@ public class DBInitializer implements CommandLineRunner {
 
     @Autowired
     private HorarioRepository horarioRepository;
+
+    @Autowired
+    private UsuarioRepository usuarioRepository;
+
+    @Autowired
+    private DireccionRepository direccionRepository;
+
+    @Autowired
+    private EstacionRepository estacionRepository;
+
+    @Autowired
+    private RutaRepository rutaRepository;
+
+
+
 
     // Para logs en la consola:
     private static final Logger logger = LoggerFactory.getLogger(DBInitializer.class);
