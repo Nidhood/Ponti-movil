@@ -22,7 +22,7 @@ public class Ruta {
     @Column(name = "codigo", nullable = false, length = 20)
     private String codigo;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "horario_id", nullable = false)
     private Horario horario;
 

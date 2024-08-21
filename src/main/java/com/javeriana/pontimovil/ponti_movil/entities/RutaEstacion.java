@@ -17,11 +17,11 @@ public class RutaEstacion {
     @Column(name = "rowid", nullable = false)
     private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "ruta_id", nullable = false)
     private Ruta ruta;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "estacion_id", nullable = false)
     private Estacion estacion;
 
