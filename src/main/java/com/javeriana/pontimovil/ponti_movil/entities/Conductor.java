@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.ColumnDefault;
 
+import java.util.Objects;
 import java.util.UUID;
 
 @Getter
@@ -34,4 +35,38 @@ public class Conductor {
     @JoinColumn(name = "direccion_id", nullable = false)
     private Direccion direccion;
 
+    public Conductor() {}
+
+    public Conductor(String nombre, String apellido, String cedula, String telefono, Direccion direccion) {
+        this.nombre = nombre;
+        this.apellido = apellido;
+        this.cedula = cedula;
+        this.telefono = telefono;
+        this.direccion = direccion;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Conductor conductor = (Conductor) o;
+        return Objects.equals(getId(), conductor.getId()) && Objects.equals(getNombre(), conductor.getNombre()) && Objects.equals(getApellido(), conductor.getApellido()) && Objects.equals(getCedula(), conductor.getCedula()) && Objects.equals(getTelefono(), conductor.getTelefono()) && Objects.equals(getDireccion(), conductor.getDireccion());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getId(), getNombre(), getApellido(), getCedula(), getTelefono(), getDireccion());
+    }
+
+    @Override
+    public String toString() {
+        return "Conductor{" +
+                "id=" + id +
+                ", nombre='" + nombre + '\'' +
+                ", apellido='" + apellido + '\'' +
+                ", cedula='" + cedula + '\'' +
+                ", telefono='" + telefono + '\'' +
+                ", direccion=" + direccion +
+                '}';
+    }
 }
