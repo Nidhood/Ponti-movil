@@ -62,7 +62,7 @@ h1 {
 
 body.a-menu {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: #00cb99;
+    background-color: #ff8080;
     color: #333;
     height: 100vh;
     background-size: cover;
@@ -70,7 +70,7 @@ body.a-menu {
 }
 
 .a-menu h1{
-    background-color: #004d40;
+    background-color: #e60012;
     color: #ffffff;
     padding: 20px;
     text-align: center;
@@ -90,7 +90,7 @@ body.a-menu {
 
 .content h2 {
     margin-bottom: 20px;
-    color: #00796b;
+    color: #ff5d5d;
 }
 
 .menu {
@@ -99,7 +99,7 @@ body.a-menu {
 
 .menu h2 {
     margin-bottom: 15px;
-    color: #004d40;
+    color: #ff8080;
 }
 
 .menu ul {
@@ -112,8 +112,8 @@ body.a-menu {
 
 .menu ul li a {
     text-decoration: none;
-    color: #004d40;
-    background-color: #80cbc4;
+    color: #000000;
+    background-color: #ffa0a0;
     padding: 10px 20px;
     border-radius: 5px;
     transition: background-color 0.3s ease;
@@ -123,7 +123,7 @@ body.a-menu {
 }
 
 .menu ul li a:hover {
-    background-color: #4db6ac;
+    background-color: #bd5252;
 }
 
 
