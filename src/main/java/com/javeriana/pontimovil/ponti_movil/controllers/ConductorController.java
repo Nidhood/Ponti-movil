@@ -2,12 +2,8 @@ package com.javeriana.pontimovil.ponti_movil.controllers;
 
 import com.javeriana.pontimovil.ponti_movil.entities.Bus;
 import com.javeriana.pontimovil.ponti_movil.entities.Conductor;
-import com.javeriana.pontimovil.ponti_movil.entities.Horario;
-import com.javeriana.pontimovil.ponti_movil.init.DBInitializer;
 import com.javeriana.pontimovil.ponti_movil.services.AsignacionConductorBusService;
 import com.javeriana.pontimovil.ponti_movil.services.ConductorService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,9 +17,6 @@ public class ConductorController {
     // Service:
     private final ConductorService conductorService;
     private final AsignacionConductorBusService asignacionConductorBusService;
-
-    // Logs:
-    private static final Logger logger = LoggerFactory.getLogger(ConductorController.class);
 
     // Constructor:
     @Autowired
@@ -45,7 +38,6 @@ public class ConductorController {
 
     @PostMapping("/crear")
     public void crearConductor(@RequestBody Conductor conductor) {
-        // logger.info("Creando conductor: " + conductor);
         conductorService.crearConductor(conductor);
     }
 

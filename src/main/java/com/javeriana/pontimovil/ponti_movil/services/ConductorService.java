@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 @Service
 public class ConductorService {
@@ -54,16 +53,24 @@ public class ConductorService {
 
     public void actualizarConductor(UUID id, Conductor conductor) {
         Conductor conductorActual = conductorRepository.findById(id).orElseThrow(()-> new RuntimeException("Conductor no encontrado"));
+        Direccion direccion = direccionRepository.findById(conductor.getDireccion().getId()).orElseThrow(()-> new RuntimeException("Dirección no encontrada"));
         conductorActual.setNombre(conductor.getNombre());
         conductorActual.setApellido(conductor.getApellido());
         conductorActual.setCedula(conductor.getCedula());
         conductorActual.setTelefono(conductor.getTelefono());
-        conductorActual.setDireccion(conductor.getDireccion());
+        direccion.setCalle(conductor.getDireccion().getCalle());
+        direccion.setCarrera(conductor.getDireccion().getCarrera());
+        direccion.setNumero(conductor.getDireccion().getNumero());
+        direccion.setLocalidad(conductor.getDireccion().getLocalidad());
+        direccion.setBarrio(conductor.getDireccion().getBarrio());
         conductorRepository.save(conductorActual);
+        direccionRepository.save(direccion);
     }
 
     public void eliminarConductor(UUID id) {
         Conductor conductor = conductorRepository.findById(id).orElseThrow(()-> new RuntimeException("Conductor no encontrado"));
+        Direccion direccion = direccionRepository.findById(conductor.getDireccion().getId()).orElseThrow(()-> new RuntimeException("Dirección no encontrada"));
         conductorRepository.delete(conductor);
+        direccionRepository.delete(direccion);
     }
 }

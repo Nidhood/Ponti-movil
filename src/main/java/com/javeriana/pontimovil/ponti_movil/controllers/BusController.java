@@ -27,34 +27,27 @@ public class BusController {
     // Métodos:
     @GetMapping
     public List<Bus> obtenerBuses() {
-
-        // Implementación
-        return null;
+        return busService.obtenerBuses();
     }
 
     @GetMapping("/{id}")
-    public Bus obtenerBusPorId(@PathVariable UUID id, @RequestBody Bus bus) {
-
-        // Implementación
-        return null;
+    public Bus obtenerBusPorId(@PathVariable UUID id) {
+        return busService.obtenerBusPorId(id);
     }
 
     @PostMapping("/crear")
     public void crearBus(@RequestBody Bus bus) {
-
-        // Implementación
+        busService.crearBus(bus);
     }
 
     @PostMapping("/{id}/actualizar")
     public void actualizarBus(@PathVariable UUID id, @RequestBody Bus bus) {
-
-        // Implementación
+        busService.actualizarBus(id, bus);
     }
 
     @DeleteMapping("/{id}/eliminar")
     public void eliminarBus(@PathVariable UUID id) {
-
-        // Implementación
+        busService.eliminarBus(id);
     }
 
     @PostMapping("/{id}/asignarRuta")
