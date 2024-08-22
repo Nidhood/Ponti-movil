@@ -3,7 +3,6 @@ package com.javeriana.pontimovil.ponti_movil.entities;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
-import org.hibernate.annotations.ColumnDefault;
 
 import java.util.Objects;
 
@@ -12,37 +11,45 @@ import java.util.Objects;
 @Entity
 @Table(name = "rutas_estaciones")
 public class RutaEstacion {
-    @Id
-    @ColumnDefault("unique_rowid()")
-    @Column(name = "rowid", nullable = false)
-    private Long id;
+    @EmbeddedId
+    private RutaEstacionId id;
 
-    @ManyToOne(fetch = FetchType.EAGER, optional = false)
+    @MapsId("rutaId")
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "ruta_id", nullable = false)
     private Ruta ruta;
 
-    @ManyToOne(fetch = FetchType.EAGER, optional = false)
+    @MapsId("estacionId")
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "estacion_id", nullable = false)
     private Estacion estacion;
 
+    @Column(name = "orden", nullable = false)
+    private Long orden;
+
+
+    // Constructores:
     public RutaEstacion() {}
 
-    public RutaEstacion(Ruta ruta, Estacion estacion) {
+    public RutaEstacion(Ruta ruta, Estacion estacion, Long orden) {
         this.ruta = ruta;
         this.estacion = estacion;
+        this.orden = orden;
     }
+
+    // Métodos:
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         RutaEstacion that = (RutaEstacion) o;
-        return Objects.equals(getId(), that.getId()) && Objects.equals(getRuta(), that.getRuta()) && Objects.equals(getEstacion(), that.getEstacion());
+        return Objects.equals(getId(), that.getId()) && Objects.equals(getRuta(), that.getRuta()) && Objects.equals(getEstacion(), that.getEstacion()) && Objects.equals(getOrden(), that.getOrden());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId(), getRuta(), getEstacion());
+        return Objects.hash(getId(), getRuta(), getEstacion(), getOrden());
     }
 
     @Override
@@ -51,6 +58,7 @@ public class RutaEstacion {
                 "id=" + id +
                 ", ruta=" + ruta +
                 ", estacion=" + estacion +
+                ", orden=" + orden +
                 '}';
     }
 }

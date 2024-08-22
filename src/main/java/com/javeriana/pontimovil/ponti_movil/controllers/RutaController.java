@@ -1,6 +1,7 @@
 package com.javeriana.pontimovil.ponti_movil.controllers;
 
 
+import com.javeriana.pontimovil.ponti_movil.dto.NuevaRutaDto;
 import com.javeriana.pontimovil.ponti_movil.entities.Ruta;
 import com.javeriana.pontimovil.ponti_movil.services.RutaService;
 import org.springframework.web.bind.annotation.*;
@@ -23,33 +24,26 @@ public class RutaController {
     // Métodos:
     @GetMapping
     public List<Ruta> obtenerRutas() {
-
-        // Implementación
-        return null;
+        return rutaService.obtenerRutas();
     }
 
     @GetMapping("/{id}")
     public Ruta obtenerRutaPorId(@PathVariable UUID id) {
-
-        // Implementación
-        return null;
+        return rutaService.obtenerRutaPorId(id);
     }
 
     @PostMapping("/crear")
-    public void crearRuta(@RequestBody Ruta ruta) {
-
-        // Implementación
+    public void crearRuta(@RequestBody NuevaRutaDto nuevaRutaDto) {
+        rutaService.crearRuta(nuevaRutaDto);
     }
 
-    @PostMapping("/{id}/actualizar")
-    public void actualizarRuta(@PathVariable UUID id, @RequestBody Ruta ruta) {
-
-        // Implementación
+    @PostMapping("/{codigo}/actualizar")
+    public void actualizarRuta(@PathVariable String codigo, @RequestBody NuevaRutaDto nuevaRutaDto) {
+        rutaService.actualizarRuta(codigo, nuevaRutaDto);
     }
 
-    @DeleteMapping("/{id}/eliminar")
-    public void eliminarRuta(@PathVariable UUID id) {
-
-        // Implementación
+    @DeleteMapping("/{codigo}/eliminar")
+    public void eliminarRuta(@PathVariable String codigo) {
+        rutaService.eliminarRuta(codigo);
     }
 }
