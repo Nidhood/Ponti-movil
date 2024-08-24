@@ -21,3 +21,5 @@ rad.json
 #Test results file
 TestResults.xml
 .idea/
+.DS_Store
+Target/
