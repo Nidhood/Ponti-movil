@@ -34,14 +34,19 @@ public class Usuario {
     @Column(name = "correo", nullable = false, length = 320)
     private String correo;
 
+    @Column(name = "tipo_usuario", nullable = false)
+    private String tipoUsuario;
+
     public Usuario() {}
 
-    public Usuario(String nombre, String apellido, String nombreUsuario, String contrasena, String correo) {
+    public Usuario(UUID id, String nombre, String apellido, String nombreUsuario, String contrasena, String correo, String tipoUsuario) {
+        this.id = id;
         this.nombre = nombre;
         this.apellido = apellido;
         this.nombreUsuario = nombreUsuario;
         this.contrasena = contrasena;
         this.correo = correo;
+        this.tipoUsuario = tipoUsuario;
     }
 
     @Override
@@ -49,12 +54,12 @@ public class Usuario {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Usuario usuario = (Usuario) o;
-        return Objects.equals(getId(), usuario.getId()) && Objects.equals(getNombre(), usuario.getNombre()) && Objects.equals(getApellido(), usuario.getApellido()) && Objects.equals(getNombreUsuario(), usuario.getNombreUsuario()) && Objects.equals(getContrasena(), usuario.getContrasena()) && Objects.equals(getCorreo(), usuario.getCorreo());
+        return Objects.equals(getId(), usuario.getId()) && Objects.equals(getNombre(), usuario.getNombre()) && Objects.equals(getApellido(), usuario.getApellido()) && Objects.equals(getNombreUsuario(), usuario.getNombreUsuario()) && Objects.equals(getContrasena(), usuario.getContrasena()) && Objects.equals(getCorreo(), usuario.getCorreo()) && Objects.equals(getTipoUsuario(), usuario.getTipoUsuario());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId(), getNombre(), getApellido(), getNombreUsuario(), getContrasena(), getCorreo());
+        return Objects.hash(getId(), getNombre(), getApellido(), getNombreUsuario(), getContrasena(), getCorreo(), getTipoUsuario());
     }
 
     @Override
@@ -66,6 +71,7 @@ public class Usuario {
                 ", nombreUsuario='" + nombreUsuario + '\'' +
                 ", contrasena='" + contrasena + '\'' +
                 ", correo='" + correo + '\'' +
+                ", tipoUsuario=" + tipoUsuario +
                 '}';
     }
 }

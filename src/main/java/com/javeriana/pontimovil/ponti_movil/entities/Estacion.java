@@ -22,7 +22,7 @@ public class Estacion {
     @Column(name = "nombre", nullable = false, length = 20)
     private String nombre;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "direccion_id", nullable = false)
     private Direccion direccion;
 

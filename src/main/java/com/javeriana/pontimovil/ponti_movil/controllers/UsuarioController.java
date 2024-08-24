@@ -2,7 +2,6 @@ package com.javeriana.pontimovil.ponti_movil.controllers;
 
 
 import com.javeriana.pontimovil.ponti_movil.entities.Usuario;
-import com.javeriana.pontimovil.ponti_movil.repositories.UsuarioRepository;
 import com.javeriana.pontimovil.ponti_movil.services.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -26,40 +25,26 @@ public class UsuarioController {
     // Métodos:
     @GetMapping
     public List<Usuario> obtenerUsuarios() {
-
-        // Implementación
-        return null;
+        return usuarioService.obtenerUsuarios();
     }
 
     @GetMapping("/{id}")
     public Usuario obtenerUsuarioPorId(@PathVariable UUID id) {
-
-        // Implementación
-        return null;
+        return usuarioService.obtenerUsuarioPorId(id);
     }
 
     @PostMapping("/crear")
     public void crearUsuario(@RequestBody Usuario usuario) {
-
-        // Implementación
+        usuarioService.crearUsuario(usuario);
     }
 
     @PostMapping("/{id}/actualizar")
     public void actualizarUsuario(@PathVariable UUID id, @RequestBody Usuario usuario) {
-
-        // Implementación
+        usuarioService.actualizarUsuario(id, usuario);
     }
 
     @DeleteMapping("/{id}/eliminar")
     public void eliminarUsuario(@PathVariable UUID id) {
-
-        // Implementación
+        usuarioService.eliminarUsuario(id);
     }
-
-    @PostMapping("/{id}/autenticar")
-    public void autenticarUsuario(@PathVariable UUID id, @RequestBody Usuario usuario) {
-
-        // Implementación
-    }
-
 }
