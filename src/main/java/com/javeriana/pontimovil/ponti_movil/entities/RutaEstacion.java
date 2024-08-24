@@ -1,5 +1,6 @@
 package com.javeriana.pontimovil.ponti_movil.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -9,18 +10,19 @@ import java.util.Objects;
 @Getter
 @Setter
 @Entity
-@Table(name = "rutas_estaciones")
+@Table(name = "rutas_estaciones", uniqueConstraints = @UniqueConstraint(columnNames = {"ruta_id", "estacion_id"}))
 public class RutaEstacion {
     @EmbeddedId
+    @JsonIgnore
     private RutaEstacionId id;
 
     @MapsId("rutaId")
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "ruta_id", nullable = false)
     private Ruta ruta;
 
     @MapsId("estacionId")
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "estacion_id", nullable = false)
     private Estacion estacion;
 
@@ -38,7 +40,6 @@ public class RutaEstacion {
     }
 
     // Métodos:
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

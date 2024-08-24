@@ -3,6 +3,8 @@ package com.javeriana.pontimovil.ponti_movil.services;
 
 import com.javeriana.pontimovil.ponti_movil.entities.Conductor;
 import com.javeriana.pontimovil.ponti_movil.entities.Direccion;
+import com.javeriana.pontimovil.ponti_movil.exceptions.ConductorNotFoundException;
+import com.javeriana.pontimovil.ponti_movil.exceptions.DireccionNotFoundException;
 import com.javeriana.pontimovil.ponti_movil.repositories.ConductorRepository;
 import com.javeriana.pontimovil.ponti_movil.repositories.DireccionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,14 +27,13 @@ public class ConductorService {
         this.direccionRepository = direccionRepository;
     }
 
-
     // Métodos:
     public List<Conductor> obtenerConductores() {
         return conductorRepository.findAll();
     }
 
     public Conductor obtenerConductorPorId(UUID id) {
-        return conductorRepository.findById(id).orElseThrow(()-> new RuntimeException("Conductor no encontrado"));
+        return conductorRepository.findById(id).orElseThrow(()-> new ConductorNotFoundException(id));
     }
 
     public void crearConductor(Conductor conductor) {
@@ -52,8 +53,8 @@ public class ConductorService {
     }
 
     public void actualizarConductor(UUID id, Conductor conductor) {
-        Conductor conductorActual = conductorRepository.findById(id).orElseThrow(()-> new RuntimeException("Conductor no encontrado"));
-        Direccion direccion = direccionRepository.findById(conductor.getDireccion().getId()).orElseThrow(()-> new RuntimeException("Dirección no encontrada"));
+        Conductor conductorActual = conductorRepository.findById(id).orElseThrow(()-> new ConductorNotFoundException(id));
+        Direccion direccion = direccionRepository.findById(conductor.getDireccion().getId()).orElseThrow(()-> new DireccionNotFoundException(conductor.getDireccion().getId()));
         conductorActual.setNombre(conductor.getNombre());
         conductorActual.setApellido(conductor.getApellido());
         conductorActual.setCedula(conductor.getCedula());
@@ -68,8 +69,8 @@ public class ConductorService {
     }
 
     public void eliminarConductor(UUID id) {
-        Conductor conductor = conductorRepository.findById(id).orElseThrow(()-> new RuntimeException("Conductor no encontrado"));
-        Direccion direccion = direccionRepository.findById(conductor.getDireccion().getId()).orElseThrow(()-> new RuntimeException("Dirección no encontrada"));
+        Conductor conductor = conductorRepository.findById(id).orElseThrow(()-> new ConductorNotFoundException(id));
+        Direccion direccion = direccionRepository.findById(conductor.getDireccion().getId()).orElseThrow(()-> new DireccionNotFoundException(conductor.getDireccion().getId()));
         conductorRepository.delete(conductor);
         direccionRepository.delete(direccion);
     }

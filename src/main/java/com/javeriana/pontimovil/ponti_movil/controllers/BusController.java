@@ -1,7 +1,6 @@
 package com.javeriana.pontimovil.ponti_movil.controllers;
 
 import com.javeriana.pontimovil.ponti_movil.entities.Bus;
-import com.javeriana.pontimovil.ponti_movil.services.AsignacionBusRutaService;
 import com.javeriana.pontimovil.ponti_movil.services.BusService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -15,13 +14,11 @@ public class BusController {
 
     // Servicios:
     private final BusService busService;
-    private final AsignacionBusRutaService asignacionBusRutaService;
 
     // Constructor:
     @Autowired
-    public BusController(BusService busService, AsignacionBusRutaService asignacionBusRutaService) {
+    public BusController(BusService busService) {
         this.busService = busService;
-        this.asignacionBusRutaService = asignacionBusRutaService;
     }
 
     // Métodos:
@@ -48,17 +45,5 @@ public class BusController {
     @DeleteMapping("/{id}/eliminar")
     public void eliminarBus(@PathVariable UUID id) {
         busService.eliminarBus(id);
-    }
-
-    @PostMapping("/{id}/asignarRuta")
-    public void asignarRuta(@PathVariable UUID id, @RequestBody Bus bus) {
-
-        // Implementación
-    }
-
-    @PostMapping("/{id}/desasignarRuta")
-    public void desasignarRuta(@PathVariable UUID id, @RequestBody Bus bus) {
-
-        // Implementación
     }
 }

@@ -79,38 +79,24 @@ CREATE TABLE IF NOT EXISTS RUTAS
     ID             UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     CODIGO         VARCHAR(20) NOT NULL,
     HORARIO_ID     UUID NOT NULL,
-    UNIQUE (CODIGO),
+    UNIQUE (CODIGO, HORARIO_ID),
     CONSTRAINT fk_route_schedule FOREIGN KEY (HORARIO_ID) REFERENCES HORARIOS (ID)
 );
 
 -----------------------------------------------------------------------------------------------------------------------
 
--- Table: ASIGNACIONES_CONDUCTORES_BUSES
+-- Table: CONDUCTORES_BUSES_RUTAS
 
-CREATE TABLE IF NOT EXISTS ASIGNACIONES_CONDUCTORES_BUSES
+CREATE TABLE IF NOT EXISTS CONDUCTORES_BUSES_RUTAS
 (
     ID             UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     CONDUCTOR_ID   UUID NOT NULL,
     BUS_ID         UUID NOT NULL,
+    RUTA_ID        UUID,
     DIA_SEMANA     VARCHAR(20) NOT NULL,
-    UNIQUE (CONDUCTOR_ID, BUS_ID, DIA_SEMANA),
+    UNIQUE (CONDUCTOR_ID, BUS_ID, RUTA_ID, DIA_SEMANA),
     CHECK (DIA_SEMANA IN ('Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes', 'Sabado', 'Domingo')),
     CONSTRAINT fk_assignment_driver FOREIGN KEY (CONDUCTOR_ID) REFERENCES CONDUCTORES (ID),
-    CONSTRAINT fk_assignment_bus FOREIGN KEY (BUS_ID) REFERENCES BUSES (ID)
-);
-
------------------------------------------------------------------------------------------------------------------------
-
--- Table: ASIGNACIONES_BUSES_RUTAS
-
-CREATE TABLE IF NOT EXISTS ASIGNACIONES_BUSES_RUTAS
-(
-    ID             UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-    BUS_ID         UUID NOT NULL,
-    RUTA_ID        UUID NOT NULL,
-    DIA_SEMANA     VARCHAR(20) NOT NULL,
-    UNIQUE (BUS_ID, RUTA_ID, DIA_SEMANA),
-    CHECK (DIA_SEMANA IN ('Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes', 'Sabado', 'Domingo')),
     CONSTRAINT fk_assignment_bus FOREIGN KEY (BUS_ID) REFERENCES BUSES (ID),
     CONSTRAINT fk_assignment_route FOREIGN KEY (RUTA_ID) REFERENCES RUTAS (ID)
 );
