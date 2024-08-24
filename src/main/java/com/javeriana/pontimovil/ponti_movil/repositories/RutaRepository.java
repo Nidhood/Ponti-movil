@@ -7,5 +7,5 @@ import java.util.UUID;
 
 @Repository
 public interface RutaRepository extends JpaRepository<Ruta, UUID> {
-    Ruta findByCodigo(String codigo);
+    void deleteByCodigo(String codigo);
 }

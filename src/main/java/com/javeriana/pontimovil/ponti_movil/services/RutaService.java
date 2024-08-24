@@ -1,18 +1,16 @@
 package com.javeriana.pontimovil.ponti_movil.services;
 
-
-import com.javeriana.pontimovil.ponti_movil.dto.NuevaRutaDto;
-import com.javeriana.pontimovil.ponti_movil.dto.RutaEstacionDto;
 import com.javeriana.pontimovil.ponti_movil.entities.Horario;
 import com.javeriana.pontimovil.ponti_movil.entities.Ruta;
 import com.javeriana.pontimovil.ponti_movil.entities.RutaEstacion;
+import com.javeriana.pontimovil.ponti_movil.exceptions.HorarioNotFoundException;
+import com.javeriana.pontimovil.ponti_movil.exceptions.RutaNotFoundException;
+import com.javeriana.pontimovil.ponti_movil.repositories.ConductorBusRutaRepository;
 import com.javeriana.pontimovil.ponti_movil.repositories.HorarioRepository;
 import com.javeriana.pontimovil.ponti_movil.repositories.RutaEstacionRepository;
 import com.javeriana.pontimovil.ponti_movil.repositories.RutaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -23,13 +21,15 @@ public class RutaService {
     RutaRepository rutaRepository;
     HorarioRepository horarioRepository;
     RutaEstacionRepository rutaEstacionRepository;
+    ConductorBusRutaRepository conductorBusRutaRepository;
 
     // Constructor:
     @Autowired
-    public RutaService(RutaRepository rutaRepository, HorarioRepository horarioRepository, RutaEstacionRepository rutaEstacionRepository) {
+    public RutaService(RutaRepository rutaRepository, HorarioRepository horarioRepository, RutaEstacionRepository rutaEstacionRepository, ConductorBusRutaRepository conductorBusRutaRepository) {
         this.rutaRepository = rutaRepository;
         this.horarioRepository = horarioRepository;
         this.rutaEstacionRepository = rutaEstacionRepository;
+        this.conductorBusRutaRepository = conductorBusRutaRepository;
     }
 
     // Métodos:
@@ -37,81 +37,57 @@ public class RutaService {
         return rutaRepository.findAll();
     }
 
+    public List<RutaEstacion> obtenerEstacionesPorRuta(UUID id) {
+        return rutaEstacionRepository.findByRuta(rutaRepository.findById(id).orElseThrow(()-> new RutaNotFoundException(id)));
+    }
+
     public Ruta obtenerRutaPorId(UUID id) {
-        return rutaRepository.findById(id).orElseThrow(()-> new RuntimeException("Ruta no encontrada"));
+        return rutaRepository.findById(id).orElseThrow(()-> new RutaNotFoundException(id));
     }
 
-    public void crearRuta(NuevaRutaDto nuevaRutaDto) {
-        Horario horario = new Horario();
-        List<Ruta> rutas = new ArrayList<>();
-        List<RutaEstacion> rutasEstacion = new ArrayList<>();
+    public void crearRuta(Ruta ruta) {
 
-        // Creamos un nuevo horario si aun no existe:
-        if(nuevaRutaDto.getHorario() != null){
-            horario.setDia(nuevaRutaDto.getHorario().getDia());
-            horario.setHoraInicio(nuevaRutaDto.getHorario().getHoraInicio());
-            horario.setHoraFin(nuevaRutaDto.getHorario().getHoraFin());
+        // Buscamos si el horario ya existe, si no lo creamos:
+        if (ruta.getHorario().getId() == null) {
+            Horario horario = new Horario();
+            horario.setDia(ruta.getHorario().getDia());
+            horario.setHoraInicio(ruta.getHorario().getHoraInicio());
+            horario.setHoraFin(ruta.getHorario().getHoraFin());
             horarioRepository.save(horario);
-        }
 
-        // Creamos las rutas y su relación las estaciones:
-        for (RutaEstacionDto rutaEstacionDto: nuevaRutaDto.getRutasEstacion()) {
-
-            // Creamos nueva ruta:
-            Ruta ruta = new Ruta();
-            ruta.setCodigo(rutaEstacionDto.getRuta().getCodigo());
+            // Asignamos el horario a la ruta:
             ruta.setHorario(horario);
-            rutas.add(ruta);
-
-            // Creamos nueva ruta estación:
-            RutaEstacion rutaEstacion = new RutaEstacion();
-            rutaEstacion.setRuta(ruta);
-            rutaEstacion.setEstacion(rutaEstacionDto.getEstacion());
-            rutaEstacion.setOrden(rutaEstacionDto.getOrden());
-            rutasEstacion.add(rutaEstacion);
         }
-
-        // Guardamos las rutas y las rutas estación:
-        rutaRepository.saveAll(rutas);
-        rutaEstacionRepository.saveAll(rutasEstacion);
+        rutaRepository.save(ruta);
     }
 
-    public void actualizarRuta(String codigo, NuevaRutaDto nuevaRutaDto) {
-        Horario horario = horarioRepository.findById(nuevaRutaDto.getHorario().getId()).orElseThrow(() -> new RuntimeException("Horario no encontrado"));
-        List<RutaEstacion> rutasEstacion = rutaEstacionRepository.findAllByRutaCodigo(codigo);
+    public void actualizarRuta(UUID id, Ruta ruta) {
+        Ruta rutaExistente = rutaRepository.findById(id).orElseThrow(()-> new RutaNotFoundException(id));
+        Horario horarioExistente = rutaExistente.getHorario();
 
-        // Actualizamos el horario de la ruta:
-        horario.setDia(nuevaRutaDto.getHorario().getDia());
-        horario.setHoraInicio(nuevaRutaDto.getHorario().getHoraInicio());
-        horario.setHoraFin(nuevaRutaDto.getHorario().getHoraFin());
-        horarioRepository.save(horario);
+        // Actualizamos el horario existente:
+        horarioExistente.setDia(ruta.getHorario().getDia());
+        horarioExistente.setHoraInicio(ruta.getHorario().getHoraInicio());
+        horarioExistente.setHoraFin(ruta.getHorario().getHoraFin());
+        horarioRepository.save(horarioExistente);
 
-        // Actualizamos todas las estaciones de la ruta:
-
-        // Primero eliminamos todas las estaciones de la ruta:
-        rutaEstacionRepository.deleteAll(rutasEstacion);
-
-        // Luego actualizamos las estaciones de la ruta:
-        for (RutaEstacionDto rutaEstacionDto: nuevaRutaDto.getRutasEstacion()) {
-            RutaEstacion rutaEstacion = new RutaEstacion();
-            rutaEstacion.setRuta(rutaRepository.findByCodigo(codigo));
-            rutaEstacion.setEstacion(rutaEstacionDto.getEstacion());
-            rutaEstacion.setOrden(rutaEstacionDto.getOrden());
-            rutasEstacion.add(rutaEstacion);
-        }
-
-        // Guardamos las rutas estación:
-        rutaEstacionRepository.saveAll(rutasEstacion);
+        // Actualizamos los campos de la ruta existente:
+        rutaExistente.setCodigo(ruta.getCodigo());
+        rutaRepository.save(rutaExistente);
     }
 
-    public void eliminarRuta(String codigo) {
-        Ruta ruta = rutaRepository.findByCodigo(codigo);
-        List<RutaEstacion> rutasEstacion = rutaEstacionRepository.findAllByRutaCodigo(codigo);
+    public void eliminarRuta(UUID id) {
+        Ruta ruta = rutaRepository.findById(id).orElseThrow(()-> new RutaNotFoundException(id));
 
-        // Eliminamos todas las estaciones de la ruta:
-        rutaEstacionRepository.deleteAll(rutasEstacion);
+        // Verificamos si la ruta tiene asignaciones (existen registros en la tabla conductor_bus_ruta):
+        if (!conductorBusRutaRepository.findByRutaId(id).isEmpty()) {
+            throw new RuntimeException("La ruta tiene asignaciones, no se puede eliminar.");
+        }
 
-        // Eliminamos la ruta:
-        rutaRepository.delete(ruta);
+        // Eliminamos todas las estaciones asociadas a la ruta:
+        rutaEstacionRepository.deleteByRuta(ruta);
+
+        // Eliminamos la ruta y todos sus horarios asociados:
+        rutaRepository.deleteByCodigo(ruta.getCodigo());
     }
 }

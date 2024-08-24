@@ -1,9 +1,9 @@
 package com.javeriana.pontimovil.ponti_movil.controllers;
 
-
-import com.javeriana.pontimovil.ponti_movil.dto.NuevaRutaDto;
 import com.javeriana.pontimovil.ponti_movil.entities.Ruta;
+import com.javeriana.pontimovil.ponti_movil.entities.RutaEstacion;
 import com.javeriana.pontimovil.ponti_movil.services.RutaService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -17,6 +17,7 @@ public class RutaController {
     private final RutaService rutaService;
 
     // Constructor:
+    @Autowired
     public RutaController(RutaService rutaService) {
         this.rutaService = rutaService;
     }
@@ -32,18 +33,26 @@ public class RutaController {
         return rutaService.obtenerRutaPorId(id);
     }
 
+    @GetMapping("/{id}/estaciones")
+    public List<RutaEstacion> obtenerEstacionesPorRuta(@PathVariable UUID id) {
+        return rutaService.obtenerEstacionesPorRuta(id);
+    }
+
+
+
     @PostMapping("/crear")
-    public void crearRuta(@RequestBody NuevaRutaDto nuevaRutaDto) {
-        rutaService.crearRuta(nuevaRutaDto);
+    public void crearRuta(@RequestBody Ruta ruta) {
+        rutaService.crearRuta(ruta);
     }
 
-    @PostMapping("/{codigo}/actualizar")
-    public void actualizarRuta(@PathVariable String codigo, @RequestBody NuevaRutaDto nuevaRutaDto) {
-        rutaService.actualizarRuta(codigo, nuevaRutaDto);
+    @PostMapping("/{id}/actualizar")
+    public void actualizarRuta(@PathVariable UUID id, @RequestBody Ruta ruta) {
+        rutaService.actualizarRuta(id, ruta);
     }
 
-    @DeleteMapping("/{codigo}/eliminar")
-    public void eliminarRuta(@PathVariable String codigo) {
-        rutaService.eliminarRuta(codigo);
+    @DeleteMapping("/{id}/eliminar")
+    public void eliminarRuta(@PathVariable UUID id) {
+        rutaService.eliminarRuta(id);
     }
+
 }

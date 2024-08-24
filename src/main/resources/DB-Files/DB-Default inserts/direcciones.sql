@@ -142,3 +142,14 @@ VALUES
     ('Calle 127', 'Carrera 9', '65-10', 'Usaquén', 'Santa Bibiana'),
     ('Avenida Caracas', 'Carrera 15', '45-25', 'Teusaquillo', 'Chapinero Central'),
     ('Calle 170', 'Carrera 9', '10-25', 'Usaquén', 'San Cristóbal Norte');
+
+-- Direcciones de conductores por defecto:
+
+INSERT INTO DIRECCIONES (CALLE, CARRERA, NUMERO, LOCALIDAD, BARRIO)
+VALUES
+    ('Calle 45', 'Carrera 7', '15-30', 'Chapinero', 'Chapinero Central'),
+    ('Calle 80', 'Carrera 11', '65-40', 'Barrios Unidos', 'La Castellana'),
+    ('Calle 170', 'Carrera 15', '85-50', 'Usaquén', 'Toberín'),
+    ('Calle 100', 'Carrera 19', '23-15', 'Suba', 'Santa Bibiana'),
+    ('Calle 26', 'Carrera 30', '45-20', 'Teusaquillo', 'Gran América');
+
