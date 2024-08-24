@@ -38,8 +38,6 @@ public class RutaController {
         return rutaService.obtenerEstacionesPorRuta(id);
     }
 
-
-
     @PostMapping("/crear")
     public void crearRuta(@RequestBody Ruta ruta) {
         rutaService.crearRuta(ruta);
