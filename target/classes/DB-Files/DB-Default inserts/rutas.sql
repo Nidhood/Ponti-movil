@@ -1,0 +1,7 @@
+INSERT INTO RUTAS (CODIGO, HORARIO_ID)
+VALUES
+    ('RUTA-001', '2b939038-066c-48ca-83b2-8ba52455bd02'),
+    ('RUTA-002', '5a3642a4-8e52-4625-a4c0-b0648504b8f1'),
+    ('RUTA-003', '6d2c6a6f-d39e-4c26-89fe-5fbd77e975ce'),
+    ('RUTA-004', '7d246199-203f-4f40-9e62-32ce3f62c40f'),
+    ('RUTA-005', '89a2b1ef-57bf-4405-a66d-eca122b7eed0');
