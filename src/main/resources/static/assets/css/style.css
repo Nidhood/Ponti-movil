@@ -129,14 +129,6 @@ body.a-menu {
 
 /*c-gestionar-conductores-----------------*/
 
-/* body.c-gestionar-conductores {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: white;
-    color: #333;
-    height: 100vh;
-    background-size: cover;
-    background-position: center;
-} */
 
 .c-gestionar-conductores h1{
     background-color: #e30613;
@@ -146,20 +138,6 @@ body.a-menu {
     border-radius: 5px 5px 0 0;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
-
-/* .c-gestionar-conductores .entity-list{
-    background-color: rgba(255, 255, 255, 0.9);
-    padding: 30px;
-    border-style: dashed;
-    border-radius: 5px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    max-width: 600px;
-    width: 100%;
-    
-} */
-
-/* Global Styles */
-
 
 body.c-gestionar-conductores {
     background-size: cover;
@@ -214,6 +192,28 @@ table.entity-list tbody td a:hover {
     text-decoration: underline;
 }
 
+/* Styles for btnNuevo */
+.c-gestionar-conductores .btnNuevo {
+    display: inline-block;
+    background-color: #e30613; 
+    color: #ffffff;
+    padding: 10px 20px;
+    margin-bottom: 20px;
+    border-radius: 4px;
+    text-align: center;
+    text-decoration: none;
+    font-weight: bold;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease;
+    border-style:groove;
+    border-color: #000000;
+    float: right;
+}
+
+.c-gestionar-conductores .btnNuevo:hover {
+    background-color: #c00c11;
+    border-color: #c00c11;
+}
 
 /*c-contuctor-actualizar*****************/
 

@@ -9,6 +9,8 @@
 </head>
 <body class="c-gestionar-conductores">
     <h1 class="titulo">Gestionar Conductores</h1>
+    <!-- <a class="btnNuevo" th:href="@{/conductores/crear}">Nuevo conductor</a> -->
+    <a class="btnNuevo" href="/conductores/crear">Nuevo conductor +</a>
     <table class="entity-list">
         <thead>
             <tr>
@@ -16,7 +18,8 @@
                 <th>Apellido</th>
                 <th>Cédula</th>
                 <th>Teléfono</th>
-                <th>Editar</th>
+                <th>Editar conductor</th>
+                <th>Editar buses</th>
             </tr>
         </thead>
         <tbody>
@@ -28,6 +31,9 @@
                 <td th:text="${conductor.telefono}"></td>
                 <td>
                     <a th:href="@{/conductores/{id}/editar(id=${conductor.id})}">Editar</a>
+                </td>
+                <td>
+                    <a th:href="@{/conductores/{id}/editar(id=${conductor.id})}">Editar buses</a>
                 </td>
             </tr>
         </tbody>

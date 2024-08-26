@@ -2,13 +2,13 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
 <head>
-    <link rel="stylesheet" href="/assets/css/style.css">
+    <!-- <link rel="stylesheet" href="/assets/css/style.css"> -->
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TransMilenio</title>
 
-    <!-- <link rel="stylesheet" th:href="@{/assets/css/style.css}"> -->
+    <link rel="stylesheet" th:href="@{/assets/css/style.css}">
 
 </head>
 <body class="pagInicio">
@@ -18,8 +18,8 @@
         </div>
         <h1>Bienvenido a TransMilenio</h1>
         <div class="buttons">
-            <!-- <a th:href="@{/conductores}" class="btn">Inicio de sesión</a> -->
-            <a href="/conductores" class="btn">Inicio de sesión</a>
+            <a th:href="@{/conductores}" class="btn">Inicio de sesión</a>
+            <!-- <a href="/conductores" class="btn">Inicio de sesión</a> -->
             <a href="#" class="btn">Registrarse</a>            
         </div>
     </div>
