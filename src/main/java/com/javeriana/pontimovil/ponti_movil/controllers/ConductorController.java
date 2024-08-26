@@ -4,6 +4,7 @@ import com.javeriana.pontimovil.ponti_movil.entities.Conductor;
 import com.javeriana.pontimovil.ponti_movil.services.ConductorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
 import java.util.UUID;
@@ -23,8 +24,11 @@ public class ConductorController {
 
     // Métodos:
     @GetMapping
-    public List<Conductor> obtenerConductores() {
-        return conductorService.obtenerConductores();
+    public ModelAndView obtenerConductores() {
+        List<Conductor> conductores = conductorService.obtenerConductores();
+        ModelAndView conductoresModelo = new ModelAndView("coordinator/c-gestionar-conductores");
+        conductoresModelo.addObject("conductores", conductores);
+        return conductoresModelo;
     }
 
     @GetMapping("/{id}")
@@ -35,6 +39,14 @@ public class ConductorController {
     @PostMapping("/crear")
     public void crearConductor(@RequestBody Conductor conductor) {
         conductorService.crearConductor(conductor);
+    }
+    
+    @GetMapping("/{id}/editar")
+    public ModelAndView actualizarConductor(@PathVariable UUID id) {
+        Conductor c = conductorService.obtenerConductorPorId(id);
+        ModelAndView conductorActualizar = new ModelAndView("coordinator/c-conductor-actualizar");
+        conductorActualizar.addObject("conductor", c);
+        return conductorActualizar;
     }
 
     @PostMapping("/{id}/actualizar")

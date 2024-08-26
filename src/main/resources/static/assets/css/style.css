@@ -6,7 +6,7 @@
 /*Pagina de inicio*/
 .pagInicio {
     font-family: 'Arial', sans-serif;
-    background-image: url("/src/main/resources/static/assets/img/images/fondoTransmi.png");
+    background-image: url("/assets/img/images/fondoTransmi.png");
     backdrop-filter: brightness(0.5);
     background-size: cover; 
     background-position: center;
@@ -214,10 +214,97 @@ table.entity-list tbody td a:hover {
     text-decoration: underline;
 }
 
-@media (max-width: 768px) {
-    table.entity-list {
-        font-size: 0.9em;
-    }
+
+/*c-contuctor-actualizar*****************/
+
+
+.c-conductor-actualizar h1{
+    background-color: #e30613;
+    color: #ffffff;
+    padding: 20px;
+    text-align: center;
+    border-radius: 5px 5px 0 0;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    font-size: 2em;
+    margin-bottom: 10px;
 }
+
+/* Container Style */
+.actualizarConductor {
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    max-width: 600px;
+    margin: auto;
+}
+
+.c-conductor-actualizar h2 {
+    color: #555;
+    font-size: 1.5em;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+/* Form Styles */
+.c-conductor-actualizar form {
+    display: flex;
+    flex-direction: column;
+}
+
+.c-conductor-actualizar label {
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.c-conductor-actualizar input[type="text"] {
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    margin-bottom: 15px;
+    font-size: 1em;
+}
+
+.c-conductor-actualizar input[type="text"]:focus {
+    border-color: #e30613; /* TransMilenio Red */
+    outline: none;
+    box-shadow: 0 0 5px rgba(227, 6, 19, 0.3);
+}
+
+/* Button Styles */
+.c-conductor-actualizar button[type="submit"] {
+    background-color: #e30613; /* TransMilenio Red */
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    font-size: 1em;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.c-conductor-actualizar button[type="submit"]:hover {
+    background-color: #c00c11; /* Darker Red */
+}
+
+/* Cancel Button Styles */
+.btnVolver {
+    display: block;
+    margin: 20px auto;
+    padding: 10px 20px;
+    color: #e30613; /* TransMilenio Red */
+    text-decoration: none;
+    border: 1px solid #e30613;
+    border-radius: 4px;
+    text-align: center;
+    font-size: 1em;
+    max-width: 600px;
+}
+
+.btnVolver:hover {
+    background-color: #e30613; /* TransMilenio Red */
+    color: white;
+}
+
 
 

@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org">
     
 <head>
-    <!--<link rel="stylesheet" th:href="@{/static/assets/css/style.css}">-->
-    <link rel="stylesheet" href="/src/main/resources/static/assets/css/style.css">
+    <link rel="stylesheet" th:href="@{/assets/css/style.css}">
+    <!-- <link rel="stylesheet" href="/assets/css/style.css"> -->
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Gestionar conductores</title>
 </head>
 <body class="c-gestionar-conductores">
     <h1 class="titulo">Gestionar Conductores</h1>
@@ -26,9 +26,8 @@
                 <td th:text="${conductor.apellido}"></td>
                 <td th:text="${conductor.cedula}"></td>
                 <td th:text="${conductor.telefono}"></td>
-                <td th:text="${company.id}"></td>
                 <td>
-                    <a th:href="@{/company/edit-form/{id}(id=${company.id})}">Editar</a>
+                    <a th:href="@{/conductores/{id}/editar(id=${conductor.id})}">Editar</a>
                 </td>
             </tr>
         </tbody>
