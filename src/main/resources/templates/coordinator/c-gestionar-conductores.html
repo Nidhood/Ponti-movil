@@ -1,10 +1,38 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+    
 <head>
+    <!--<link rel="stylesheet" th:href="@{/static/assets/css/style.css}">-->
+    <link rel="stylesheet" href="/src/main/resources/static/assets/css/style.css">
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
-<body>
+<body class="c-gestionar-conductores">
+    <h1 class="titulo">Gestionar Conductores</h1>
+    <table class="entity-list">
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Apellido</th>
+                <th>Cédula</th>
+                <th>Teléfono</th>
+                <th>Editar</th>
+            </tr>
+        </thead>
+        <tbody>
+
+            <tr th:each="conductor : ${conductores}" th:if="${conductor.nombre}">
+                <td th:text="${conductor.nombre}"></td>
+                <td th:text="${conductor.apellido}"></td>
+                <td th:text="${conductor.cedula}"></td>
+                <td th:text="${conductor.telefono}"></td>
+                <td th:text="${company.id}"></td>
+                <td>
+                    <a th:href="@{/company/edit-form/{id}(id=${company.id})}">Editar</a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
 
 </body>
 </html>

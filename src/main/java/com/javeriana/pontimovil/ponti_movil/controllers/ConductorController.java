@@ -25,7 +25,7 @@ public class ConductorController {
     }
 
     // Métodos:
-    @GetMapping
+    @GetMapping("/listar")
     public List<Conductor> obtenerConductores() {
 
         // Implementación
