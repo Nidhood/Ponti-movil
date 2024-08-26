@@ -22,7 +22,7 @@ public class ConductorController {
     }
 
     // Métodos:
-    @GetMapping("/listar")
+    @GetMapping
     public List<Conductor> obtenerConductores() {
         return conductorService.obtenerConductores();
     }
