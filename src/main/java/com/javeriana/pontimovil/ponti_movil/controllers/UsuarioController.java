@@ -43,7 +43,6 @@ public class UsuarioController {
     @GetMapping("/register")
     public ModelAndView registro() {
         return new ModelAndView("register");
-
     }
 
     @PostMapping("/crear")

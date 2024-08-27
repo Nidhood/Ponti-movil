@@ -3,6 +3,7 @@ package com.javeriana.pontimovil.ponti_movil.controllers;
 import com.javeriana.pontimovil.ponti_movil.entities.Conductor;
 import com.javeriana.pontimovil.ponti_movil.services.ConductorService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -40,13 +41,20 @@ public class ConductorController {
         return conductorService.obtenerConductorPorId(id);
     }
 
-    // @PostMapping("/crear")
-    // public void crearConductor(@RequestBody Conductor conductor) {
-    //     List<Conductor> conductores = conductorService.obtenerConductores();
-    //     ModelAndView conductoresModelo = new ModelAndView("coordinator/c-gestionar-conductores");
-    //     conductoresModelo.addObject("conductores", conductores);
-    //     return conductoresModelo;
-    // }
+    @GetMapping("/crear")
+    public ModelAndView mostrarFormularioCrearConductor() {
+        ModelAndView mav = new ModelAndView("coordinator/c-conductor-crear");
+        mav.addObject("conductor", new Conductor());
+        return mav;
+    }
+
+    @PostMapping("/crear")
+    public Object crearConductor(@Valid @ModelAttribute("conductor") Conductor conductor, BindingResult result) {
+        if (result.hasErrors()) {
+            return new ModelAndView("coordinator/c-conductor-crear");
+        }
+        conductorService.crearConductor(conductor);
+    }
     
     @GetMapping("/{id}/editar")
     public ModelAndView actualizarConductor(@PathVariable UUID id) {
@@ -65,8 +73,9 @@ public class ConductorController {
         return new RedirectView("/conductores");
     }
 
-    @DeleteMapping("/{id}/eliminar")
-    public void eliminarConductor(@PathVariable UUID id) {
+    @GetMapping("/{id}/eliminar")
+    public Object eliminarConductor(@PathVariable UUID id) {
         conductorService.eliminarConductor(id);
+        return new RedirectView("/conductores");
     }
 }
