@@ -4,15 +4,25 @@
 <head>
     <title>Actualizar conductor</title>
     <link rel="stylesheet" th:href="@{/assets/css/style.css}">
+    <script>
+        function confirmarEliminacion(event) {
+            const confirmacion = confirm("¿Está seguro que quiere eliminar?");
+            if (!confirmacion) {
+                event.preventDefault(); // Evita que el enlace se siga si no se confirma la eliminación
+            }
+        }
+    </script>
 </head>
 
 <body class="c-conductor-actualizar">
     <h1>Gestionar conductores</h1>
     <div class="actualizarConductor">
         <h2>Conductor a actualizar</h2>
+        <!--th:action="@{/conductor/actualizar}"--> 
         
-        <form action="#" th:action="@{/conductor/actualizar}" th:object="${conductor}" method="post">
+        <form action="#" th:action="@{/conductores/actualizar}" th:object="${conductor}" method="post">
             <input type="hidden" th:field="*{id}" id="id">
+            <input type="hidden" th:field="*{direccion}" id="id">
             <label for="nombreConductor">Nombre: </label>
             <input type="text" th:field="*{nombre}" id="nombreConductor">
             <!-- <span th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}"
@@ -26,11 +36,38 @@
 
             <label for="telConductor">Teléfono: </label>
             <input type="text" th:field="*{telefono}" id="telConductor">
+
+
+            <div class="direccion-container">
+                <select id="tipoVia" name="tipoVia" type="text" th:field="*{direccion.calle}" class="direccion">
+                    <option value="Calle">Calle</option>
+                    <option value="Carrera">Carrera</option>
+                    <option value="Avenida">Avenida</option>
+                    <option value="Diagonal">Diagonal</option>
+                    <option value="Transversal">Transversal</option>
+                    <option value="Circular">Circular</option>
+                    <option value="Manzana">Manzana</option>
+                    <option value="Kilómetro">Kilómetro</option>
+                </select>
+                <input type="text" th:field="*{direccion.carrera}" id="indicativo" class="direccion">
+
+                <label class="direccion" for="indicativo2">#</label>
+                <input type="text" th:field="*{direccion.numero}" id="indicativo" class="direccion">
+
+                <label class="direccion" for="barrio">Barrio: </label>
+                <input type="text" th:field="*{direccion.barrio}" id="barrio" class="direccion">
+
+                <label class="direccion" for="localidad">Localidad: </label>
+                <input type="text" th:field="*{direccion.localidad}" id="localidad" class="direccion">
+            </div>
+
+
             <!-- <span th:if="${#fields.hasErrors('email')}" th:errors="*{email}"
                 th:class="${#fields.hasErrors('email')} ? 'error' : ''"></span> -->
             <button type="submit">Guardar</button>
         </form>
     </div>
+    <a th:href="@{/conductores/{id}/eliminar(id=${conductor.id})}" class="btnEliminar" onclick="confirmarEliminacion(event)">Eliminar Conductor</a>
     <a th:href="@{/conductores}" class="btnVolver">Cancelar</a>
 </body>
 

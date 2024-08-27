@@ -19,10 +19,10 @@ public class Direccion {
     @Column(name = "id", nullable = false)
     private UUID id;
 
-    @Column(name = "calle", nullable = false, length = 20)
+    @Column(name = "tipo_via", nullable = false, length = 20)
     private String calle;
 
-    @Column(name = "carrera", nullable = false, length = 20)
+    @Column(name = "numero_via", nullable = false, length = 20)
     private String carrera;
 
     @Column(name = "numero", nullable = false, length = 20)

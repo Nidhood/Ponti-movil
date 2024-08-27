@@ -162,6 +162,7 @@ table.entity-list td {
     text-align: left;
 }
 
+
 table.entity-list thead th {
     background-color: #e30613; /* TransMilenio Red */
     color: white;
@@ -182,10 +183,17 @@ table.entity-list tbody tr:hover {
     background-color: #f1f1f1;
 }
 
-table.entity-list tbody td a {
+.Editar{
+    color: #1a3417; 
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.Eliminar {
     color: #e30613; /* TransMilenio Red */
     text-decoration: none;
     font-weight: bold;
+    float: right;
 }
 
 table.entity-list tbody td a:hover {
@@ -194,7 +202,7 @@ table.entity-list tbody td a:hover {
 
 /* Styles for btnNuevo */
 .c-gestionar-conductores .btnNuevo {
-    display: inline-block;
+    /* display: inline-block; */
     background-color: #e30613; 
     color: #ffffff;
     padding: 10px 20px;
@@ -214,6 +222,7 @@ table.entity-list tbody td a:hover {
     background-color: #c00c11;
     border-color: #c00c11;
 }
+
 
 /*c-contuctor-actualizar*****************/
 
@@ -235,7 +244,7 @@ table.entity-list tbody td a:hover {
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     padding: 20px;
-    max-width: 600px;
+    max-width: 65em;
     margin: auto;
 }
 
@@ -292,19 +301,67 @@ table.entity-list tbody td a:hover {
     display: block;
     margin: 20px auto;
     padding: 10px 20px;
-    color: #e30613; /* TransMilenio Red */
+    background-color: rgb(0, 47, 47);
+    color: #ffffff; /* TransMilenio Red */
+    text-decoration: none;
+    border: 1px solid #059987;
+    border-radius: 4px;
+    text-align: center;
+    font-size: 1em;
+    max-width: 65em;
+}
+
+.btnVolver:hover {
+    background-color: #06e3d8; /* TransMilenio Red */
+    color: black;
+}
+
+.btnEliminar {
+    display: block;
+    margin: 20px auto;
+    padding: 10px 20px;
+    background-color: #e30613;
+    color: #ffffff; 
     text-decoration: none;
     border: 1px solid #e30613;
     border-radius: 4px;
     text-align: center;
     font-size: 1em;
-    max-width: 600px;
+    max-width: 65em;
 }
 
-.btnVolver:hover {
-    background-color: #e30613; /* TransMilenio Red */
-    color: white;
+.btnEliminar:hover {
+    background-color: white; /* TransMilenio Red */
+    color: #e30613;
 }
 
+/* Container para alinear los campos direccion en la misma línea */
+.direccion-container {
+    display: flex;
+    gap: 10px; /* Espacio entre los campos */
+}
+
+.c-conductor-actualizar label.direccion {
+    font-weight: bold;
+    margin-bottom: 5px;
+    align-content: center;
+}
+
+.c-conductor-actualizar input.direccion {
+    flex: 1; /* Hace que el campo de entrada ocupe el resto del espacio disponible */
+    padding: 1px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    margin-bottom: 15px;
+    font-size: 1em;
+}
+.c-conductor-actualizar select.direccion {
+    flex: 1; /* Hace que el campo de entrada ocupe el resto del espacio disponible */
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    margin-bottom: 15px;
+    font-size: 1em;
+}
 
 

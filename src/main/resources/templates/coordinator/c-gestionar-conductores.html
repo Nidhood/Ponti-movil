@@ -18,8 +18,8 @@
                 <th>Apellido</th>
                 <th>Cédula</th>
                 <th>Teléfono</th>
-                <th>Editar conductor</th>
                 <th>Editar buses</th>
+                <th>Editar conductor</th>
             </tr>
         </thead>
         <tbody>
@@ -30,11 +30,14 @@
                 <td th:text="${conductor.cedula}"></td>
                 <td th:text="${conductor.telefono}"></td>
                 <td>
-                    <a th:href="@{/conductores/{id}/editar(id=${conductor.id})}">Editar</a>
+                    <a class="Editar" th:href="@{/conductores/{id}/editar(id=${conductor.id})}">Editar buses</a>
                 </td>
                 <td>
-                    <a th:href="@{/conductores/{id}/editar(id=${conductor.id})}">Editar buses</a>
+                    <a class="Editar" th:href="@{/conductores/{id}/editar(id=${conductor.id})}">Editar</a>
+                    <!--ELIMINAR CONDUCTOR-->
+                    <a class="Eliminar" th:href="@{/conductores/{id}/editar(id=${conductor.id})}">Eliminar</a>
                 </td>
+                
             </tr>
         </tbody>
     </table>
