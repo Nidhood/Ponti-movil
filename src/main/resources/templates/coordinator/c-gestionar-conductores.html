@@ -8,7 +8,6 @@
 </head>
 <body class="c-gestionar-conductores">
     <h1 class="titulo">Gestionar Conductores</h1>
-    <!-- <a class="btnNuevo" th:href="@{/conductores/crear}">Nuevo conductor</a> -->
     <a class="btnNuevo" th:href="@{/conductores/crear}">Nuevo conductor +</a>
     <table class="entity-list">
         <thead>
@@ -34,10 +33,6 @@
                 <td>
                     <a class="Editar" th:href="@{/conductores/{id}/editar(id=${conductor.id})}">Editar</a>
                     <!--ELIMINAR CONDUCTOR-->
-                    <!-- <form th:action="@{/conductores/{id}/eliminar(id=${conductor.id})}" method="post" style="display:inline;">
-                        <input type="hidden" name="_method" value="delete"/>
-                        <button type="submit" class="Eliminar">Eliminar</button>
-                    </form> -->
                     
                     <a class="Eliminar" th:href="@{/conductores/{id}/eliminar(id=${conductor.id})}" method="post" onclick="confirmarEliminacion(event)">Eliminar</a>
                 </td>
