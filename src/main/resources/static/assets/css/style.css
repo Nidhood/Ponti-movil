@@ -131,6 +131,8 @@ body.a-menu {
 
 
 .c-gestionar-conductores h1{
+    position: sticky; 
+    top: 0;
     background-color: #e30613;
     color: #ffffff;
     padding: 20px;
@@ -228,6 +230,8 @@ table.entity-list tbody td a:hover {
 
 
 .c-conductor-actualizar h1{
+    position: sticky;
+    top: 0;
     background-color: #e30613;
     color: #ffffff;
     padding: 20px;
@@ -362,6 +366,66 @@ table.entity-list tbody td a:hover {
     border-radius: 4px;
     margin-bottom: 15px;
     font-size: 1em;
+}
+
+/*LOG IN */
+
+/* Estilos para el formulario de inicio de sesión */
+ form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+ form input {
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    font-size: 16px;
+}
+
+ form button {
+    background-color: #e60012;
+    color: white;
+    padding: 10px;
+    border-radius: 25px;
+    border: none;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+ form button:hover {
+    background-color: #cc0010;
+}
+
+/* Estilos para el formulario de registro */
+ form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+ form input {
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    font-size: 16px;
+}
+
+ form button {
+    background-color: #e60012;
+    color: white;
+    padding: 10px;
+    border-radius: 25px;
+    border: none;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+ form button:hover {
+    background-color: #cc0010;
 }
 
 

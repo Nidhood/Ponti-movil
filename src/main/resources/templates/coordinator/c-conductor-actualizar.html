@@ -24,20 +24,20 @@
             <input type="hidden" th:field="*{id}" id="id">
             <input type="hidden" th:field="*{direccion}" id="id">
             <label for="nombreConductor">Nombre: </label>
-            <input type="text" th:field="*{nombre}" id="nombreConductor">
+            <input type="text" th:field="*{nombre}" id="nombreConductor" required>
             <!-- <span th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}"
                 th:class="${#fields.hasErrors('firstName')} ? 'error' : ''"></span> -->
             <label for="apellidoConductor">Apellido: </label>
-            <input type="text" th:field="*{apellido}" id="apellidoConductor">
+            <input type="text" th:field="*{apellido}" id="apellidoConductor" required>
             <!-- <span th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}"
                 th:class="${#fields.hasErrors('lastName')} ? 'error' : ''"></span> -->
             <label for="cedulaConductor">Cédula: </label>
-            <input type="text" th:field="*{cedula}" id="cedulaConductor">
+            <input type="text" th:field="*{cedula}" id="cedulaConductor" required>
 
             <label for="telConductor">Teléfono: </label>
-            <input type="text" th:field="*{telefono}" id="telConductor">
+            <input type="text" th:field="*{telefono}" id="telConductor" required>
 
-
+            <label>Dirección: </label>
             <div class="direccion-container">
                 <select id="tipoVia" name="tipoVia" type="text" th:field="*{direccion.calle}" class="direccion">
                     <option value="Calle">Calle</option>
@@ -49,16 +49,16 @@
                     <option value="Manzana">Manzana</option>
                     <option value="Kilómetro">Kilómetro</option>
                 </select>
-                <input type="text" th:field="*{direccion.carrera}" id="indicativo" class="direccion">
+                <input type="text" th:field="*{direccion.carrera}" id="indicativo" class="direccion" required>
 
                 <label class="direccion" for="indicativo2">#</label>
-                <input type="text" th:field="*{direccion.numero}" id="indicativo" class="direccion">
+                <input type="text" th:field="*{direccion.numero}" id="indicativo" class="direccion" required>
 
                 <label class="direccion" for="barrio">Barrio: </label>
-                <input type="text" th:field="*{direccion.barrio}" id="barrio" class="direccion">
+                <input type="text" th:field="*{direccion.barrio}" id="barrio" class="direccion" required>
 
                 <label class="direccion" for="localidad">Localidad: </label>
-                <input type="text" th:field="*{direccion.localidad}" id="localidad" class="direccion">
+                <input type="text" th:field="*{direccion.localidad}" id="localidad" class="direccion" required>
             </div>
 
 
