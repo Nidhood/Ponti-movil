@@ -39,12 +39,12 @@
                         <button type="submit" class="Eliminar">Eliminar</button>
                     </form> -->
                     
-                    <a class="Eliminar" th:href="@{/conductores/{id}/eliminar(id=${conductor.id})}" method="post">Eliminar</a>
+                    <a class="Eliminar" th:href="@{/conductores/{id}/eliminar(id=${conductor.id})}" method="post" onclick="confirmarEliminacion(event)">Eliminar</a>
                 </td>
                 
             </tr>
         </tbody>
     </table>
-
+    <script th:src="@{/assets/js/script.js}"></script>
 </body>
 </html>

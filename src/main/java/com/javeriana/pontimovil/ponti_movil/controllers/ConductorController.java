@@ -54,8 +54,9 @@ public class ConductorController {
             return new ModelAndView("coordinator/c-conductor-crear");
         }
         conductorService.crearConductor(conductor);
+        return new RedirectView("/conductores");
     }
-    
+
     @GetMapping("/{id}/editar")
     public ModelAndView actualizarConductor(@PathVariable UUID id) {
         Conductor c = conductorService.obtenerConductorPorId(id);

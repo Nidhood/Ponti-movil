@@ -63,3 +63,9 @@ document.getElementById('loginForm')?.addEventListener('submit', function(e) {
             alert("Error en el inicio de sesión");
         });
 });
+function confirmarEliminacion(event) {
+    const confirmacion = confirm("¿Está seguro que quiere eliminar?");
+    if (!confirmacion) {
+        event.preventDefault(); // Evita que el enlace se siga si no se confirma la eliminación
+    }
+}

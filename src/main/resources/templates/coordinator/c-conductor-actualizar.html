@@ -4,14 +4,6 @@
 <head>
     <title>Actualizar conductor</title>
     <link rel="stylesheet" th:href="@{/assets/css/style.css}">
-    <script>
-        function confirmarEliminacion(event) {
-            const confirmacion = confirm("¿Está seguro que quiere eliminar?");
-            if (!confirmacion) {
-                event.preventDefault(); // Evita que el enlace se siga si no se confirma la eliminación
-            }
-        }
-    </script>
 </head>
 
 <body class="c-conductor-actualizar">
@@ -69,6 +61,6 @@
     </div>
     <a th:href="@{/conductores/{id}/eliminar(id=${conductor.id})}" class="btnEliminar" onclick="confirmarEliminacion(event)">Eliminar Conductor</a>
     <a th:href="@{/conductores}" class="btnVolver">Cancelar</a>
+    <script th:src="@{/assets/js/script.js}"></script>
 </body>
-
 </html>
