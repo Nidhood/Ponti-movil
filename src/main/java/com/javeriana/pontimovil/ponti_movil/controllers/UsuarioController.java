@@ -41,7 +41,7 @@ public class UsuarioController {
     }
 
     @GetMapping("/register")
-    public ModelAndView obtenerUsuarioPorId() {
+    public ModelAndView registro() {
         return new ModelAndView("register");
 
     }
