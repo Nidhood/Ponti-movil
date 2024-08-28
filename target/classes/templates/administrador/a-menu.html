@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="application-name" content="Administrador de Rutas" />
+    <meta name="description" content="Menu principal del administrador de rutas" />
+    <meta name="keywords" content="Menu, Administrador, Rutas, TransMilenio" />
+    <meta http-equiv="content-type" content="no-cache, no-store, must-revalidate">
+    <meta name="robots" content="index, follow">
+    <title>Administrador de Rutas</title>
+    <link rel="stylesheet" href="/src/main/resources/static/assets/css/style.css">
+    <!--Hacer el llamado al css-->
+    <!--<script th:src="@{/assets/js/admin-script.js}"></script>-->
+    <!--<link rel="shortcut icon" type="image/x-icon" th:href="@{/assets/img/icons/route.ico}" />-->
+</head>
+<body class="a-menu">
+
+    <div class="header">
+        <h1>Administrador de Rutas - TransMilenio</h1>
+    </div>
+
+    <div class="container">
+        <div class="content">
+            <h2>Bienvenido, Administrador</h2>
+            <p>Seleccione una opción del menú para comenzar a gestionar las rutas del sistema de TransMilenio.</p>
+        </div>
+
+        <div class="menu">
+            <h2>Menú</h2>
+
+            <tr th:each="r : ${ruta}" th:if="${r.codigo}">
+                <td th:text="${r.codigo}"></td>
+                <td th:text="${r.horario}"></td>
+                <td>
+                    <a th:href="@{/person/view/{id}(id=${p.id})}">Ver</a>
+                </td>
+                <td>
+                    <a th:href="@{/person/edit-form/{id}(id=${p.id})}">Editar</a>
+                </td>
+            </tr>
+        </div>
+    </div>
+
+</body>
+</html>

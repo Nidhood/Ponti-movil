@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="es-ES">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Asignar Buses al Conductor</title>
+    <link rel="stylesheet" th:href="@{/assets/css/bue.css}">
+</head>
+<body>
+<header>
+    <div class="container">
+        <h1>Asignar Buses al Conductor:
+            <span th:text="${conductor.nombre}"></span>
+            <span th:text="${conductor.apellido}"></span>
+        </h1>
+    </div>
+</header>
+
+<div class="container">
+    <div class="content">
+        <div class="section">
+            <h2>Buses Disponibles</h2>
+            <div class="table-container">
+                <table>
+                    <thead>
+                    <tr>
+                        <th>Días</th>
+                        <th>Bus</th>
+                        <th>Acción</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="bus : ${buses}">
+                        <td>
+                            <div class="dropdown">
+                                <button type="button" class="btn" th:attr="onclick='toggleDropdown(this)'" >
+                                    Seleccionar días &#9660;
+                                </button>
+                                <div class="dropdown-content">
+                                    <form th:id="'form-' + ${bus.id}" th:action="@{/asignaciones/{idConductor}/asignarBus/{idBus}(idConductor=${conductor.id},idBus=${bus.id})}" method="post">
+                                        <div th:each="dia : ${diasDisponiblesPorBus[bus.id]}" class="checkbox-container">
+                                            <input type="checkbox" name="diasSemana" th:id="${bus.id + '-' + dia}" th:value="${dia}">
+                                            <label th:for="${bus.id + '-' + dia}" th:text="${dia}"></label>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </td>
+                        <td th:text="${bus.placa}"></td>
+                        <td>
+                            <button type="button" class="btn" th:attr="onclick=|submitForm('${bus.id}')|">
+                                <i class="fas fa-plus-circle"></i> Asignar
+                            </button>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>Buses Asignados</h2>
+            <div class="table-container">
+                <table>
+                    <thead>
+                    <tr>
+                        <th>Días</th>
+                        <th>Bus</th>
+                        <th>Acción</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="asignacion : ${asignaciones}">
+                        <td th:text="${asignacion.diaSemana}"></td>
+                        <td th:text="${asignacion.bus.placa}"></td>
+                        <td>
+                            <form th:action="@{/asignaciones/{idConductor}/desasignarBus/{idBus}/{diaSemana}(idConductor=${asignacion.conductor.id},idBus=${asignacion.bus.id}, diaSemana=${asignacion.diaSemana})}" method="post">
+                                <button type="submit" class="btn btn-secondary">
+                                    <i class="fas fa-minus-circle"></i> Desasignar
+                                </button>
+                            </form>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<script th:src="@{/assets/js/script.js}"></script>
+<script>
+    function toggleDropdown(button) {
+        var dropdown = button.nextElementSibling;
+        dropdown.style.display = dropdown.style.display === "block" ? "none" : "block";
+    }
+
+    function submitForm(busId) {
+        var form = document.getElementById('form-' + busId);
+        var checkboxes = form.querySelectorAll('input[type="checkbox"]:checked');
+
+        if (checkboxes.length === 0) {
+            alert('Por favor, seleccione al menos un día.');
+            return;
+        }
+
+        form.submit();
+    }
+</script>
+</body>
+</html>

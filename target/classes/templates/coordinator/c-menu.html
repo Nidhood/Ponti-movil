@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="application-name" content="Menu" />
+    <meta name="author" content="Ivan Orozco" />
+    <meta name="description" content="Menu principal del coordinador" />
+    <meta name="keywords" content="Menu, Coordinador" />
+    <meta http-equiv="content-type" content="no-cache, no-store, must-revalidate">
+    <meta name="robots" content="index">
+    <meta name="robots" content="follow">
+    <title>Menu coordinador</title>
+    <link rel="stylesheet" th:href="@{/assets/css/style.css}" />
+    <script th:src="@{/assets/js/script.js}"></script>
+    <link rel="shorcut icon" type="image/x-icon" th:href="@{/assets/img/icons/bus.ico}" />
+</head>
+<body>
+
+    <div class="header">
+        <h1>Coordinador de Transmilenio</h1>
+    </div>
+
+    <div class="container">
+        <div class="content">
+            <h2>Bienvenido, Coordinador</h2>
+            <p>Seleccione una opción del menú para comenzar a gestionar el sistema de Transmilenio.</p>
+        </div>
+
+        <div class="menu">
+            <h2>Menú</h2>
+            <ul>
+                <li><a th:href="@{/conductores}" >Gestionar conductores</a></li>
+                <li><a href="#">Asignar/modificar buses</a></li>
+                <li><a href="#">Gestionar cuenta</a></li>
+            </ul>
+        </div>
+    </div>
+
+</body>
+</html>

@@ -38,15 +38,15 @@ public class ConductorService {
 
     public void crearConductor(Conductor conductor) {
         Direccion direccion = new Direccion();
-        if(direccionRepository.findByCalleAndCarreraAndNumero(conductor.getDireccion().getCalle(), conductor.getDireccion().getCarrera(), conductor.getDireccion().getNumero()) == null){
-            direccion.setCalle(conductor.getDireccion().getCalle());
-            direccion.setCarrera(conductor.getDireccion().getCarrera());
+        if(direccionRepository.findByTipoViaAndNumeroViaAndNumero(conductor.getDireccion().getTipoVia(), conductor.getDireccion().getNumeroVia(), conductor.getDireccion().getNumero()) == null){
+            direccion.setTipoVia(conductor.getDireccion().getTipoVia());
+            direccion.setNumeroVia(conductor.getDireccion().getTipoVia());
             direccion.setNumero(conductor.getDireccion().getNumero());
             direccion.setLocalidad(conductor.getDireccion().getLocalidad());
             direccion.setBarrio(conductor.getDireccion().getBarrio());
             direccionRepository.save(direccion);
         } else {
-            direccion = direccionRepository.findByCalleAndCarreraAndNumero(conductor.getDireccion().getCalle(), conductor.getDireccion().getCarrera(), conductor.getDireccion().getNumero());
+            direccion = direccionRepository.findByTipoViaAndNumeroViaAndNumero(conductor.getDireccion().getTipoVia(), conductor.getDireccion().getNumeroVia(), conductor.getDireccion().getNumero());
         }
         conductor.setDireccion(direccion);
         conductorRepository.save(conductor);
@@ -59,8 +59,8 @@ public class ConductorService {
         conductorActual.setApellido(conductor.getApellido());
         conductorActual.setCedula(conductor.getCedula());
         conductorActual.setTelefono(conductor.getTelefono());
-        direccion.setCalle(conductor.getDireccion().getCalle());
-        direccion.setCarrera(conductor.getDireccion().getCarrera());
+        direccion.setTipoVia(conductor.getDireccion().getTipoVia());
+        direccion.setNumeroVia(conductor.getDireccion().getNumeroVia());
         direccion.setNumero(conductor.getDireccion().getNumero());
         direccion.setLocalidad(conductor.getDireccion().getLocalidad());
         direccion.setBarrio(conductor.getDireccion().getBarrio());

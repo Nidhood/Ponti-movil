@@ -8,5 +8,5 @@ import java.util.UUID;
 
 @Repository
 public interface DireccionRepository extends JpaRepository<Direccion, UUID> {
-    Direccion findByCalleAndCarreraAndNumero(String calle, String carrera, String numero);
+    Direccion findByTipoViaAndNumeroViaAndNumero(String tipoVia, String numeroViaA, String numero);
 }

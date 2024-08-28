@@ -1,5 +1,7 @@
 package com.javeriana.pontimovil.ponti_movil.services;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.web.server.ResponseStatusException;
 import com.javeriana.pontimovil.ponti_movil.entities.Usuario;
 import com.javeriana.pontimovil.ponti_movil.repositories.UsuarioRepository;
 import org.springframework.stereotype.Service;
@@ -40,6 +42,19 @@ public class UsuarioService {
         usuarioActual.setCorreo(usuario.getCorreo());
         usuarioActual.setTipoUsuario(usuario.getTipoUsuario());
         usuarioRepository.save(usuarioActual);
+    }
+
+    public Usuario login(UUID id, Usuario usuario) {
+        Usuario usuarioActual = usuarioRepository.findById(id)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Usuario no encontrado"));
+
+        if (!usuarioActual.getNombreUsuario().equals(usuario.getNombreUsuario())) {
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Nombre de usuario incorrecto");
+        } else if (!usuarioActual.getContrasena().equals(usuario.getContrasena())) {
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Contraseña incorrecta");
+        } else {
+            return usuarioActual;
+        }
     }
 
     public void eliminarUsuario(UUID id) {

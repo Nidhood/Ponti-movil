@@ -3,14 +3,11 @@ package com.javeriana.pontimovil.ponti_movil.controllers;
 import com.javeriana.pontimovil.ponti_movil.entities.Conductor;
 import com.javeriana.pontimovil.ponti_movil.services.ConductorService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 import jakarta.validation.Valid;
-
 import java.util.List;
 import java.util.UUID;
 

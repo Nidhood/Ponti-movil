@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" lang="es-ES">
 
 <head>
     <title>Actualizar conductor</title>
@@ -31,7 +31,7 @@
 
             <label>Dirección: </label>
             <div class="direccion-container">
-                <select id="tipoVia" name="tipoVia" type="text" th:field="*{direccion.calle}" class="direccion">
+                <select id="tipoVia" name="tipoVia" type="text" th:field="*{direccion.tipoVia}" class="direccion">
                     <option value="Calle">Calle</option>
                     <option value="Carrera">Carrera</option>
                     <option value="Avenida">Avenida</option>
@@ -41,7 +41,7 @@
                     <option value="Manzana">Manzana</option>
                     <option value="Kilómetro">Kilómetro</option>
                 </select>
-                <input type="text" th:field="*{direccion.carrera}" id="indicativo" class="direccion" required>
+                <input type="text" th:field="*{direccion.numeroVia}" id="indicativo" class="direccion" required>
 
                 <label class="direccion" for="indicativo2">#</label>
                 <input type="text" th:field="*{direccion.numero}" id="indicativo" class="direccion" required>

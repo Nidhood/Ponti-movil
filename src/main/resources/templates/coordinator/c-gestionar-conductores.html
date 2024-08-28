@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" lang="es-ES">
     
 <head>
     <link rel="stylesheet" th:href="@{/assets/css/style.css}">
@@ -28,12 +28,10 @@
                 <td th:text="${conductor.cedula}"></td>
                 <td th:text="${conductor.telefono}"></td>
                 <td>
-                    <a class="Editar" th:href="@{/conductores/{id}/editar(id=${conductor.id})}">Editar buses</a>
+                    <a class="Editar" th:href="@{/asignaciones/{id}/editar(id=${conductor.id})}">Editar buses</a>
                 </td>
                 <td>
                     <a class="Editar" th:href="@{/conductores/{id}/editar(id=${conductor.id})}">Editar</a>
-                    <!--ELIMINAR CONDUCTOR-->
-                    
                     <a class="Eliminar" th:href="@{/conductores/{id}/eliminar(id=${conductor.id})}" method="post" onclick="confirmarEliminacion(event)">Eliminar</a>
                 </td>
                 
