@@ -5,6 +5,7 @@ import com.javeriana.pontimovil.ponti_movil.entities.Usuario;
 import com.javeriana.pontimovil.ponti_movil.services.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
 import java.util.UUID;
@@ -31,6 +32,17 @@ public class UsuarioController {
     @GetMapping("/{id}")
     public Usuario obtenerUsuarioPorId(@PathVariable UUID id) {
         return usuarioService.obtenerUsuarioPorId(id);
+    }
+
+    @GetMapping("/login")
+    public ModelAndView obtenerUsuarioPorId() {
+        return new ModelAndView("log-in");
+
+    }
+
+    @GetMapping("/register")
+    public ModelAndView registro() {
+        return new ModelAndView("register");
     }
 
     @PostMapping("/crear")
