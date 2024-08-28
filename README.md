@@ -99,3 +99,4 @@ Las contribuciones son bienvenidas. Abre un *issue* o envía un *pull request* p
 ## Licencia
 
 Este proyecto está licenciado bajo la Licencia MIT. Consulta el archivo `LICENSE` para más detalles.
+
