@@ -1,0 +1,159 @@
+:root {
+    --primary-color: #e30613;
+    --secondary-color: #ff8080;
+    --text-color: #333;
+    --background-color: #f4f4f4;
+    --white: #ffffff;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: var(--background-color);
+    color: var(--text-color);
+    margin: 0;
+    padding: 0;
+    line-height: 1.6;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+header {
+    background-color: var(--primary-color);
+    color: var(--white);
+    padding: 20px 0;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+h1, h2 {
+    margin: 0;
+    padding: 10px 0;
+}
+
+h1 {
+    font-size: 2em;
+    text-align: center;
+}
+
+h2 {
+    font-size: 1.5em;
+    color: var(--primary-color);
+    border-bottom: 2px solid var(--primary-color);
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+}
+
+.content {
+    display: flex;
+    justify-content: space-between;
+    gap: 30px;
+}
+
+.section {
+    background-color: var(--white);
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    flex: 1;
+    max-height: 500px;
+    overflow-y: auto;
+    position: relative;
+}
+
+.table-container {
+    max-height: 400px;
+    overflow-y: auto;
+    padding-right: 15px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th, td {
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+th {
+    background-color: var(--primary-color);
+    color: var(--white);
+    font-weight: bold;
+    text-transform: uppercase;
+    position: sticky;
+    top: 0;
+    z-index: 1;
+}
+
+tr:nth-child(even) {
+    background-color: #f8f8f8;
+}
+
+.btn {
+    background-color: var(--primary-color);
+    color: var(--white);
+    border: none;
+    padding: 10px 15px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+}
+
+.btn:hover {
+    background-color: #c00c11;
+}
+
+.btn-secondary {
+    background-color: #000000;
+}
+
+.btn-secondary:hover {
+    background-color: #5a6268;
+}
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: var(--white);
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+    border-radius: 4px;
+    margin-top: 5px;
+    padding: 10px;
+    max-height: 200px;
+    overflow-y: auto;
+}
+
+.dropdown.open .dropdown-content {
+    display: block;
+}
+
+.checkbox-container {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.checkbox-container input[type="checkbox"] {
+    margin-right: 10px;
+}
+
+@media (max-width: 768px) {
+    .content {
+        flex-direction: column;
+    }
+}

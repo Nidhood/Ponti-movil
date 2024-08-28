@@ -11,8 +11,8 @@ import java.util.UUID;
 
 @Getter
 @Setter
-@Entity(name = "conductores_buses_rutas")
-public class ConductorBusRuta {
+@Entity(name = "asignaciones")
+public class Asignacion {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     @ColumnDefault("gen_random_uuid()")
@@ -35,9 +35,9 @@ public class ConductorBusRuta {
     private String diaSemana;
 
     // Constructores:
-    public ConductorBusRuta() {}
+    public Asignacion() {}
 
-    public ConductorBusRuta(Conductor conductor, Bus bus, Ruta ruta) {
+    public Asignacion(Conductor conductor, Bus bus, Ruta ruta) {
         this.conductor = conductor;
         this.bus = bus;
         this.ruta = ruta;
@@ -48,7 +48,7 @@ public class ConductorBusRuta {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        ConductorBusRuta that = (ConductorBusRuta) o;
+        Asignacion that = (Asignacion) o;
         return Objects.equals(getId(), that.getId()) && Objects.equals(getConductor(), that.getConductor()) && Objects.equals(getBus(), that.getBus()) && Objects.equals(getRuta(), that.getRuta());
     }
 
@@ -59,7 +59,7 @@ public class ConductorBusRuta {
 
     @Override
     public String toString() {
-        return "ConductorBusRuta{" +
+        return "Asignacion{" +
                 "id='" + id + '\'' +
                 ", conductor=" + conductor +
                 ", bus=" + bus +
@@ -67,3 +67,5 @@ public class ConductorBusRuta {
                 '}';
     }
 }
+
+

@@ -20,10 +20,10 @@ public class Direccion {
     private UUID id;
 
     @Column(name = "tipo_via", nullable = false, length = 20)
-    private String calle;
+    private String tipoVia;
 
     @Column(name = "numero_via", nullable = false, length = 20)
-    private String carrera;
+    private String numeroVia;
 
     @Column(name = "numero", nullable = false, length = 20)
     private String numero;
@@ -37,8 +37,8 @@ public class Direccion {
     public Direccion() {}
 
     public Direccion(String calle, String carrera, String numero, String localidad, String barrio) {
-        this.calle = calle;
-        this.carrera = carrera;
+        this.tipoVia = calle;
+        this.numeroVia = carrera;
         this.numero = numero;
         this.localidad = localidad;
         this.barrio = barrio;
@@ -49,20 +49,20 @@ public class Direccion {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Direccion direccion = (Direccion) o;
-        return Objects.equals(getId(), direccion.getId()) && Objects.equals(getCalle(), direccion.getCalle()) && Objects.equals(getCarrera(), direccion.getCarrera()) && Objects.equals(getNumero(), direccion.getNumero()) && Objects.equals(getLocalidad(), direccion.getLocalidad()) && Objects.equals(getBarrio(), direccion.getBarrio());
+        return Objects.equals(getId(), direccion.getId()) && Objects.equals(getTipoVia(), direccion.getTipoVia()) && Objects.equals(getNumeroVia(), direccion.getNumeroVia()) && Objects.equals(getNumero(), direccion.getNumero()) && Objects.equals(getLocalidad(), direccion.getLocalidad()) && Objects.equals(getBarrio(), direccion.getBarrio());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId(), getCalle(), getCarrera(), getNumero(), getLocalidad(), getBarrio());
+        return Objects.hash(getId(), getTipoVia(), getNumeroVia(), getNumero(), getLocalidad(), getBarrio());
     }
 
     @Override
     public String toString() {
         return "Direccion{" +
                 "id=" + id +
-                ", calle='" + calle + '\'' +
-                ", carrera='" + carrera + '\'' +
+                ", tipoVia='" + tipoVia + '\'' +
+                ", numeroVia='" + numeroVia + '\'' +
                 ", numero='" + numero + '\'' +
                 ", localidad='" + localidad + '\'' +
                 ", barrio='" + barrio + '\'' +

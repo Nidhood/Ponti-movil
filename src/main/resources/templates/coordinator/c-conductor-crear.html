@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" lang="es-ES">
 
 <head>
     <title>Crear Conductor</title>
@@ -26,7 +26,7 @@
 
         <label>Dirección: </label>
         <div class="direccion-container">
-            <select id="tipoVia" name="tipoVia" th:field="*{direccion.calle}" class="direccion" required>
+            <select id="tipoVia" name="tipoVia" th:field="*{direccion.tipoVia}" class="direccion" required>
                 <option value="Calle">Calle</option>
                 <option value="Carrera">Carrera</option>
                 <option value="Avenida">Avenida</option>
@@ -36,7 +36,7 @@
                 <option value="Manzana">Manzana</option>
                 <option value="Kilómetro">Kilómetro</option>
             </select>
-            <input type="text" th:field="*{direccion.carrera}" id="indicativo" class="direccion" placeholder="Número" required>
+            <input type="text" th:field="*{direccion.numeroVia}" id="indicativo" class="direccion" placeholder="Número" required>
 
             <label class="direccion" for="indicativo2">#</label>
             <input type="text" th:field="*{direccion.numero}" id="indicativo2" class="direccion" placeholder="Número" required>

@@ -1,9 +1,9 @@
 package com.javeriana.pontimovil.ponti_movil.services;
 
 
+import com.javeriana.pontimovil.ponti_movil.entities.Asignacion;
 import com.javeriana.pontimovil.ponti_movil.entities.Bus;
 import com.javeriana.pontimovil.ponti_movil.entities.Conductor;
-import com.javeriana.pontimovil.ponti_movil.entities.ConductorBusRuta;
 import com.javeriana.pontimovil.ponti_movil.entities.RutaEstacion;
 import com.javeriana.pontimovil.ponti_movil.exceptions.AsignacionNotFoundException;
 import com.javeriana.pontimovil.ponti_movil.exceptions.BusNotFoundException;
@@ -22,54 +22,54 @@ public class AsignacionService {
     ConductorRepository conductorRepository;
     BusRepository busRepository;
     RutaRepository rutaRepository;
-    ConductorBusRutaRepository conductorBusRutaRepository;
+    AsignacionRepository asignacionRepository;
     EstacionRepository estacionRepository;
     RutaEstacionRepository rutaEstacionRepository;
 
     // Constructor:
-    public AsignacionService(ConductorRepository conductorRepository, BusRepository busRepository, RutaRepository rutaRepository, ConductorBusRutaRepository conductorBusRutaRepository, EstacionRepository estacionRepository, RutaEstacionRepository rutaEstacionRepository) {
+    public AsignacionService(ConductorRepository conductorRepository, BusRepository busRepository, RutaRepository rutaRepository, AsignacionRepository asignacionRepository, EstacionRepository estacionRepository, RutaEstacionRepository rutaEstacionRepository) {
         this.conductorRepository = conductorRepository;
         this.busRepository = busRepository;
         this.rutaRepository = rutaRepository;
-        this.conductorBusRutaRepository = conductorBusRutaRepository;
+        this.asignacionRepository = asignacionRepository;
         this.estacionRepository = estacionRepository;
         this.rutaEstacionRepository = rutaEstacionRepository;
     }
 
     // Métodos:
-    public List<ConductorBusRuta> obtenerAsignaciones() {
-        return conductorBusRutaRepository.findAll();
+    public List<Asignacion> obtenerAsignaciones() {
+        return asignacionRepository.findAll();
     }
 
-    public ConductorBusRuta obtenerAsignacionPorId(UUID id) {
-        return conductorBusRutaRepository.findById(id).orElseThrow(() -> new AsignacionNotFoundException(id));
+    public Asignacion obtenerAsignacionPorId(UUID id) {
+        return asignacionRepository.findById(id).orElseThrow(() -> new AsignacionNotFoundException(id));
     }
 
     public void asignarBus(UUID idConductor, UUID idBus, String diaSemana) {
-        ConductorBusRuta asignacion = new ConductorBusRuta();
+        Asignacion asignacion = new Asignacion();
         Conductor conductor = conductorRepository.findById(idConductor).orElseThrow(() -> new ConductorNotFoundException(idConductor));
         Bus bus = busRepository.findById(idBus).orElseThrow(() -> new BusNotFoundException(idBus));
         asignacion.setConductor(conductor);
         asignacion.setBus(bus);
         asignacion.setDiaSemana(diaSemana);
-        conductorBusRutaRepository.save(asignacion);
+        asignacionRepository.save(asignacion);
     }
 
-    public void desasignarBus(UUID idConductor, UUID idBus) {
-        ConductorBusRuta asignacion = conductorBusRutaRepository.findByConductorIdAndBusId(idConductor, idBus);
-        conductorBusRutaRepository.delete(asignacion);
+    public void desasignarBus(UUID idConductor, UUID idBus, String diaSemana) {
+        Asignacion asignacion = asignacionRepository.findByConductorIdAndBusIdAndDiaSemana(idConductor, idBus, diaSemana);
+        asignacionRepository.delete(asignacion);
     }
 
     public void asignarRuta(UUID idBus, UUID idRuta) {
-        ConductorBusRuta asignacion = new ConductorBusRuta();
+        Asignacion asignacion = new Asignacion();
         asignacion.setBus(busRepository.findById(idBus).orElseThrow(() -> new BusNotFoundException(idBus)));
         asignacion.setRuta(rutaRepository.findById(idRuta).orElseThrow(() -> new RutaNotFoundException(idRuta)));
-        conductorBusRutaRepository.save(asignacion);
+        asignacionRepository.save(asignacion);
     }
 
     public void desasignarRuta(UUID idBus, UUID idRuta) {
-        ConductorBusRuta asignacion = conductorBusRutaRepository.findByBusIdAndRutaId(idBus, idRuta);
-        conductorBusRutaRepository.delete(asignacion);
+        Asignacion asignacion = asignacionRepository.findByBusIdAndRutaId(idBus, idRuta);
+        asignacionRepository.delete(asignacion);
     }
 
     public void asignarEstacion(UUID idRuta, UUID idEstacion) {
@@ -82,5 +82,13 @@ public class AsignacionService {
     public void desasignarEstacion(UUID idRuta, UUID idEstacion) {
         RutaEstacion asignacion = rutaEstacionRepository.findByRutaIdAndEstacionId(idRuta, idEstacion);
         rutaEstacionRepository.delete(asignacion);
+    }
+
+    public List<Asignacion> obtenerAsignacionesPorConductor(UUID idConductor) {
+        return asignacionRepository.findByConductorId(idConductor);
+    }
+
+    public List<String> obtenerDiasDisponibles(UUID idBus) {
+        return asignacionRepository.findDiasSemanaDisponibleByBusId(idBus);
     }
 }

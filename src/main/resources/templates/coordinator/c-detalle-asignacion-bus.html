@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="es-ES">
+
+<head>
+    <link rel="stylesheet" th:href="@{/assets/css/style.css}">
+    <meta charset="UTF-8">
+    <title>Gestionar Asignaciones</title>
+</head>
+<body class="c-gestionar-asignaciones">
+<h1 class="titulo">Gestionar Asignaciones</h1>
+<a class="btnNuevo" th:href="@{/asignaciones/crear}">Nueva asignación +</a>
+
+<table class="entity-list">
+    <thead>
+    <tr>
+        <th>Nombre del Conductor</th>
+        <th>Placa del Bus</th>
+        <th>Día de la Semana</th>
+        <th>Editar Buses</th>
+        <th>Editar Rutas</th>
+        <th>Eliminar Asignación</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="asignacion : ${asignaciones}">
+        <td th:text="${asignacion.conductor.nombre}"></td>
+        <td th:text="${asignacion.bus.placa}"></td>
+        <td th:text="${asignacion.diaSemana}"></td>
+        <td>
+            <a class="Editar" th:href="@{/buses/asignarModificar(busId=${asignacion.bus.id})}">Editar Buses</a>
+        </td>
+        <td>
+            <a class="Eliminar" th:href="@{/asignaciones/{id}/eliminar(id=${asignacion.id})}"
+               onclick="return confirm('¿Está seguro que quiere eliminar esta asignación?');">Eliminar</a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+</body>
+</html>

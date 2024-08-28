@@ -3,9 +3,8 @@ package com.javeriana.pontimovil.ponti_movil.services;
 import com.javeriana.pontimovil.ponti_movil.entities.Horario;
 import com.javeriana.pontimovil.ponti_movil.entities.Ruta;
 import com.javeriana.pontimovil.ponti_movil.entities.RutaEstacion;
-import com.javeriana.pontimovil.ponti_movil.exceptions.HorarioNotFoundException;
 import com.javeriana.pontimovil.ponti_movil.exceptions.RutaNotFoundException;
-import com.javeriana.pontimovil.ponti_movil.repositories.ConductorBusRutaRepository;
+import com.javeriana.pontimovil.ponti_movil.repositories.AsignacionRepository;
 import com.javeriana.pontimovil.ponti_movil.repositories.HorarioRepository;
 import com.javeriana.pontimovil.ponti_movil.repositories.RutaEstacionRepository;
 import com.javeriana.pontimovil.ponti_movil.repositories.RutaRepository;
@@ -21,11 +20,11 @@ public class RutaService {
     RutaRepository rutaRepository;
     HorarioRepository horarioRepository;
     RutaEstacionRepository rutaEstacionRepository;
-    ConductorBusRutaRepository conductorBusRutaRepository;
+    AsignacionRepository conductorBusRutaRepository;
 
     // Constructor:
     @Autowired
-    public RutaService(RutaRepository rutaRepository, HorarioRepository horarioRepository, RutaEstacionRepository rutaEstacionRepository, ConductorBusRutaRepository conductorBusRutaRepository) {
+    public RutaService(RutaRepository rutaRepository, HorarioRepository horarioRepository, RutaEstacionRepository rutaEstacionRepository, AsignacionRepository conductorBusRutaRepository) {
         this.rutaRepository = rutaRepository;
         this.horarioRepository = horarioRepository;
         this.rutaEstacionRepository = rutaEstacionRepository;

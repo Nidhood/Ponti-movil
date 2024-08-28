@@ -69,3 +69,37 @@ function confirmarEliminacion(event) {
         event.preventDefault(); // Evita que el enlace se siga si no se confirma la eliminación
     }
 }
+
+function toggleDropdown(button) {
+    var dropdown = button.nextElementSibling;
+    if (dropdown.style.display === 'block') {
+        dropdown.style.display = 'none';
+    } else {
+        dropdown.style.display = 'block';
+    }
+
+    // Hide dropdown if clicked outside
+    document.addEventListener('click', function(event) {
+        if (!button.contains(event.target) && !dropdown.contains(event.target)) {
+            dropdown.style.display = 'none';
+        }
+    });
+}
+
+function submitForm(form) {
+    const checkboxes = form.parentElement.parentElement.querySelectorAll('input[name="diasSeleccionados"]:checked');
+    const selectedDays = Array.from(checkboxes).map(checkbox => checkbox.value);
+
+    if (selectedDays.length > 0) {
+        selectedDays.forEach(day => {
+            let hiddenInput = document.createElement('input');
+            hiddenInput.type = 'hidden';
+            hiddenInput.name = 'diasSemana';
+            hiddenInput.value = day;
+            form.appendChild(hiddenInput);
+        });
+        form.submit();
+    } else {
+        alert('Por favor, seleccione al menos un día.');
+    }
+}
