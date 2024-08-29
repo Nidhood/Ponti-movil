@@ -21,7 +21,7 @@ Conoce al equipo detrás de **Ponti-Movil**:
   <tr>
     <td align="center">
       <a href="https://github.com/DavzC" target="_blank">
-        <img src="https://github.com/Nidhood/Ponti-movil/blob/main/photos/david-ortizpp.png?s=100" alt="David" width="100" height="100">
+        <img src="https://github.com/Nidhood/Ponti-movil/blob/main/photos/david-ortizpp.jpeg?s=100" alt="David" width="100" height="100">
         <p><strong>David Santiago Ortiz Calderon</strong><br>Backend & Frontend Developer</p>
       </a>
     </td>
