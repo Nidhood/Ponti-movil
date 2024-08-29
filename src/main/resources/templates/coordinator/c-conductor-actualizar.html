@@ -17,8 +17,8 @@
             <input type="hidden" th:field="*{direccion}" id="direccionId">
             <label for="nombreConductor">Nombre: </label>
             <input type="text" th:field="*{nombre}" id="nombreConductor" required>
-            <!-- <span th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}"
-                th:class="${#fields.hasErrors('firstName')} ? 'error' : ''"></span> -->
+            <span th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}"
+                th:class="${#fields.hasErrors('nombre')} ? 'error' : ''"></span>
             <label for="apellidoConductor">Apellido: </label>
             <input type="text" th:field="*{apellido}" id="apellidoConductor" required>
             <!-- <span th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}"

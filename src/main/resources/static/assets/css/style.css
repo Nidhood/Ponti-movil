@@ -9,14 +9,14 @@
     font-family: 'Arial', sans-serif;
     background-image: url("../img/images/fondoTransmi.png");
     backdrop-filter: brightness(0.5);
-    background-size: cover; 
+    background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
-    
+
 }
 
 .container {
@@ -86,7 +86,7 @@ table.entity-list {
     background-color: #ffffff;
 }
 
-table.entity-list th, 
+table.entity-list th,
 table.entity-list td {
     padding: 12px 15px;
     text-align: left;
@@ -113,7 +113,7 @@ table.entity-list tbody tr:hover {
 }
 
 .Editar{
-    color: #1a3417; 
+    color: #1a3417;
     text-decoration: none;
     font-weight: bold;
 }
@@ -130,7 +130,7 @@ table.entity-list tbody td a:hover {
 }
 
 .c-gestionar-conductores .btnNuevo {
-    background-color: #e30613; 
+    background-color: #e30613;
     color: #ffffff;
     padding: 10px 20px;
     margin-bottom: 20px;
@@ -283,21 +283,21 @@ body.c-conductor-actualizar {
 }
 
 /*LOG IN */
- form {
+form {
     display: flex;
     flex-direction: column;
     gap: 15px;
     margin-top: 20px;
 }
 
- form input {
+form input {
     padding: 10px;
     border-radius: 5px;
     border: 1px solid #ccc;
     font-size: 16px;
 }
 
- form button {
+form button {
     background-color: #e60012;
     color: white;
     padding: 10px;
@@ -307,25 +307,25 @@ body.c-conductor-actualizar {
     cursor: pointer;
 }
 
- form button:hover {
+form button:hover {
     background-color: #cc0010;
 }
 
- form {
+form {
     display: flex;
     flex-direction: column;
     gap: 15px;
     margin-top: 20px;
 }
 
- form input {
+form input {
     padding: 10px;
     border-radius: 5px;
     border: 1px solid #ccc;
     font-size: 16px;
 }
 
- form button {
+form button {
     background-color: #e60012;
     color: white;
     padding: 10px;
@@ -335,7 +335,7 @@ body.c-conductor-actualizar {
     cursor: pointer;
 }
 
- form button:hover {
+form button:hover {
     background-color: #cc0010;
 }
 
@@ -425,10 +425,14 @@ body.c-conductor-crear {
     color: #e30613;
 }
 
-.direccion-container {
-    display: flex;
-    gap: 10px;
+.c-conductor-crear  .direccion-container select.direccion,
+.c-conductor-crear  .direccion-container input.direccion {
+    min-width: 100px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 1em;
 }
+
 
 .c-conductor-crear label.direccion {
     font-weight: bold;
@@ -445,4 +449,60 @@ body.c-conductor-crear {
     font-size: 1em;
 }
 
-/*c-conductor-asignaciones-buses*****************/
+.error {
+    color: red;
+}
+
+/* Error Page */
+.error-page {
+    font-family: 'Arial', sans-serif;
+    background-image: url("../img/images/fondoTransmi.png");
+    backdrop-filter: brightness(0.5);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.error-page .container {
+    text-align: center;
+    background-color: #ffffff;
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.error-page .logo img {
+    width: 300px;
+    margin-bottom: 20px;
+}
+
+.error-page h1 {
+    font-size: 28px;
+    color: #e30613;
+    margin-bottom: 20px;
+}
+
+.error-page p {
+    font-size: 18px;
+    color: #333;
+    margin-bottom: 30px;
+}
+
+.error-page .btn {
+    background-color: #e60012;
+    color: white;
+    padding: 15px 30px;
+    border-radius: 25px;
+    text-decoration: none;
+    font-weight: bold;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease;
+}
+
+.error-page .btn:hover {
+    background-color: #cc0010;
+}

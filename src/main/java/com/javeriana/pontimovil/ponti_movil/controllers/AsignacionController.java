@@ -40,6 +40,7 @@ public class AsignacionController {
         Conductor conductor = conductorService.obtenerConductorPorId(idConductor);
         List<Asignacion> asignaciones = asignacionService.obtenerAsignacionesPorConductor(idConductor);
         List<Bus> buses = busService.obtenerBuses();
+
         // Crear un mapa de días disponibles para cada bus
         Map<UUID, List<String>> diasDisponiblesPorBus = new HashMap<>();
         buses.removeIf(bus -> {
