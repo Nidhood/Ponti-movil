@@ -10,11 +10,11 @@
     <h1>Gestionar conductores</h1>
     <div class="actualizarConductor">
         <h2>Conductor a actualizar</h2>
-        <!--th:action="@{/conductor/actualizar}"--> 
-        
+        <!--th:action="@{/conductor/actualizar}"-->
+
         <form action="#" th:action="@{/conductores/actualizar}" th:object="${conductor}" method="post">
             <input type="hidden" th:field="*{id}" id="id">
-            <input type="hidden" th:field="*{direccion}" id="id">
+            <input type="hidden" th:field="*{direccion}" id="direccionId">
             <label for="nombreConductor">Nombre: </label>
             <input type="text" th:field="*{nombre}" id="nombreConductor" required>
             <!-- <span th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}"
@@ -29,9 +29,9 @@
             <label for="telConductor">Teléfono: </label>
             <input type="text" th:field="*{telefono}" id="telConductor" required>
 
-            <label>Dirección: </label>
+            <label>Dirección:</label>
             <div class="direccion-container">
-                <select id="tipoVia" name="tipoVia" type="text" th:field="*{direccion.tipoVia}" class="direccion">
+                <label for="tipoVia"></label><select id="tipoVia" name="tipoVia" type="text" th:field="*{direccion.tipoVia}" class="direccion">
                     <option value="Calle">Calle</option>
                     <option value="Carrera">Carrera</option>
                     <option value="Avenida">Avenida</option>
@@ -41,15 +41,12 @@
                     <option value="Manzana">Manzana</option>
                     <option value="Kilómetro">Kilómetro</option>
                 </select>
-                <input type="text" th:field="*{direccion.numeroVia}" id="indicativo" class="direccion" required>
-
-                <label class="direccion" for="indicativo2">#</label>
-                <input type="text" th:field="*{direccion.numero}" id="indicativo" class="direccion" required>
-
-                <label class="direccion" for="barrio">Barrio: </label>
+                <label for="numeroVia"></label><input type="text" th:field="*{direccion.numeroVia}" id="numeroVia" class="direccion" required>
+                <label for="numeroDireccion">#</label>
+                <input type="text" th:field="*{direccion.numero}" id="numeroDireccion" class="direccion" required>
+                <label for="barrio">Barrio:</label>
                 <input type="text" th:field="*{direccion.barrio}" id="barrio" class="direccion" required>
-
-                <label class="direccion" for="localidad">Localidad: </label>
+                <label for="localidad">Localidad:</label>
                 <input type="text" th:field="*{direccion.localidad}" id="localidad" class="direccion" required>
             </div>
 
@@ -59,7 +56,7 @@
             <button type="submit">Guardar</button>
         </form>
     </div>
-    <a th:href="@{/conductores/{id}/eliminar(id=${conductor.id})}" class="btnEliminar" onclick="confirmarEliminacion(event)">Eliminar Conductor</a>
+    <a th:href="@{/conductores/{id}/eliminar(id=${conductor.id})}" class="btnEliminar" onclick="return confirm('¿Está seguro que desea eliminar este conductor?')">Eliminar Conductor</a>
     <a th:href="@{/conductores}" class="btnVolver">Cancelar</a>
     <script th:src="@{/assets/js/script.js}"></script>
 </body>

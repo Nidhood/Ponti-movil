@@ -35,6 +35,7 @@ public class Conductor {
     @JoinColumn(name = "direccion_id", nullable = false)
     private Direccion direccion;
 
+    // Constructores:
     public Conductor() {}
 
     public Conductor(String nombre, String apellido, String cedula, String telefono, Direccion direccion) {
@@ -45,6 +46,7 @@ public class Conductor {
         this.direccion = direccion;
     }
 
+    // Métodos:
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

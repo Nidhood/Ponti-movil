@@ -32,7 +32,8 @@
                 </td>
                 <td>
                     <a class="Editar" th:href="@{/conductores/{id}/editar(id=${conductor.id})}">Editar</a>
-                    <a class="Eliminar" th:href="@{/conductores/{id}/eliminar(id=${conductor.id})}" method="post" onclick="confirmarEliminacion(event)">Eliminar</a>
+                    <a class="Eliminar" th:href="@{/conductores/{id}/eliminar(id=${conductor.id})}" methods="post"
+                       onclick="return confirm('¿Está seguro que desea eliminar este conductor?')">Eliminar</a>
                 </td>
                 
             </tr>

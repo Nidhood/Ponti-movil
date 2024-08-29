@@ -5,10 +5,7 @@ import com.javeriana.pontimovil.ponti_movil.entities.Asignacion;
 import com.javeriana.pontimovil.ponti_movil.entities.Bus;
 import com.javeriana.pontimovil.ponti_movil.entities.Conductor;
 import com.javeriana.pontimovil.ponti_movil.entities.RutaEstacion;
-import com.javeriana.pontimovil.ponti_movil.exceptions.AsignacionNotFoundException;
-import com.javeriana.pontimovil.ponti_movil.exceptions.BusNotFoundException;
-import com.javeriana.pontimovil.ponti_movil.exceptions.ConductorNotFoundException;
-import com.javeriana.pontimovil.ponti_movil.exceptions.RutaNotFoundException;
+import com.javeriana.pontimovil.ponti_movil.exceptions.*;
 import com.javeriana.pontimovil.ponti_movil.repositories.*;
 import org.springframework.stereotype.Service;
 
@@ -37,21 +34,10 @@ public class AsignacionService {
     }
 
     // Métodos:
-    public List<Asignacion> obtenerAsignaciones() {
-        return asignacionRepository.findAll();
-    }
-
-    public Asignacion obtenerAsignacionPorId(UUID id) {
-        return asignacionRepository.findById(id).orElseThrow(() -> new AsignacionNotFoundException(id));
-    }
-
     public void asignarBus(UUID idConductor, UUID idBus, String diaSemana) {
-        Asignacion asignacion = new Asignacion();
         Conductor conductor = conductorRepository.findById(idConductor).orElseThrow(() -> new ConductorNotFoundException(idConductor));
         Bus bus = busRepository.findById(idBus).orElseThrow(() -> new BusNotFoundException(idBus));
-        asignacion.setConductor(conductor);
-        asignacion.setBus(bus);
-        asignacion.setDiaSemana(diaSemana);
+        Asignacion asignacion = new Asignacion(conductor, bus, diaSemana);
         asignacionRepository.save(asignacion);
     }
 
@@ -75,7 +61,7 @@ public class AsignacionService {
     public void asignarEstacion(UUID idRuta, UUID idEstacion) {
         RutaEstacion asignacion = new RutaEstacion();
         asignacion.setRuta(rutaRepository.findById(idRuta).orElseThrow(() -> new RutaNotFoundException(idRuta)));
-        asignacion.setEstacion(estacionRepository.findById(idEstacion).orElseThrow(() -> new RutaNotFoundException(idEstacion)));
+        asignacion.setEstacion(estacionRepository.findById(idEstacion).orElseThrow(() -> new EstacionNotFoundException(idEstacion)));
         rutaEstacionRepository.save(asignacion);
     }
 

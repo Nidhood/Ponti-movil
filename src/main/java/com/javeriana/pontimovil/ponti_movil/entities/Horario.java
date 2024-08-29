@@ -29,6 +29,7 @@ public class Horario {
     @Column(name = "hora_fin", nullable = false)
     private LocalTime horaFin;
 
+    // Constructores:
     public Horario() {}
 
     public Horario(String dia, LocalTime horaInicio, LocalTime horaFin) {
@@ -37,6 +38,7 @@ public class Horario {
         this.horaFin = horaFin;
     }
 
+    // Métodos:
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

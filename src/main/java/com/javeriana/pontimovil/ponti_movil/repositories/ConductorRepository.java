@@ -8,7 +8,4 @@ import java.util.UUID;
 
 @Repository
 public interface ConductorRepository extends JpaRepository<Conductor, UUID> {
-
-    Conductor findByNombreAndApellido(String nombre, String apellido);
-
 }

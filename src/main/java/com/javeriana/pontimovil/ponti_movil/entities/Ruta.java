@@ -26,13 +26,10 @@ public class Ruta {
     @JoinColumn(name = "horario_id", nullable = false)
     private Horario horario;
 
+    // Constructores:
     public Ruta() {}
 
-    public Ruta(String codigo, Horario horario) {
-        this.codigo = codigo;
-        this.horario = horario;
-    }
-
+    // Métodos:
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

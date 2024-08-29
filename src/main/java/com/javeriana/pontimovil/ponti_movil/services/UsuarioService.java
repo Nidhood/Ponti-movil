@@ -1,5 +1,6 @@
 package com.javeriana.pontimovil.ponti_movil.services;
 
+import com.javeriana.pontimovil.ponti_movil.exceptions.UsuarioNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.server.ResponseStatusException;
 import com.javeriana.pontimovil.ponti_movil.entities.Usuario;
@@ -26,7 +27,7 @@ public class UsuarioService {
     }
 
     public Usuario obtenerUsuarioPorId(UUID id) {
-        return usuarioRepository.findById(id).orElseThrow(()-> new RuntimeException("Usuario no encontrado"));
+        return usuarioRepository.findById(id).orElseThrow(()-> new UsuarioNotFoundException(id));
     }
 
     public void crearUsuario(Usuario usuario) {
@@ -34,7 +35,7 @@ public class UsuarioService {
     }
 
     public void actualizarUsuario(UUID id, Usuario usuario) {
-        Usuario usuarioActual = usuarioRepository.findById(id).orElseThrow(()-> new RuntimeException("Usuario no encontrado"));
+        Usuario usuarioActual = usuarioRepository.findById(id).orElseThrow(()-> new UsuarioNotFoundException(id));
         usuarioActual.setNombre(usuario.getNombre());
         usuarioActual.setApellido(usuario.getApellido());
         usuarioActual.setNombreUsuario(usuario.getNombreUsuario());
@@ -45,9 +46,7 @@ public class UsuarioService {
     }
 
     public Usuario login(UUID id, Usuario usuario) {
-        Usuario usuarioActual = usuarioRepository.findById(id)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Usuario no encontrado"));
-
+        Usuario usuarioActual = usuarioRepository.findById(id).orElseThrow(()-> new UsuarioNotFoundException(id));
         if (!usuarioActual.getNombreUsuario().equals(usuario.getNombreUsuario())) {
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Nombre de usuario incorrecto");
         } else if (!usuarioActual.getContrasena().equals(usuario.getContrasena())) {
@@ -58,7 +57,8 @@ public class UsuarioService {
     }
 
     public void eliminarUsuario(UUID id) {
-        usuarioRepository.deleteById(id);
+        Usuario usuario = usuarioRepository.findById(id).orElseThrow(()-> new UsuarioNotFoundException(id));
+        usuarioRepository.delete(usuario);
     }
 
 

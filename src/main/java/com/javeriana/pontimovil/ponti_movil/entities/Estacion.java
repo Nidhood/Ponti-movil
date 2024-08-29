@@ -26,13 +26,10 @@ public class Estacion {
     @JoinColumn(name = "direccion_id", nullable = false)
     private Direccion direccion;
 
+    // Constructores:
     public Estacion() {}
 
-    public Estacion(String nombre, Direccion direccion) {
-        this.nombre = nombre;
-        this.direccion = direccion;
-    }
-
+    // Métodos:
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

@@ -34,6 +34,7 @@ public class Direccion {
     @Column(name = "barrio", nullable = false, length = 20)
     private String barrio;
 
+    // Constructores:
     public Direccion() {}
 
     public Direccion(String calle, String carrera, String numero, String localidad, String barrio) {
@@ -44,6 +45,7 @@ public class Direccion {
         this.barrio = barrio;
     }
 
+    // Métodos:
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

@@ -37,6 +37,7 @@ public class Usuario {
     @Column(name = "tipo_usuario", nullable = false)
     private String tipoUsuario;
 
+    // Constructores:
     public Usuario() {}
 
     public Usuario(UUID id, String nombre, String apellido, String nombreUsuario, String contrasena, String correo, String tipoUsuario) {
@@ -49,6 +50,7 @@ public class Usuario {
         this.tipoUsuario = tipoUsuario;
     }
 
+    // Métodos:
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

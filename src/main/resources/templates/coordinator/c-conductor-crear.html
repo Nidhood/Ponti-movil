@@ -7,7 +7,7 @@
 </head>
 
 <body class="c-conductor-crear">
-<h1>Gestionar conductores</h1>
+<h1>Gestionar Conductores</h1>
 <div class="crearConductor">
     <h2>Crear nuevo conductor</h2>
 
@@ -26,7 +26,7 @@
 
         <label>Dirección: </label>
         <div class="direccion-container">
-            <select id="tipoVia" name="tipoVia" th:field="*{direccion.tipoVia}" class="direccion" required>
+            <label for="tipoVia"></label><select id="tipoVia" name="tipoVia" th:field="*{direccion.tipoVia}" class="direccion" required>
                 <option value="Calle">Calle</option>
                 <option value="Carrera">Carrera</option>
                 <option value="Avenida">Avenida</option>
@@ -36,7 +36,7 @@
                 <option value="Manzana">Manzana</option>
                 <option value="Kilómetro">Kilómetro</option>
             </select>
-            <input type="text" th:field="*{direccion.numeroVia}" id="indicativo" class="direccion" placeholder="Número" required>
+            <label for="indicativo"></label><input type="text" th:field="*{direccion.numeroVia}" id="indicativo" class="direccion" placeholder="Número" required>
 
             <label class="direccion" for="indicativo2">#</label>
             <input type="text" th:field="*{direccion.numero}" id="indicativo2" class="direccion" placeholder="Número" required>

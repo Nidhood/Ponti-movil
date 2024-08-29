@@ -29,15 +29,8 @@ public class RutaEstacion {
     @Column(name = "orden", nullable = false)
     private Long orden;
 
-
     // Constructores:
     public RutaEstacion() {}
-
-    public RutaEstacion(Ruta ruta, Estacion estacion, Long orden) {
-        this.ruta = ruta;
-        this.estacion = estacion;
-        this.orden = orden;
-    }
 
     // Métodos:
     @Override

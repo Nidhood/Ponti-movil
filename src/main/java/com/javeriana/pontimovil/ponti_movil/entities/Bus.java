@@ -25,6 +25,7 @@ public class Bus {
     @Column(name = "modelo", nullable = false, length = 20)
     private String modelo;
 
+    // Constructores:
     public Bus() {}
 
     public Bus(String placa, String modelo) {
@@ -32,6 +33,7 @@ public class Bus {
         this.modelo = modelo;
     }
 
+    // Métodos:
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

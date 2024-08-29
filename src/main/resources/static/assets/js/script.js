@@ -63,43 +63,21 @@ document.getElementById('loginForm')?.addEventListener('submit', function(e) {
             alert("Error en el inicio de sesión");
         });
 });
-function confirmarEliminacion(event) {
-    const confirmacion = confirm("¿Está seguro que quiere eliminar?");
-    if (!confirmacion) {
-        event.preventDefault(); // Evita que el enlace se siga si no se confirma la eliminación
-    }
-}
 
+// Manejo de asignación de buses
 function toggleDropdown(button) {
     var dropdown = button.nextElementSibling;
-    if (dropdown.style.display === 'block') {
-        dropdown.style.display = 'none';
-    } else {
-        dropdown.style.display = 'block';
-    }
-
-    // Hide dropdown if clicked outside
-    document.addEventListener('click', function(event) {
-        if (!button.contains(event.target) && !dropdown.contains(event.target)) {
-            dropdown.style.display = 'none';
-        }
-    });
+    dropdown.style.display = dropdown.style.display === "block" ? "none" : "block";
 }
 
-function submitForm(form) {
-    const checkboxes = form.parentElement.parentElement.querySelectorAll('input[name="diasSeleccionados"]:checked');
-    const selectedDays = Array.from(checkboxes).map(checkbox => checkbox.value);
+function submitForm(busId) {
+    var form = document.getElementById('form-' + busId);
+    var checkboxes = form.querySelectorAll('input[type="checkbox"]:checked');
 
-    if (selectedDays.length > 0) {
-        selectedDays.forEach(day => {
-            let hiddenInput = document.createElement('input');
-            hiddenInput.type = 'hidden';
-            hiddenInput.name = 'diasSemana';
-            hiddenInput.value = day;
-            form.appendChild(hiddenInput);
-        });
-        form.submit();
-    } else {
+    if (checkboxes.length === 0) {
         alert('Por favor, seleccione al menos un día.');
+        return;
     }
+
+    form.submit();
 }

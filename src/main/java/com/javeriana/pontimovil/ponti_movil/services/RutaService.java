@@ -9,7 +9,10 @@ import com.javeriana.pontimovil.ponti_movil.repositories.HorarioRepository;
 import com.javeriana.pontimovil.ponti_movil.repositories.RutaEstacionRepository;
 import com.javeriana.pontimovil.ponti_movil.repositories.RutaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
+
 import java.util.List;
 import java.util.UUID;
 
@@ -48,10 +51,7 @@ public class RutaService {
 
         // Buscamos si el horario ya existe, si no lo creamos:
         if (ruta.getHorario().getId() == null) {
-            Horario horario = new Horario();
-            horario.setDia(ruta.getHorario().getDia());
-            horario.setHoraInicio(ruta.getHorario().getHoraInicio());
-            horario.setHoraFin(ruta.getHorario().getHoraFin());
+            Horario horario = new Horario(ruta.getHorario().getDia(), ruta.getHorario().getHoraInicio(), ruta.getHorario().getHoraFin());
             horarioRepository.save(horario);
 
             // Asignamos el horario a la ruta:
@@ -80,7 +80,7 @@ public class RutaService {
 
         // Verificamos si la ruta tiene asignaciones (existen registros en la tabla conductor_bus_ruta):
         if (!conductorBusRutaRepository.findByRutaId(id).isEmpty()) {
-            throw new RuntimeException("La ruta tiene asignaciones, no se puede eliminar.");
+            throw new ResponseStatusException(HttpStatus.CONFLICT, "La ruta tiene asignaciones asociadas, no se puede eliminar");
         }
 
         // Eliminamos todas las estaciones asociadas a la ruta:

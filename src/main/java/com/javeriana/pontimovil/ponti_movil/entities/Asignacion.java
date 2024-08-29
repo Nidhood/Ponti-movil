@@ -37,10 +37,10 @@ public class Asignacion {
     // Constructores:
     public Asignacion() {}
 
-    public Asignacion(Conductor conductor, Bus bus, Ruta ruta) {
+    public Asignacion(Conductor conductor, Bus bus, String diaSemana) {
         this.conductor = conductor;
         this.bus = bus;
-        this.ruta = ruta;
+        this.diaSemana = diaSemana;
     }
 
     // Métodos:

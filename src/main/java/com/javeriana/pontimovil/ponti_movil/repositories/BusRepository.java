@@ -8,5 +8,4 @@ import java.util.UUID;
 
 @Repository
 public interface BusRepository extends JpaRepository<Bus, UUID> {
-    Bus findBusByPlaca(String placa);
 }
