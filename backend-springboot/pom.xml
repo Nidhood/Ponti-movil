@@ -119,7 +119,6 @@
 					</compilerArgs>
 				</configuration>
 			</plugin>
-
 			<plugin>
 				<groupId>com.github.ferstl</groupId>
 				<artifactId>depgraph-maven-plugin</artifactId>
