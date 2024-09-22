@@ -119,6 +119,7 @@
 					</compilerArgs>
 				</configuration>
 			</plugin>
+
 		</plugins>
 
 		<resources>
