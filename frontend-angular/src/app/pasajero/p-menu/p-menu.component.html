@@ -1,0 +1,10 @@
+<div class="rutas-lista">
+  <h2>Rutas Disponibles</h2>
+  <ul>
+    <li *ngFor="let ruta of rutas">
+      <strong>Código:</strong> {{ ruta.codigo }}<br>
+      <strong>Horario:</strong> {{ ruta.horario.dia }} - {{ ruta.horario.horaInicio }} a {{ ruta.horario.horaFin }}
+    </li>
+  </ul>
+</div>
+

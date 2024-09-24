@@ -7,9 +7,10 @@ import { AdministradorComponent } from './administrador/administrador.component'
 import { CoordinadorComponent } from './coordinador/coordinador.component';
 import { PasajeroComponent } from './pasajero/pasajero.component';
 import { UsuarioComponent } from './usuario/usuario.component';
-import { LoginComponent } from './usuario/login/login.component';
-import { RegisterComponent } from './usuario/register/register.component';
-import { HomeComponent } from './usuario/home/home.component';
+import { LoginComponent } from './usuario/u-login/login.component';
+import { RegisterComponent } from './usuario/u-register/register.component';
+import { HomeComponent } from './usuario/u-home/home.component';
+import { PMenuComponent } from './pasajero/p-menu/p-menu.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { HomeComponent } from './usuario/home/home.component';
     UsuarioComponent,
     LoginComponent,
     RegisterComponent,
-    HomeComponent
+    HomeComponent,
+    PMenuComponent
   ],
 
   imports: [
