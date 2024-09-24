@@ -10,7 +10,6 @@ import { UsuarioComponent } from './usuario/usuario.component';
 import { LoginComponent } from './usuario/login/login.component';
 import { RegisterComponent } from './usuario/register/register.component';
 import { HomeComponent } from './usuario/home/home.component';
-import { BueComponent } from './usuario/bue/bue.component';
 
 @NgModule({
   declarations: [
@@ -21,8 +20,7 @@ import { BueComponent } from './usuario/bue/bue.component';
     UsuarioComponent,
     LoginComponent,
     RegisterComponent,
-    HomeComponent,
-    BueComponent
+    HomeComponent
   ],
 
   imports: [
