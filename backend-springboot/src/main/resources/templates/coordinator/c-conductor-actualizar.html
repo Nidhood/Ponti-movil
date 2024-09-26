@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="es-ES">
+
+<head>
+    <title>Actualizar conductor</title>
+    <link rel="stylesheet" th:href="@{/assets/css/style.css}">
+</head>
+
+<body class="c-conductor-actualizar">
+    <h1>Gestionar conductores</h1>
+    <div class="actualizarConductor">
+        <h2>Conductor a actualizar</h2>
+        <!--th:action="@{/conductor/actualizar}"-->
+
+        <form action="#" th:action="@{/conductores/actualizar}" th:object="${conductor}" method="post">
+            <input type="hidden" th:field="*{id}" id="id">
+            <input type="hidden" th:field="*{direccion}" id="direccionId">
+            <label for="nombreConductor">Nombre: </label>
+            <input type="text" th:field="*{nombre}" id="nombreConductor" required>
+            <span th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}"
+                th:class="${#fields.hasErrors('nombre')} ? 'error' : ''"></span>
+            <label for="apellidoConductor">Apellido: </label>
+            <input type="text" th:field="*{apellido}" id="apellidoConductor" required>
+            <!-- <span th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}"
+                th:class="${#fields.hasErrors('lastName')} ? 'error' : ''"></span> -->
+            <label for="cedulaConductor">Cédula: </label>
+            <input type="text" th:field="*{cedula}" id="cedulaConductor" required>
+
+            <label for="telConductor">Teléfono: </label>
+            <input type="text" th:field="*{telefono}" id="telConductor" required>
+
+            <label>Dirección:</label>
+            <div class="direccion-container">
+                <label for="tipoVia"></label><select id="tipoVia" name="tipoVia" type="text" th:field="*{direccion.tipoVia}" class="direccion">
+                    <option value="Calle">Calle</option>
+                    <option value="Carrera">Carrera</option>
+                    <option value="Avenida">Avenida</option>
+                    <option value="Diagonal">Diagonal</option>
+                    <option value="Transversal">Transversal</option>
+                    <option value="Circular">Circular</option>
+                    <option value="Manzana">Manzana</option>
+                    <option value="Kilómetro">Kilómetro</option>
+                </select>
+                <label for="numeroVia"></label><input type="text" th:field="*{direccion.numeroVia}" id="numeroVia" class="direccion" required>
+                <label for="numeroDireccion">#</label>
+                <input type="text" th:field="*{direccion.numero}" id="numeroDireccion" class="direccion" required>
+                <label for="barrio">Barrio:</label>
+                <input type="text" th:field="*{direccion.barrio}" id="barrio" class="direccion" required>
+                <label for="localidad">Localidad:</label>
+                <input type="text" th:field="*{direccion.localidad}" id="localidad" class="direccion" required>
+            </div>
+
+
+            <!-- <span th:if="${#fields.hasErrors('email')}" th:errors="*{email}"
+                th:class="${#fields.hasErrors('email')} ? 'error' : ''"></span> -->
+            <button type="submit">Guardar</button>
+        </form>
+    </div>
+    <a th:href="@{/conductores/{id}/eliminar(id=${conductor.id})}" class="btnEliminar" onclick="return confirm('¿Está seguro que desea eliminar este conductor?')">Eliminar Conductor</a>
+    <a th:href="@{/conductores}" class="btnVolver">Cancelar</a>
+    <script th:src="@{/assets/js/script.js}"></script>
+</body>
+</html>

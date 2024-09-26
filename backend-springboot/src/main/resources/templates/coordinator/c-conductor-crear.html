@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="es-ES">
+
+<head>
+    <title>Crear Conductor</title>
+    <link rel="stylesheet" th:href="@{/assets/css/style.css}">
+</head>
+
+<body class="c-conductor-crear">
+<h1>Gestionar Conductores</h1>
+<div class="crearConductor">
+    <h2>Crear nuevo conductor</h2>
+
+    <form th:action="@{/conductores/crear}" th:object="${conductor}" method="post">
+        <label for="nombreConductor">Nombre: </label>
+        <input type="text" th:field="*{nombre}" id="nombreConductor" required>
+
+        <label for="apellidoConductor">Apellido: </label>
+        <input type="text" th:field="*{apellido}" id="apellidoConductor" required>
+
+        <label for="cedulaConductor">Cédula: </label>
+        <input type="text" th:field="*{cedula}" id="cedulaConductor" required>
+
+        <label for="telConductor">Teléfono: </label>
+        <input type="text" th:field="*{telefono}" id="telConductor" required>
+
+        <label>Dirección: </label>
+        <div class="direccion-container">
+            <label for="tipoVia"></label><select id="tipoVia" name="tipoVia" th:field="*{direccion.tipoVia}" class="direccion" required>
+                <option value="Calle">Calle</option>
+                <option value="Carrera">Carrera</option>
+                <option value="Avenida">Avenida</option>
+                <option value="Diagonal">Diagonal</option>
+                <option value="Transversal">Transversal</option>
+                <option value="Circular">Circular</option>
+                <option value="Manzana">Manzana</option>
+                <option value="Kilómetro">Kilómetro</option>
+            </select>
+            <label for="indicativo"></label><input type="text" th:field="*{direccion.numeroVia}" id="indicativo" class="direccion" placeholder="Número" required>
+
+            <label class="direccion" for="indicativo2">#</label>
+            <input type="text" th:field="*{direccion.numero}" id="indicativo2" class="direccion" placeholder="Número" required>
+
+            <label class="direccion" for="barrio">Barrio: </label>
+            <input type="text" th:field="*{direccion.barrio}" id="barrio" class="direccion" required>
+
+            <label class="direccion" for="localidad">Localidad: </label>
+            <input type="text" th:field="*{direccion.localidad}" id="localidad" class="direccion" required>
+        </div>
+
+        <button type="submit">Crear</button>
+    </form>
+</div>
+<a th:href="@{/conductores}" class="btnVolver">Cancelar</a>
+</body>
+
+</html>

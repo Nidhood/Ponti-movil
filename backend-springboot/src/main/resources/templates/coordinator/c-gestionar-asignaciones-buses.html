@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="es-ES">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Asignar Buses al Conductor</title>
+    <link rel="stylesheet" th:href="@{/assets/css/style2.css}">
+</head>
+<body>
+<h1>Asignar Buses al Conductor:
+    <span th:text="${conductor.nombre}"></span>
+    <span th:text="${conductor.apellido}"></span>
+</h1>
+
+<div class="container">
+    <div class="content">
+        <div class="section">
+            <h2>Buses Disponibles</h2>
+            <div class="table-container">
+                <table>
+                    <thead>
+                    <tr>
+                        <th>Días</th>
+                        <th>Bus</th>
+                        <th>Acción</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="bus : ${buses}">
+                        <td>
+                            <div class="dropdown">
+                                <button type="button" class="btn" th:attr="onclick='toggleDropdown(this)'" >
+                                    Seleccionar días &#9660;
+                                </button>
+                                <div class="dropdown-content">
+                                    <form th:id="'form-' + ${bus.id}" th:action="@{/asignaciones/{idConductor}/asignarBus/{idBus}(idConductor=${conductor.id},idBus=${bus.id})}" method="post">
+                                        <div th:each="dia : ${diasDisponiblesPorBus[bus.id]}" class="checkbox-container">
+                                            <label><input type="checkbox" name="diasSemana" th:id="${bus.id + '-' + dia}" th:value="${dia}"></label>
+                                            <label th:for="${bus.id + '-' + dia}" th:text="${dia}"></label>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </td>
+                        <td th:text="${bus.placa}"></td>
+                        <td>
+                            <button type="button" class="btn" th:attr="onclick=|submitForm('${bus.id}')|">
+                                <i class="fas fa-plus-circle"></i> Asignar
+                            </button>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>Buses Asignados</h2>
+            <div class="table-container">
+                <table>
+                    <thead>
+                    <tr>
+                        <th>Días</th>
+                        <th>Bus</th>
+                        <th>Acción</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="asignacion : ${asignaciones}">
+                        <td th:text="${asignacion.diaSemana}"></td>
+                        <td th:text="${asignacion.bus.placa}"></td>
+                        <td>
+                            <form th:action="@{/asignaciones/{idConductor}/desasignarBus/{idBus}/{diaSemana}(idConductor=${asignacion.conductor.id},idBus=${asignacion.bus.id}, diaSemana=${asignacion.diaSemana})}" method="post">
+                                <button type="submit" class="btn btn-secondary">
+                                    <i class="fas fa-minus-circle"></i> Desasignar
+                                </button>
+                            </form>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<script th:src="@{/assets/js/script.js}"></script>
+</body>
+</html>

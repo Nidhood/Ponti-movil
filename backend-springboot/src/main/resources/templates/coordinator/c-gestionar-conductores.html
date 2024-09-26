@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="es-ES">
+    
+<head>
+    <link rel="stylesheet" th:href="@{/assets/css/style.css}">
+    <meta charset="UTF-8">
+    <title>Gestionar conductores</title>
+</head>
+<body class="c-gestionar-conductores">
+    <h1 class="titulo">Gestionar Conductores</h1>
+    <a class="btnNuevo" th:href="@{/conductores/crear}">Nuevo conductor +</a>
+    <table class="entity-list">
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Apellido</th>
+                <th>Cédula</th>
+                <th>Teléfono</th>
+                <th>Editar buses</th>
+                <th>Editar conductor</th>
+            </tr>
+        </thead>
+        <tbody>
+
+            <tr th:each="conductor : ${conductores}" th:if="${conductor.nombre}">
+                <td th:text="${conductor.nombre}"></td>
+                <td th:text="${conductor.apellido}"></td>
+                <td th:text="${conductor.cedula}"></td>
+                <td th:text="${conductor.telefono}"></td>
+                <td>
+                    <a class="Editar" th:href="@{/asignaciones/{id}/editar(id=${conductor.id})}">Editar buses</a>
+                </td>
+                <td>
+                    <a class="Editar" th:href="@{/conductores/{id}/editar(id=${conductor.id})}">Editar</a>
+                    <a class="Eliminar" th:href="@{/conductores/{id}/eliminar(id=${conductor.id})}" methods="post"
+                       onclick="return confirm('¿Está seguro que desea eliminar este conductor?')">Eliminar</a>
+                </td>
+                
+            </tr>
+        </tbody>
+    </table>
+    <script th:src="@{/assets/js/script.js}"></script>
+</body>
+</html>

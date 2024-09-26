@@ -1,0 +1,508 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/*Pagina de inicio*/
+.pagInicio {
+    font-family: 'Arial', sans-serif;
+    background-image: url("../img/images/fondoTransmi.png");
+    backdrop-filter: brightness(0.5);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+
+}
+
+.container {
+    text-align: center;
+    background-color: #ffffff;
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.logo img {
+    width: 500px;
+    margin-bottom: 20px;
+}
+
+h1 {
+    font-size: 24px;
+    color: #333;
+    margin-bottom: 30px;
+}
+
+.buttons {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+.btn {
+    background-color: #e60012;
+    color: white;
+    padding: 15px 30px;
+    border-radius: 25px;
+    text-decoration: none;
+    font-weight: bold;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease;
+}
+
+.btn:hover {
+    background-color: #cc0010;
+}
+
+/*c-gestionar-conductores-----------------*/
+.c-gestionar-conductores h1{
+    position: sticky;
+    top: 0;
+    background-color: #e30613;
+    color: #ffffff;
+    padding: 20px;
+    text-align: center;
+    border-radius: 5px 5px 0 0;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+body.c-gestionar-conductores {
+    background-size: cover;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 20px;
+    color: #333;
+}
+
+table.entity-list {
+    width: 100%;
+    border-collapse: collapse;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: #ffffff;
+}
+
+table.entity-list th,
+table.entity-list td {
+    padding: 12px 15px;
+    text-align: left;
+}
+
+table.entity-list thead th {
+    background-color: #e30613;
+    color: white;
+    font-weight: bold;
+    text-transform: uppercase;
+    border-bottom: 2px solid #ccc;
+}
+
+table.entity-list tbody tr {
+    border-bottom: 1px solid #ddd;
+}
+
+table.entity-list tbody tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+table.entity-list tbody tr:hover {
+    background-color: #f1f1f1;
+}
+
+.Editar{
+    color: #1a3417;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.Eliminar {
+    color: #e30613;
+    text-decoration: none;
+    font-weight: bold;
+    float: right;
+}
+
+table.entity-list tbody td a:hover {
+    text-decoration: underline;
+}
+
+.c-gestionar-conductores .btnNuevo {
+    background-color: #e30613;
+    color: #ffffff;
+    padding: 10px 20px;
+    margin-bottom: 20px;
+    border-radius: 4px;
+    text-align: center;
+    text-decoration: none;
+    font-weight: bold;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease;
+    border-style:groove;
+    border-color: #000000;
+    float: right;
+}
+
+.c-gestionar-conductores .btnNuevo:hover {
+    background-color: #c00c11;
+    border-color: #c00c11;
+}
+
+/* c-conductor-actualizar *****************/
+.c-conductor-actualizar h1 {
+    position: sticky;
+    top: 0;
+    background-color: #e30613;
+    color: #ffffff;
+    padding: 20px;
+    text-align: center;
+    border-radius: 5px 5px 0 0;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+body.c-conductor-actualizar {
+    background-size: cover;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 20px;
+    color: #333;
+}
+
+.actualizarConductor {
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    max-width: 65em;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.c-conductor-actualizar h2 {
+    color: #555;
+    font-size: 1.5em;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.c-conductor-actualizar form {
+    display: flex;
+    flex-direction: column;
+}
+
+.c-conductor-actualizar label {
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.c-conductor-actualizar input[type="text"] {
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    margin-bottom: 15px;
+    font-size: 1em;
+}
+
+.c-conductor-actualizar input[type="text"]:focus {
+    border-color: #e30613;
+    outline: none;
+    box-shadow: 0 0 5px rgba(227, 6, 19, 0.3);
+}
+
+.c-conductor-actualizar button[type="submit"] {
+    background-color: #e30613;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    font-size: 1em;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.c-conductor-actualizar button[type="submit"]:hover {
+    background-color: #c00c11;
+}
+
+.direccion-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    gap: 10px;
+    align-items: center;
+}
+
+.c-conductor-actualizar .direccion-container select.direccion,
+.c-conductor-actualizar .direccion-container input.direccion {
+    min-width: 100px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 1em;
+}
+
+.btnVolver {
+    display: block;
+    margin: 20px auto;
+    padding: 10px 20px;
+    background-color: rgb(0, 47, 47);
+    color: #ffffff;
+    text-decoration: none;
+    border: 1px solid #059987;
+    border-radius: 4px;
+    text-align: center;
+    font-size: 1em;
+    max-width: 65em;
+}
+
+.btnVolver:hover {
+    background-color: #06e3d8;
+    color: black;
+}
+
+.btnEliminar {
+    display: block;
+    margin: 20px auto;
+    padding: 10px 20px;
+    background-color: #e30613;
+    color: #ffffff;
+    text-decoration: none;
+    border: 1px solid #e30613;
+    border-radius: 4px;
+    text-align: center;
+    font-size: 1em;
+    max-width: 65em;
+}
+
+.btnEliminar:hover {
+    background-color: white;
+    color: #e30613;
+}
+
+/*LOG IN */
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+form input {
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    font-size: 16px;
+}
+
+form button {
+    background-color: #e60012;
+    color: white;
+    padding: 10px;
+    border-radius: 25px;
+    border: none;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+form button:hover {
+    background-color: #cc0010;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+form input {
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    font-size: 16px;
+}
+
+form button {
+    background-color: #e60012;
+    color: white;
+    padding: 10px;
+    border-radius: 25px;
+    border: none;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+form button:hover {
+    background-color: #cc0010;
+}
+
+/*c-conductor-crear*****************/
+.c-conductor-crear  h1{
+    position: sticky;
+    top: 0;
+    background-color: #e30613;
+    color: #ffffff;
+    padding: 20px;
+    text-align: center;
+    border-radius: 5px 5px 0 0;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+body.c-conductor-crear {
+    background-size: cover;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 20px;
+    color: #333;
+}
+
+.crearConductor {
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    max-width: 65em;
+    margin: auto;
+}
+
+.c-conductor-crear h2 {
+    color: #555;
+    font-size: 1.5em;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.c-conductor-crear form {
+    display: flex;
+    flex-direction: column;
+}
+
+.c-conductor-crear label {
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.c-conductor-crear input[type="text"] {
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    margin-bottom: 15px;
+    font-size: 1em;
+}
+
+.c-conductor-crear input[type="text"]:focus {
+    border-color: #e30613;
+    outline: none;
+    box-shadow: 0 0 5px rgba(227, 6, 19, 0.3);
+}
+
+
+.c-conductor-crear button[type="submit"] {
+    background-color: #e30613;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    font-size: 1em;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.c-conductor-crear button[type="submit"]:hover {
+    background-color: #c00c11;
+}
+
+.btnVolver:hover {
+    background-color: #06e3d8;
+    color: black;
+}
+
+.btnEliminar:hover {
+    background-color: white;
+    color: #e30613;
+}
+
+.c-conductor-crear  .direccion-container select.direccion,
+.c-conductor-crear  .direccion-container input.direccion {
+    min-width: 100px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 1em;
+}
+
+
+.c-conductor-crear label.direccion {
+    font-weight: bold;
+    margin-bottom: 5px;
+    align-content: center;
+}
+
+.c-conductor-crear select.direccion {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    margin-bottom: 15px;
+    font-size: 1em;
+}
+
+.error {
+    color: red;
+}
+
+/* Error Page */
+.error-page {
+    font-family: 'Arial', sans-serif;
+    background-image: url("../img/images/fondoTransmi.png");
+    backdrop-filter: brightness(0.5);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.error-page .container {
+    text-align: center;
+    background-color: #ffffff;
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.error-page .logo img {
+    width: 300px;
+    margin-bottom: 20px;
+}
+
+.error-page h1 {
+    font-size: 28px;
+    color: #e30613;
+    margin-bottom: 20px;
+}
+
+.error-page p {
+    font-size: 18px;
+    color: #333;
+    margin-bottom: 30px;
+}
+
+.error-page .btn {
+    background-color: #e60012;
+    color: white;
+    padding: 15px 30px;
+    border-radius: 25px;
+    text-decoration: none;
+    font-weight: bold;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease;
+}
+
+.error-page .btn:hover {
+    background-color: #cc0010;
+}
