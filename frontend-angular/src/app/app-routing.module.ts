@@ -1,17 +1,17 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
-import {LoginComponent} from "./usuario/u-login/login.component";
-import {RegisterComponent} from "./usuario/u-register/register.component";
-import {HomeComponent} from "./usuario/u-home/home.component";
+import {ULoginComponent} from "./usuario/u-login/u-login.component";
+import {URegisterComponent} from "./usuario/u-register/u-register.component";
+import {UHomeComponent} from "./usuario/u-home/u-home.component";
 import {PMenuComponent} from "./pasajero/p-menu/p-menu.component";
+import {ErrorComponent} from "./error/error.component";
 
 const routes: Routes = [
-  { path: '', component: HomeComponent },
-  { path: 'u-login', component: LoginComponent },
-  { path: 'register', component: RegisterComponent },
+  { path: '', component: UHomeComponent },
+  { path: 'u-login', component: ULoginComponent },
+  { path: 'u-register', component: URegisterComponent },
   { path: 'p-menu', component: PMenuComponent },
-  { path: '**', redirectTo: '' }
-
+  { path: '**', component: ErrorComponent }
 ];
 
 @NgModule({

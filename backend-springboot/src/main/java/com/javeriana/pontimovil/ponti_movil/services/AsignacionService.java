@@ -1,14 +1,9 @@
 package com.javeriana.pontimovil.ponti_movil.services;
 
-
-import com.javeriana.pontimovil.ponti_movil.entities.Asignacion;
-import com.javeriana.pontimovil.ponti_movil.entities.Bus;
-import com.javeriana.pontimovil.ponti_movil.entities.Conductor;
-import com.javeriana.pontimovil.ponti_movil.entities.RutaEstacion;
+import com.javeriana.pontimovil.ponti_movil.entities.*;
 import com.javeriana.pontimovil.ponti_movil.exceptions.*;
 import com.javeriana.pontimovil.ponti_movil.repositories.*;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 import java.util.UUID;
 
@@ -34,6 +29,10 @@ public class AsignacionService {
     }
 
     // Métodos:
+    public List<Asignacion> obtenerAsignaciones() {
+        return asignacionRepository.findAll();
+    }
+
     public void asignarBus(UUID idConductor, UUID idBus, String diaSemana) {
         Conductor conductor = conductorRepository.findById(idConductor).orElseThrow(() -> new ConductorNotFoundException(idConductor));
         Bus bus = busRepository.findById(idBus).orElseThrow(() -> new BusNotFoundException(idBus));
@@ -46,16 +45,36 @@ public class AsignacionService {
         asignacionRepository.delete(asignacion);
     }
 
-    public void asignarRuta(UUID idBus, UUID idRuta) {
+    public void asignarRuta(UUID idBus, UUID idRuta, String diaSemana) {
         Asignacion asignacion = new Asignacion();
-        asignacion.setBus(busRepository.findById(idBus).orElseThrow(() -> new BusNotFoundException(idBus)));
-        asignacion.setRuta(rutaRepository.findById(idRuta).orElseThrow(() -> new RutaNotFoundException(idRuta)));
-        asignacionRepository.save(asignacion);
+
+        // Para asignar ruta, comprobamos que primero se haya asignado un conductor al bus ese día:
+        if(asignacionRepository.findByBusIdAndDiaSemana(idBus, diaSemana) != null) {
+
+            // Si ya existe una ruta asignada ese día, creamos una nueva asignación:
+            if(asignacionRepository.findByBusIdAndRutaIdAndDiaSemana(idBus, idRuta, diaSemana) != null ) {
+                asignacion.setConductor(asignacionRepository.findByBusIdAndDiaSemana(idBus, diaSemana).getConductor());
+                asignacion.setBus(busRepository.findById(idBus).orElseThrow(() -> new BusNotFoundException(idBus)));
+                asignacion.setRuta(rutaRepository.findById(idRuta).orElseThrow(() -> new RutaNotFoundException(idRuta)));
+                asignacion.setDiaSemana(diaSemana);
+                asignacionRepository.save(asignacion);
+
+            // Si no existe una ruta asignada ese día, simplemente actualizamos la ruta asignada:
+            } else {
+                asignacion = asignacionRepository.findByBusIdAndDiaSemana(idBus, diaSemana);
+                asignacion.setRuta(rutaRepository.findById(idRuta).orElseThrow(() -> new RutaNotFoundException(idRuta)));
+                asignacionRepository.save(asignacion);
+            }
+        }
     }
 
     public void desasignarRuta(UUID idBus, UUID idRuta) {
-        Asignacion asignacion = asignacionRepository.findByBusIdAndRutaId(idBus, idRuta);
-        asignacionRepository.delete(asignacion);
+
+        // Encontramos todas las asignaciones por bus y ruta todos los días de la semana:
+        List<Asignacion> asignaciones = asignacionRepository.findByBusIdAndRutaId(idBus, idRuta);
+
+        // Eliminamos todas las asignaciones encontradas:
+        asignacionRepository.deleteAll(asignaciones);
     }
 
     public void asignarEstacion(UUID idRuta, UUID idEstacion) {

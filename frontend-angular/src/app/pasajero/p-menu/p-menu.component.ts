@@ -1,5 +1,7 @@
 import {Component, OnInit} from '@angular/core';
-import {RouterService} from "../../services/router.service";
+import { PasajeroService } from '../../services/pasajero.service';
+import { RutaDto } from "../../dto/pasajero/ruta-dto";
+import {BehaviorSubject, map, Observable} from "rxjs";
 
 @Component({
   selector: 'app-p-menu',
@@ -8,24 +10,48 @@ import {RouterService} from "../../services/router.service";
 })
 
 export class PMenuComponent implements OnInit {
+  private rutasSubject = new BehaviorSubject<RutaDto[]>([]);
+  rutas$: Observable<RutaDto[]> = this.rutasSubject.asObservable();
+  selectedRuta: RutaDto | null = null;
+  guiaVisible = false;
 
-  rutas: any[] = [];  // Aquí se almacenarán las rutas obtenidas
+  constructor(private pasajeroService: PasajeroService) {}
 
-  constructor(private routerService: RouterService) { }
-
-  ngOnInit(): void {
-    this.getRutas();
+  ngOnInit() {
+    this.pasajeroService.listaRutas().subscribe(rutas => {
+      this.rutasSubject.next(rutas);
+    });
   }
 
-  getRutas(): void {
-    this.routerService.getRutas().subscribe(
-      (data) => {
-        this.rutas = data;
-      },
-      (error) => {
-        console.error('Error al obtener rutas:', error);
-      }
+  onSearch(searchTerm: string) {
+    this.rutas$ = this.rutasSubject.pipe(
+      map(rutas => rutas.filter(ruta =>
+        ruta.codigo.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        ruta.estaciones.some(estacion =>
+          estacion.nombre.toLowerCase().includes(searchTerm.toLowerCase())
+        )
+      ))
     );
   }
-}
 
+  seleccionarRuta(ruta: RutaDto) {
+    this.selectedRuta = ruta;
+  }
+
+  cerrarDetalles() {
+    this.selectedRuta = null;
+  }
+
+  mostrarGuia() {
+    this.guiaVisible = true;
+  }
+
+  cerrarGuia() {
+    this.guiaVisible = false;
+  }
+
+  cerrarModal() {
+    this.selectedRuta = null;
+    this.guiaVisible = false;
+  }
+}

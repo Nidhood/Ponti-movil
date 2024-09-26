@@ -36,7 +36,6 @@ public class UsuarioController {
     @GetMapping("/login")
     public ModelAndView obtenerUsuarioPorId() {
         return new ModelAndView("usuario/log-in");
-
     }
 
     @GetMapping("/register")
