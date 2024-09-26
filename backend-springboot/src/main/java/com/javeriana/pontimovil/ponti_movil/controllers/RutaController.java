@@ -1,5 +1,6 @@
 package com.javeriana.pontimovil.ponti_movil.controllers;
 
+import com.javeriana.pontimovil.ponti_movil.dto.pasajero.RutaDTO;
 import com.javeriana.pontimovil.ponti_movil.entities.Ruta;
 import com.javeriana.pontimovil.ponti_movil.entities.RutaEstacion;
 import com.javeriana.pontimovil.ponti_movil.services.RutaService;
@@ -25,6 +26,11 @@ public class RutaController {
     @GetMapping
     public List<Ruta> obtenerRutas() {
         return rutaService.obtenerRutas();
+    }
+
+    @GetMapping("/diasSemana")
+    public List<RutaDTO> obtenerRutasPorDiasSemana(){
+        return rutaService.obtenerRutasPorDiasSemana();
     }
 
     @GetMapping("/{id}")

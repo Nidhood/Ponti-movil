@@ -11,7 +11,7 @@ import java.util.UUID;
 
 @Repository
 public interface AsignacionRepository extends JpaRepository<Asignacion, UUID> {
-    Asignacion findByBusIdAndRutaId(UUID idBus, UUID idRuta);
+    List<Asignacion> findByBusIdAndRutaId(UUID idBus, UUID idRuta);
     List<Asignacion> findByRutaId(UUID id);
     List<Asignacion> findByConductorId(UUID idConductor);
     Asignacion findByConductorIdAndBusIdAndDiaSemana(UUID idConductor, UUID idBus, String diaSemana);
@@ -20,4 +20,6 @@ public interface AsignacionRepository extends JpaRepository<Asignacion, UUID> {
             "FROM (VALUES ('Lunes'), ('Martes'), ('Miercoles'), ('Jueves'), ('Viernes'), ('Sabado'), ('Domingo')) AS dias(dia) " +
             "WHERE dia NOT IN (SELECT DIA_SEMANA FROM ASIGNACIONES WHERE BUS_ID = :idBus)", nativeQuery = true)
     List<String> findDiasSemanaDisponibleByBusId(@Param("idBus") UUID idBus);
+    Asignacion findByBusIdAndDiaSemana(UUID idBus, String diaSemana);
+    List<Asignacion> findByBusIdAndRutaIdAndDiaSemana(UUID idBus, UUID idRuta, String diaSemana);
 }

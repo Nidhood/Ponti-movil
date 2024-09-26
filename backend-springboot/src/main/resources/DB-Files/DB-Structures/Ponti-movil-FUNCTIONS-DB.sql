@@ -85,7 +85,7 @@ CREATE TABLE IF NOT EXISTS RUTAS
 
 -----------------------------------------------------------------------------------------------------------------------
 
--- Table: CONDUCTORES_BUSES_RUTAS
+-- Table: ASIGNACIONES
 
 CREATE TABLE IF NOT EXISTS ASIGNACIONES
 (
@@ -94,7 +94,7 @@ CREATE TABLE IF NOT EXISTS ASIGNACIONES
     BUS_ID         UUID NOT NULL,
     RUTA_ID        UUID,
     DIA_SEMANA     VARCHAR(20) NOT NULL,
-    UNIQUE (CONDUCTOR_ID, BUS_ID, DIA_SEMANA),
+    UNIQUE (CONDUCTOR_ID, BUS_ID, RUTA_ID, DIA_SEMANA),
     CHECK (DIA_SEMANA IN ('Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes', 'Sabado', 'Domingo')),
     CONSTRAINT fk_assignment_driver FOREIGN KEY (CONDUCTOR_ID) REFERENCES CONDUCTORES (ID),
     CONSTRAINT fk_assignment_bus FOREIGN KEY (BUS_ID) REFERENCES BUSES (ID),

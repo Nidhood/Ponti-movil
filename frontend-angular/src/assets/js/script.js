@@ -27,7 +27,7 @@ document.getElementById('registerForm')?.addEventListener('submit', function(e) 
         .then(response => {
             if (response.ok) {
                 alert("Registro exitoso");
-                window.location.href = "login.html";
+                window.location.href = "u-login.html";
             } else {
                 alert("Error en el registro");
             }

@@ -1,0 +1,12 @@
+<div class="card" (click)="seleccionarRuta()">
+  <div class="card-header">
+    <h2>{{ ruta.codigo }}</h2>
+  </div>
+  <div class="card-content">
+    <p>{{ ruta.codigo }}</p>
+    <div>
+      <i class="fas fa-clock mr-2"></i>
+      <span>{{ ruta.horario.horaInicio }} - {{ ruta.horario.horaFin }}</span>
+    </div>
+  </div>
+</div>

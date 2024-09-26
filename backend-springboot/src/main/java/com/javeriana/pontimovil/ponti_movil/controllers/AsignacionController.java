@@ -1,6 +1,5 @@
 package com.javeriana.pontimovil.ponti_movil.controllers;
 
-
 import com.javeriana.pontimovil.ponti_movil.entities.Asignacion;
 import com.javeriana.pontimovil.ponti_movil.entities.Bus;
 import com.javeriana.pontimovil.ponti_movil.entities.Conductor;
@@ -10,7 +9,6 @@ import com.javeriana.pontimovil.ponti_movil.services.ConductorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
-
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -35,12 +33,19 @@ public class AsignacionController {
     }
 
     // Métodos:
+    @GetMapping
+    public List<Asignacion> obtenerAsignaciones() {
+        return asignacionService.obtenerAsignaciones();
+    }
+
+    // SOLO PAGINA
     @GetMapping("/{idConductor}/editar")
     public ModelAndView obtenerAsignacionesPorConductor(@PathVariable UUID idConductor) {
         Conductor conductor = conductorService.obtenerConductorPorId(idConductor);
         List<Asignacion> asignaciones = asignacionService.obtenerAsignacionesPorConductor(idConductor);
         List<Bus> buses = busService.obtenerBuses();
 
+        // !!! Mejorar el codigo de abajo, que sea una Query !!!.
         // Crear un mapa de días disponibles para cada bus
         Map<UUID, List<String>> diasDisponiblesPorBus = new HashMap<>();
         buses.removeIf(bus -> {
@@ -61,22 +66,22 @@ public class AsignacionController {
     }
 
     @PostMapping("/{idConductor}/asignarBus/{idBus}")
-    public ModelAndView asignarBus(@PathVariable UUID idConductor, @PathVariable UUID idBus, @RequestParam List<String> diasSemana) {
+    public void asignarBus(@PathVariable UUID idConductor, @PathVariable UUID idBus, @RequestParam List<String> diasSemana) {
         for (String diaSemana : diasSemana) {
             asignacionService.asignarBus(idConductor, idBus, diaSemana);
         }
-        return new ModelAndView("redirect:/asignaciones/" + idConductor + "/editar");
     }
 
     @PostMapping("/{idConductor}/desasignarBus/{idBus}/{diaSemana}")
-    public ModelAndView desasignarBus(@PathVariable UUID idConductor, @PathVariable UUID idBus, @PathVariable String diaSemana) {
+    public void desasignarBus(@PathVariable UUID idConductor, @PathVariable UUID idBus, @PathVariable String diaSemana) {
         asignacionService.desasignarBus(idConductor, idBus, diaSemana);
-        return new ModelAndView("redirect:/asignaciones/" + idConductor + "/editar");
     }
 
     @PostMapping("/{idBus}/asignarRuta/{idRuta}")
-    public void asignarRuta(@PathVariable UUID idBus, @PathVariable UUID idRuta) {
-        asignacionService.asignarRuta(idBus, idRuta);
+    public void asignarRuta(@PathVariable UUID idBus, @PathVariable UUID idRuta, @RequestParam List<String> diasSemana) {
+        for(String diaSemana : diasSemana) {
+            asignacionService.asignarRuta(idBus, idRuta, diaSemana);
+        }
     }
 
     @PostMapping("/{idBus}/desasignarRuta/{idRuta}")
