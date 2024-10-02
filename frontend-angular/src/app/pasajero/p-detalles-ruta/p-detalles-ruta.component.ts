@@ -1,10 +1,14 @@
 import {Component, Input} from '@angular/core';
 import {RutaDto} from "../../dto/pasajero/ruta-dto";
+import { ButtonModule } from 'primeng/button';
+import {NgForOf} from "@angular/common";
 
 @Component({
   selector: 'app-p-detalles-ruta',
   templateUrl: './p-detalles-ruta.component.html',
-  styleUrls: ['./p-detalles-ruta.component.css']
+  styleUrls: ['./p-detalles-ruta.component.css'],
+  standalone: true,
+  imports: [ButtonModule, NgForOf]
 })
 
 export class PDetallesRutaComponent {

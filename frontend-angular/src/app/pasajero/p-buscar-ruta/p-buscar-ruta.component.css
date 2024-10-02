@@ -2,11 +2,6 @@
 @import url('https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css');
 @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css');
 
-/* Custom styles */
-.c-gestionar-conductores {
-  background-color: #f3f4f6;
-}
-
 .card {
   background-color: white;
   border-radius: 0.5rem;
@@ -31,7 +26,7 @@ input[type="text"] {
 }
 
 button {
-  padding: 0.5rem 1rem;
+  padding: 0.5rem 1rem 0.5rem 0;
   background-color: #dc2626;
   color: white;
   border: none;
@@ -66,6 +61,20 @@ button:hover {
   background-repeat: no-repeat;
   background-position: center;
   margin-right: 8px;
+}
+
+.loading-animation {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 24px;
+  width: 100%;
+}
+
+.loading-animation ng-lottie {
+  padding-right: 5px;
+  width: 400px;
+  height: 400px;
 }
 
 .icon-buscar { background-image: url("../../../assets/img/svg/buscar.svg"); }

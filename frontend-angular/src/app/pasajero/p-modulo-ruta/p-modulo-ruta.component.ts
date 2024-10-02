@@ -4,7 +4,9 @@ import {RutaDto} from "../../dto/pasajero/ruta-dto";
 @Component({
   selector: 'app-p-modulo-ruta',
   templateUrl: './p-modulo-ruta.component.html',
-  styleUrls: ['./p-modulo-ruta.component.css']
+  standalone: true,
+  styleUrls: ['./p-modulo-ruta.component.css'],
+  imports: []
 })
 
 export class PModuloRutaComponent {

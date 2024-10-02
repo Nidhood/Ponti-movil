@@ -12,10 +12,14 @@ import { ErrorComponent } from './error/error.component';
 import { HttpClientModule } from "@angular/common/http";
 import { FormsModule } from "@angular/forms";
 import { RouterModule } from "@angular/router";
-import { PMenuComponent } from './pasajero/p-menu/p-menu.component';
-import { PModuloRutaComponent } from './pasajero/p-modulo-ruta/p-modulo-ruta.component';
-import { PDetallesRutaComponent } from './pasajero/p-detalles-ruta/p-detalles-ruta.component';
-import { PBuscarRutaComponent } from './pasajero/p-buscar-ruta/p-buscar-ruta.component';
+import {LottieComponent, LottieModule} from "ngx-lottie";
+import player from 'lottie-web';
+import {Button} from "primeng/button";
+
+
+export function playerFactory() {
+  return player;
+}
 
 @NgModule({
   declarations: [
@@ -25,11 +29,7 @@ import { PBuscarRutaComponent } from './pasajero/p-buscar-ruta/p-buscar-ruta.com
     ULoginComponent,
     URegisterComponent,
     UHomeComponent,
-    PMenuComponent,
-    ErrorComponent,
-    PModuloRutaComponent,
-    PDetallesRutaComponent,
-    PBuscarRutaComponent
+    ErrorComponent
   ],
 
   imports: [
@@ -37,10 +37,14 @@ import { PBuscarRutaComponent } from './pasajero/p-buscar-ruta/p-buscar-ruta.com
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
-    RouterModule
+    RouterModule,
+    LottieComponent,
+    LottieModule.forRoot({player: playerFactory}),
+    Button
   ],
 
   providers: [],
+  exports: [],
   bootstrap: [AppComponent]
 })
 

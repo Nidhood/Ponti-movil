@@ -1,12 +1,28 @@
 import {Component, OnInit} from '@angular/core';
 import { PasajeroService } from '../../services/pasajero.service';
 import { RutaDto } from "../../dto/pasajero/ruta-dto";
-import {BehaviorSubject, map, Observable} from "rxjs";
+import {BehaviorSubject, finalize, map, Observable} from "rxjs";
+import {AnimationOptions, LottieComponent} from "ngx-lottie";
+import {PBuscarRutaComponent} from "../p-buscar-ruta/p-buscar-ruta.component";
+import {PModuloRutaComponent} from "../p-modulo-ruta/p-modulo-ruta.component";
+import {PDetallesRutaComponent} from "../p-detalles-ruta/p-detalles-ruta.component";
+import {AsyncPipe, NgForOf, NgIf, NgOptimizedImage} from "@angular/common";
 
 @Component({
   selector: 'app-p-menu',
+  standalone: true,
   templateUrl: './p-menu.component.html',
-  styleUrls: ['./p-menu.component.css']
+  styleUrls: ['./p-menu.component.css'],
+  imports: [
+    PBuscarRutaComponent,
+    LottieComponent,
+    PModuloRutaComponent,
+    PDetallesRutaComponent,
+    NgIf,
+    NgForOf,
+    NgOptimizedImage,
+    AsyncPipe
+  ]
 })
 
 export class PMenuComponent implements OnInit {
@@ -14,11 +30,14 @@ export class PMenuComponent implements OnInit {
   rutas$: Observable<RutaDto[]> = this.rutasSubject.asObservable();
   selectedRuta: RutaDto | null = null;
   guiaVisible = false;
+  isLoading = true;
 
   constructor(private pasajeroService: PasajeroService) {}
 
   ngOnInit() {
-    this.pasajeroService.listaRutas().subscribe(rutas => {
+    this.pasajeroService.listaRutas().pipe(
+      finalize(() => this.isLoading = false)
+    ).subscribe(rutas => {
       this.rutasSubject.next(rutas);
     });
   }
@@ -54,4 +73,8 @@ export class PMenuComponent implements OnInit {
     this.selectedRuta = null;
     this.guiaVisible = false;
   }
+
+  options: AnimationOptions = {
+    path: '/assets/animations/loading.json'
+  };
 }
