@@ -4,9 +4,7 @@
       <i class="icon-bus"></i>
       {{ ruta.codigo }}
     </h2>
-    <button (click)="cerrarDetalle()" class="modal-close">
-      <i class="icon-close"></i>
-    </button>
+    <p-button icon="pi pi-times" severity="danger" (click)="cerrarDetalle()"></p-button>
   </div>
 
   <div class="modal-content">
@@ -36,10 +34,9 @@
       </ul>
     </div>
   </div>
-
-  <div class="p-d-flex p-jc-end p-p-4">
-    <p-button label="Editar Ruta" icon="pi pi-pencil" styleClass="p-button-raised p-button-rounded">
-      <a [routerLink]="['/r-editar-ruta']">Editar</a>
+  <div class="edit-btn">
+    <p-button  severity="secondary" (mouseenter)="onMouseEnter()" (mouseleave)="onMouseLeave()">
+      <i class="pi pi-cog" [ngClass]="{ 'pi-spin': hover }" style="font-size: 1rem"></i>
     </p-button>
   </div>
 </div>

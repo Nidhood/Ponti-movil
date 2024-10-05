@@ -7,6 +7,7 @@ import { LottieComponent, AnimationOptions } from 'ngx-lottie';
 import {RModuloRutaComponent} from '../r-modulo-ruta/r-modulo-ruta.component';
 import {RDetallesRutaComponent} from '../r-detalles-ruta/r-detalles-ruta.component';
 import {RBuscarRutaComponent} from '../r-buscar-ruta/r-buscar-ruta.component';
+import {REditarRutaComponent} from '../r-editar-ruta/r-editar-ruta.component';
 
 @Component({
   selector: 'app-r-menu',
@@ -19,7 +20,8 @@ import {RBuscarRutaComponent} from '../r-buscar-ruta/r-buscar-ruta.component';
     LottieComponent,
     RModuloRutaComponent,
     RDetallesRutaComponent,
-    RBuscarRutaComponent
+    RBuscarRutaComponent,
+    REditarRutaComponent
   ],
   templateUrl: './r-menu.component.html',
   styleUrl: './r-menu.component.css'
@@ -28,6 +30,7 @@ export class RMenuComponent {
   private rutasSubject = new BehaviorSubject<RutaDto[]>([]);
   rutas$: Observable<RutaDto[]> = this.rutasSubject.asObservable();
   selectedRuta: RutaDto | null = null;
+  editRuta: RutaDto | null = null;
   guiaVisible = false;
   isLoading = true;
 
@@ -69,6 +72,11 @@ export class RMenuComponent {
   }
 
   cerrarModal() {
+    this.selectedRuta = null;
+    this.guiaVisible = false;
+  }
+
+  cerrarEditar() {
     this.selectedRuta = null;
     this.guiaVisible = false;
   }

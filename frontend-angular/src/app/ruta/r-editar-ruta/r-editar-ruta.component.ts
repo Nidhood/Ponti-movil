@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, Input} from '@angular/core';
 import {FormsModule} from '@angular/forms';
 import {Button} from 'primeng/button';
 import {RModuloEstacionesComponent} from './r-modulo-estaciones/r-modulo-estaciones.component';
@@ -9,15 +9,6 @@ interface Estacion {
   direccion: string;
   codigo: string;
   tipo: string;
-}
-
-interface Ruta {
-  id?: number;
-  nombre: string;
-  estaciones: Estacion[];
-}
-
-class RouteService {
 }
 
 @Component({
@@ -32,7 +23,8 @@ class RouteService {
   styleUrl: './r-editar-ruta.component.css'
 })
 export class REditarRutaComponent {
-  ruta: Ruta = { nombre: '', estaciones: [] };
+  @Input() ruta: any;
+
   estacionesDisponibles: Estacion[] = [];
   todasLasEstaciones: Estacion[] = [];
 

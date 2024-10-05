@@ -21,12 +21,19 @@
 
     <div *ngIf="selectedRuta || guiaVisible" class="modal-backdrop" (click)="cerrarModal()"></div>
 
+    <!-- desplegamos los detalles de la ruta seleccionada -->
     <app-r-detalles-ruta *ngIf="selectedRuta" [ruta]="selectedRuta" (close)="cerrarDetalles()"></app-r-detalles-ruta>
+
+    <!-- desplegamos la edición de la ruta seleccionada -->
+    <app-r-editar-ruta *ngIf="editRuta" [ruta]="selectedRuta" (close)="cerrarEditar()"></app-r-editar-ruta>
+
+    <!-- desplegamos la guía de rutas -->
     <div *ngIf="guiaVisible" class="modal guia-modal">
       <button (click)="cerrarGuia()" class="modal-close">
         <i class="icon-close"></i>
       </button>
       <img ngSrc="./assets/images/rutasTransmi.png" alt="Rutas TransMilenio" height="880" width="1070">
     </div>
+
   </div>
 </div>
