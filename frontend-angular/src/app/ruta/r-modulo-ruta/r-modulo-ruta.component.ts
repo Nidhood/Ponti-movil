@@ -1,5 +1,5 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core';
-import {RutaDto} from '../../dto/ruta/ruta-dto';
+import {RutaDto} from '../../dto/gestionar-rutas/ruta/ruta-dto';
 
 @Component({
   selector: 'app-r-modulo-ruta',

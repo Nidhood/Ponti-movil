@@ -1,6 +1,6 @@
 package com.javeriana.pontimovil.ponti_movil.controllers;
 
-import com.javeriana.pontimovil.ponti_movil.dto.pasajero.RutaDTO;
+import com.javeriana.pontimovil.ponti_movil.dto.gestion_rutas.ruta.RutaDTO;
 import com.javeriana.pontimovil.ponti_movil.entities.Ruta;
 import com.javeriana.pontimovil.ponti_movil.entities.RutaEstacion;
 import com.javeriana.pontimovil.ponti_movil.services.RutaService;

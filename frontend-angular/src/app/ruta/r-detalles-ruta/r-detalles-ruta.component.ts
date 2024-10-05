@@ -19,6 +19,7 @@ import {RouterLink} from '@angular/router';
 export class RDetallesRutaComponent {
   @Input() ruta: any;
   @Output() close = new EventEmitter<void>();
+  @Output() edit = new EventEmitter<void>();
   hover: boolean = false;
 
   constructor() {}
@@ -33,5 +34,9 @@ export class RDetallesRutaComponent {
 
   onMouseLeave() {
     this.hover = false;
+  }
+
+  editarRuta() {
+    this.edit.emit();
   }
 }

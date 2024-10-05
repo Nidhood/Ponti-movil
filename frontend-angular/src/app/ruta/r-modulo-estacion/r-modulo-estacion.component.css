@@ -6,7 +6,7 @@
   width: 80%;
   max-width: 800px;
   max-height: 80vh;
-  overflow-y: auto; /* Scroll */
+  overflow-y: auto;
   position: fixed;
   transform: translate(-50%, -50%);
   z-index: 1000;
@@ -29,54 +29,27 @@
 
 .station-list {
   width: 48%;
-  max-height: 300px;
-  overflow-y: auto; /* Scroll for station lists */
 }
 
 .station-list-container {
   border: 1px solid #ccc;
   min-height: 200px;
   border-radius: 4px;
+  overflow-y: auto;
 }
 
 .station-box {
   padding: 10px;
   border-bottom: 1px solid #eee;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+  cursor: move;
   background-color: white;
+}
+
+.cdk-drag-animating {
+  transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
 }
 
 .action-buttons {
   display: flex;
   justify-content: space-between;
-  margin-top: 20px;
-}
-
-.asignar-btn {
-  background-color: #4CAF50;
-  color: white;
-}
-
-.desasignar-btn {
-  background-color: #f44336;
-  color: white;
-}
-
-.form-section {
-  margin-bottom: 20px;
-}
-
-.form-group {
-  margin-bottom: 10px;
-}
-
-form-group label {
-  display: block;
-  margin-bottom: 5px;
-}
-
-form-group input, p-calendar {
-  width: 100%;
 }

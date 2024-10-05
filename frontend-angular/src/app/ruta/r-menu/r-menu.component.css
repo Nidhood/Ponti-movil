@@ -95,14 +95,8 @@ button:hover {
   height: auto;
 }
 
-.modal-close {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  background: none;
-  border: none;
-  font-size: 24px;
-  cursor: pointer;
+.guia-modal p-button {
+  justify-content: right;
 }
 
 .icon-close {

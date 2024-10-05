@@ -1,6 +1,6 @@
 package com.javeriana.pontimovil.ponti_movil.services;
 
-import com.javeriana.pontimovil.ponti_movil.dto.pasajero.*;
+import com.javeriana.pontimovil.ponti_movil.dto.gestion_rutas.ruta.*;
 import com.javeriana.pontimovil.ponti_movil.entities.*;
 import com.javeriana.pontimovil.ponti_movil.exceptions.RutaNotFoundException;
 import com.javeriana.pontimovil.ponti_movil.repositories.AsignacionRepository;
@@ -15,7 +15,6 @@ import org.springframework.web.server.ResponseStatusException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 @Service
 public class RutaService {
@@ -69,6 +68,7 @@ public class RutaService {
 
             // Creamos el nuevo DTO:
             RutaDTO rutaDTO = new RutaDTO(
+                    ruta.getId(),
                     ruta.getCodigo(),
                     horario,
                     estaciones,
