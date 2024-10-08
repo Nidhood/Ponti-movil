@@ -17,6 +17,9 @@
 
       <!-- desplegamos las rutas -->
       <app-r-modulo-ruta *ngFor="let ruta of rutas$ | async" [ruta]="ruta" (rutaSelected)="seleccionarRuta($event)"></app-r-modulo-ruta>
+
+      <!-- desplegamos el formulario para agregar una nueva ruta -->
+      <app-r-modulo-agregar-ruta (click)="abrirFormulario()"></app-r-modulo-agregar-ruta>
     </div>
 
     <!-- condición para opacar el fondo mientras se despliega un modal -->
@@ -27,6 +30,9 @@
 
     <!-- desplegamos la edición de la ruta seleccionada -->
     <app-r-editar-ruta *ngIf="editRuta" [ruta]="editRuta" (close)="cerrarEditar()" (save)="guardarCambiosRuta($event)"></app-r-editar-ruta>
+
+    <!-- desplegamos la creación de una nueva ruta -->
+    <app-r-agregar-ruta *ngIf="agregarRuta" (close)="cerrarAgregar()" (save)="guardarNuevaRuta($event)"></app-r-agregar-ruta>
 
     <!-- desplegamos la guía de rutas -->
     <div *ngIf="guiaVisible" class="modal guia-modal">

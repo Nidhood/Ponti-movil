@@ -8,6 +8,7 @@ export class RutaDto {
     public id: string,
     public codigo: string,
     public horario: HorarioDTO,
+    public diasSemana: string[],
     public estaciones: EstacionDto[],
     public buses: BusDTO[],
     public conductores: ConductorDTO[]

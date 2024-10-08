@@ -13,7 +13,7 @@ export class GestionarRutasService {
 
   // Construimos el servicio para conseguir rutas:
   listaRutas(): Observable<RutaDto[]> {
-    return this.http.get<RutaDto[]>(`${environment.SERVE_URL}/rutas/diasSemana`);
+    return this.http.get<RutaDto[]>(`${environment.SERVE_URL}/rutas/detalladas`);
   }
 
   // Construimos el servicio para actualizar una ruta:
@@ -29,5 +29,10 @@ export class GestionarRutasService {
   // Construimos el servicio para conseguir las estaciones por ruta:
   obtenerEstacionesPorRuta(idRuta: string | undefined): Observable<any[]> {
     return this.http.get<any[]>(`${environment.SERVE_URL}/estaciones/${idRuta}`);
+  }
+
+  // Construimos el servicio para crear una ruta:
+  crearRuta(ruta: RutaDto | null): Observable<RutaDto> {
+    return this.http.post<RutaDto>(`${environment.SERVE_URL}/rutas/crear`, ruta);
   }
 }

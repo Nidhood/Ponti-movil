@@ -10,7 +10,6 @@ import java.time.LocalTime;
 @EqualsAndHashCode
 @NoArgsConstructor
 public class HorarioDTO implements Serializable {
-    String dia;
     LocalTime horaInicio;
     LocalTime horaFin;
 }

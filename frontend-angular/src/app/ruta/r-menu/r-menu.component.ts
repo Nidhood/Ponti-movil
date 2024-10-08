@@ -9,6 +9,8 @@ import {RDetallesRutaComponent} from '../r-detalles-ruta/r-detalles-ruta.compone
 import {RBuscarRutaComponent} from '../r-buscar-ruta/r-buscar-ruta.component';
 import {REditarRutaComponent} from '../r-editar-ruta/r-editar-ruta.component';
 import {Button} from 'primeng/button';
+import {RAgregarRutaComponent} from '../r-agregar-ruta/r-agregar-ruta.component';
+import {RModuloAgregarRutaComponent} from '../r-modulo-agregar-ruta/r-modulo-agregar-ruta.component';
 
 @Component({
   selector: 'app-r-menu',
@@ -23,7 +25,9 @@ import {Button} from 'primeng/button';
     RDetallesRutaComponent,
     RBuscarRutaComponent,
     REditarRutaComponent,
-    Button
+    Button,
+    RAgregarRutaComponent,
+    RModuloAgregarRutaComponent
   ],
   templateUrl: './r-menu.component.html',
   styleUrl: './r-menu.component.css'
@@ -34,6 +38,7 @@ export class RMenuComponent {
   rutas$: Observable<RutaDto[]> = this.rutasSubject.asObservable();
   selectedRuta: RutaDto | null = null;
   editRuta: RutaDto | null = null;
+  agregarRuta = false;
   guiaVisible = false;
   isLoading = true;
 
@@ -85,6 +90,10 @@ export class RMenuComponent {
     this.guiaVisible = false;
   }
 
+  cerrarAgregar() {
+    this.agregarRuta = false;
+  }
+
   cargarRutas() {
     this.isLoading = true;
     this.gestionarRutasService.listaRutas().pipe(
@@ -107,6 +116,20 @@ export class RMenuComponent {
       },
       error => console.error('Error al guardar cambios:', error)
     );
+  }
+
+  guardarNuevaRuta(rutaNueva: RutaDto) {
+    this.gestionarRutasService.crearRuta(rutaNueva).subscribe(
+      () => {
+        this.cargarRutas();
+        this.cerrarAgregar();
+      },
+      error => console.error('Error al guardar la nueva ruta:', error)
+    );
+  }
+
+  abrirFormulario() {
+    this.agregarRuta = true;
   }
 
   options: AnimationOptions = {

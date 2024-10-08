@@ -16,6 +16,7 @@ public class RutaDTO implements Serializable {
     UUID id;
     String codigo;
     HorarioDTO horario;
+    List<String> diasSemana;
     List<EstacionDTO> estaciones;
     List<BusDTO> buses;
     List<ConductorDTO> conductores;

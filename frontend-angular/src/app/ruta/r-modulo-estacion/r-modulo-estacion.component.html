@@ -1,5 +1,9 @@
-<p-card [header]="estacion?.nombre" styleClass="p-card-shadow">
-  <p>Dirección: {{estacion?.direccion?.tipoVia}} {{estacion?.direccion?.numeroVia}} - {{estacion?.direccion?.numero}}</p>
-  <p>Localidad: {{estacion?.direccion?.localidad}}</p>
-  <p>Barrio: {{estacion?.direccion?.barrio}}</p>
-</p-card>
+<div class="estacion-item">
+  <div class="estacion-nombre">{{ estacion?.nombre }}</div>
+  <div class="estacion-direccion">
+    {{ estacion?.direccion?.tipoVia }} {{ estacion?.direccion?.numeroVia }} {{ estacion?.direccion?.numero }}
+  </div>
+  <div class="estacion-ubicacion">
+    {{ estacion?.direccion?.barrio }}, {{ estacion?.direccion?.localidad }}
+  </div>
+</div>
