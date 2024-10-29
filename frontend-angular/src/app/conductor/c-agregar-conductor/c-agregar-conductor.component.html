@@ -1,0 +1,100 @@
+<div class="edit-modal">
+  <div class="modal-header">
+    <h2>Crear Conductor</h2>
+    <p-button icon="pi pi-times" class="p-button-text close-button" severity="danger" (onClick)="closeEdit()"></p-button>
+  </div>
+
+  <div class="form-section">
+    <div class="form-row">
+      <div class="form-group">
+        <label for="nombre">Nombre</label>
+        <input pInputText id="nombre" class="p-inputtext full-width" aria-describedby="nombre-help" [(ngModel)]="conductor.nombre"/>
+        <small id="nombre-help">Ingrese el nombre del conductor.</small>
+      </div>
+
+      <div class="form-group">
+        <label for="apellido">Apellido</label>
+        <input pInputText id="apellido" class="p-inputtext full-width" aria-describedby="apellido-help" [(ngModel)]="conductor.apellido"/>
+        <small id="apellido-help">Ingrese el apellido del conductor.</small>
+      </div>
+
+      <div class="form-group">
+        <label for="cedula">Cédula</label>
+        <input pInputText id="cedula" class="p-inputtext full-width" aria-describedby="cedula-help" [(ngModel)]="conductor.cedula"/>
+        <small id="cedula-help">Ingrese la cédula del conductor.</small>
+      </div>
+
+      <div class="form-group">
+        <label for="telefono">Teléfono</label>
+        <input pInputText id="telefono" class="p-inputtext full-width" aria-describedby="telefono-help" [(ngModel)]="conductor.telefono"/>
+        <small id="telefono-help">Ingrese el teléfono del conductor.</small>
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="form-group full-width">
+        <label for="direccion">Dirección</label>
+        <div id="direccion" class="direccion-container">
+          <input pInputText id="tipoVia" placeholder="Tipo de vía" class="p-inputtext" [(ngModel)]="conductor.direccion.tipoVia"/>
+          <input pInputText id="numeroVia" placeholder="Número de vía" class="p-inputtext" [(ngModel)]="conductor.direccion.numeroVia"/>
+          <input pInputText id="numero" placeholder="Número" class="p-inputtext" [(ngModel)]="conductor.direccion.numero"/>
+          <input pInputText id="localidad" placeholder="Localidad" class="p-inputtext" [(ngModel)]="conductor.direccion.localidad"/>
+          <input pInputText id="barrio" placeholder="Barrio" class="p-inputtext" [(ngModel)]="conductor.direccion.barrio"/>
+        </div>
+        <small id="direccion-help">Ingrese la dirección del conductor.</small>
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="form-group full-width">
+        <label for="dias">Días de trabajo</label>
+        <div>
+          <p-multiSelect id="dias" [options]="diasOptions" optionLabel="nombre" [(ngModel)]="selectedDias" placeholder="Días seleccionados" [showHeader]="false" [filter]="false" class="full-width"></p-multiSelect>
+        </div>
+        <small id="dias-help">Seleccione los días de trabajo del conductor.</small>
+      </div>
+    </div>
+  </div>
+
+  <div class="buses-container">
+    <h3>Asignación de Buses</h3>
+    <div class="bus-list bus-list-container">
+      <p-pickList
+        [source]="(loadingBuses$ | async) ? skeletonItems : busesNoAsignados"
+        [target]="(loadingBuses$ | async) ? skeletonItems : busesAsignados"
+        sourceHeader="Buses No Asignados"
+        targetHeader="Buses Asignados"
+        [dragdrop]="true"
+        [responsive]="true"
+        [sourceStyle]="{ height: '290px' }"
+        [targetStyle]="{ height: '290px' }"
+        (onMoveToTarget)="onMoveToTarget($event)"
+        (onMoveToSource)="onMoveToSource($event)"
+        breakpoint="1400px">
+        <p-toast></p-toast>
+        <ng-template let-bus pTemplate="item">
+          <ng-container *ngIf="loadingBuses$ | async as isLoading; else busesTemplate">
+            <div *ngIf="isLoading" class="station-box skeleton">
+              <p-skeleton width="100%" height="20px" styleClass="mb-2" [style]="{'margin-bottom': '5px'}"></p-skeleton>
+              <p-skeleton width="100%" height="20px" styleClass="mb-2" [style]="{'margin-bottom': '5px'}"></p-skeleton>
+              <p-skeleton width="100%" height="20px" styleClass="mb-2"></p-skeleton>
+            </div>
+          </ng-container>
+
+          <ng-template #busesTemplate>
+            <div class="station-box">
+              <app-c-modulo-bus [bus]="bus"></app-c-modulo-bus>
+            </div>
+          </ng-template>
+        </ng-template>
+      </p-pickList>
+    </div>
+  </div>
+
+  <div class="action-buttons">
+    <p-toast></p-toast>
+    <p-confirmDialog></p-confirmDialog>
+    <p-button label="Crear" severity="success" (onClick)="createConductor($event)" [outlined]="true"></p-button>
+    <p-button label="Cancelar" severity="secondary" class="p-button-secondary" (onClick)="closeEdit()" [outlined]="true"></p-button>
+  </div>
+</div>

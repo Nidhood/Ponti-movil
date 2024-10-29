@@ -40,34 +40,6 @@ public class AsignacionService {
         asignacionRepository.save(asignacion);
     }
 
-    public void desasignarBus(UUID idConductor, UUID idBus, String diaSemana) {
-        Asignacion asignacion = asignacionRepository.findByConductorIdAndBusIdAndDiaSemana(idConductor, idBus, diaSemana);
-        asignacionRepository.delete(asignacion);
-    }
-
-    public void asignarRuta(UUID idBus, UUID idRuta, String diaSemana) {
-        Asignacion asignacion = new Asignacion();
-
-        // Para asignar ruta, comprobamos que primero se haya asignado un conductor al bus ese día:
-        if(asignacionRepository.findByBusIdAndDiaSemana(idBus, diaSemana) != null) {
-
-            // Si ya existe una ruta asignada ese día, creamos una nueva asignación:
-            if(asignacionRepository.findByBusIdAndRutaIdAndDiaSemana(idBus, idRuta, diaSemana) != null ) {
-                asignacion.setConductor(asignacionRepository.findByBusIdAndDiaSemana(idBus, diaSemana).getConductor());
-                asignacion.setBus(busRepository.findById(idBus).orElseThrow(() -> new BusNotFoundException(idBus)));
-                asignacion.setRuta(rutaRepository.findById(idRuta).orElseThrow(() -> new RutaNotFoundException(idRuta)));
-                asignacion.setDiaSemana(diaSemana);
-                asignacionRepository.save(asignacion);
-
-            // Si no existe una ruta asignada ese día, simplemente actualizamos la ruta asignada:
-            } else {
-                asignacion = asignacionRepository.findByBusIdAndDiaSemana(idBus, diaSemana);
-                asignacion.setRuta(rutaRepository.findById(idRuta).orElseThrow(() -> new RutaNotFoundException(idRuta)));
-                asignacionRepository.save(asignacion);
-            }
-        }
-    }
-
     public void desasignarRuta(UUID idBus, UUID idRuta) {
 
         // Encontramos todas las asignaciones por bus y ruta todos los días de la semana:

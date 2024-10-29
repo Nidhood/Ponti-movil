@@ -27,7 +27,7 @@ public class RutaEstacion {
     private Estacion estacion;
 
     @Column(name = "orden", nullable = false)
-    private Long orden;
+    private Integer orden;
 
     // Constructores:
     public RutaEstacion() {}

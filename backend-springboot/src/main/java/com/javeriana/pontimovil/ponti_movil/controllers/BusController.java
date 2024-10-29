@@ -1,11 +1,21 @@
 package com.javeriana.pontimovil.ponti_movil.controllers;
 
+import com.javeriana.pontimovil.ponti_movil.dto.gestion_buses.bus_envio.bRutaEnvioDTO;
+import com.javeriana.pontimovil.ponti_movil.dto.gestion_buses.bus_recibir.bBusRecibirDTO;
+import com.javeriana.pontimovil.ponti_movil.dto.gestion_buses.bus_recibir.bConductorRecibirDTO;
+import com.javeriana.pontimovil.ponti_movil.dto.gestion_buses.bus_recibir.bRutaRecibirDTO;
+import com.javeriana.pontimovil.ponti_movil.dto.gestion_rutas.ruta_recibida.rBusDTO;
+import com.javeriana.pontimovil.ponti_movil.dto.gestionar_conductores.conductor_enviado.cBusEnviandoDTO;
+import com.javeriana.pontimovil.ponti_movil.entities.Asignacion;
 import com.javeriana.pontimovil.ponti_movil.entities.Bus;
+import com.javeriana.pontimovil.ponti_movil.entities.Conductor;
+import com.javeriana.pontimovil.ponti_movil.entities.Ruta;
 import com.javeriana.pontimovil.ponti_movil.services.BusService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.UUID;
 
 @RestController
@@ -23,22 +33,27 @@ public class BusController {
 
     // Métodos:
     @GetMapping
-    public List<Bus> obtenerBuses() {
+    public List<bBusRecibirDTO> obtenerBuses() {
         return busService.obtenerBuses();
     }
 
-    @GetMapping("/{id}")
-    public Bus obtenerBusPorId(@PathVariable UUID id) {
-        return busService.obtenerBusPorId(id);
+    @GetMapping("/rutas")
+    public List<bRutaEnvioDTO> obtenerRutas(){
+        return busService.obtenerRutas();
+    }
+
+    @GetMapping("/{id}/rutas")
+    public List<bRutaEnvioDTO> obtenerRutasPorBus(@PathVariable UUID id) {
+        return busService.obtenerRutasPorBus(id);
     }
 
     @PostMapping("/crear")
-    public void crearBus(@RequestBody Bus bus) {
+    public void crearBus(@RequestBody bBusRecibirDTO bus) {
         busService.crearBus(bus);
     }
 
     @PostMapping("/{id}/actualizar")
-    public void actualizarBus(@PathVariable UUID id, @RequestBody Bus bus) {
+    public void actualizarBus(@PathVariable UUID id, @RequestBody bBusRecibirDTO bus) {
         busService.actualizarBus(id, bus);
     }
 
@@ -46,4 +61,5 @@ public class BusController {
     public void eliminarBus(@PathVariable UUID id) {
         busService.eliminarBus(id);
     }
+
 }

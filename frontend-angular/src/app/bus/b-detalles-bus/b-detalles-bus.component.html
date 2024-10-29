@@ -1,0 +1,37 @@
+<div class="modal">
+  <div class="modal-header">
+    <h2 class="route-code">
+      <i class="icon-bus"></i>
+      {{ bus.placa }}
+    </h2>
+    <p-button icon="pi pi-times" severity="danger" (click)="cerrarDetalle()"></p-button>
+  </div>
+
+  <div class="modal-content">
+    <div class="schedule">
+      <i class="pi pi-truck"></i>
+      <span>{{ bus.modelo  }}</span>
+    </div>
+
+    <div class="section">
+      <h3><i class="pi pi-calendar"></i> Dias de la semana:</h3>
+      <ul>
+        <li *ngFor="let dia of bus.diasSemana">{{ dia }}</li>
+      </ul>
+    </div>
+
+
+    <div class="section">
+      <h3><i class="pi pi-bars"></i> Rutas:</h3>
+      <ul>
+        <li *ngFor="let ruta of bus.rutas">{{ ruta.codigo }}</li>
+      </ul>
+    </div>
+
+  </div>
+  <div class="edit-btn">
+    <p-button severity="secondary"  (click)="editarBus()">
+      <i class="pi pi-cog" style="font-size: 1rem"></i>
+    </p-button>
+  </div>
+</div>

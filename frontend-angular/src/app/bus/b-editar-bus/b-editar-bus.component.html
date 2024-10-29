@@ -1,0 +1,72 @@
+<div class="edit-modal">
+  <div class="modal-header">
+    <h2>Editar Bus</h2>
+    <p-button icon="pi pi-times" class="p-button-text close-button" severity="danger" (onClick)="closeEdit()"></p-button>
+  </div>
+
+  <div class="form-section">
+    <div class="stations-container">
+      <div class="form-group">
+        <label for="placa">Placa</label>
+        <input pInputText id="placa" class="p-inputtext full-width" aria-describedby="placa-help" [(ngModel)]="bus.placa"/>
+        <small id="placa-help">Ingrese la placa del bus.</small>
+      </div>
+
+      <div class="form-group">
+        <label for="modelo">Modelo</label>
+        <input pInputText id="modelo" class="p-inputtext full-width" aria-describedby="modelo-help" [(ngModel)]="bus.modelo"/>
+        <small id="modelo-help">Ingrese el modelo del bus.</small>
+      </div>
+
+      <div class="time-field">
+        <label for="dias">Días de operación</label>
+        <div>
+          <p-multiSelect id="dias" [options]="diasOptions" optionLabel="nombre" [(ngModel)]="selectedDias" placeholder="Días seleccionados" [showHeader]="false" [filter]="false" [style]="{'width': '307px'}"></p-multiSelect>
+        </div>
+        <small id="dias-help">Seleccione los días de operación del bus.</small>
+      </div>
+    </div>
+  </div>
+
+  <div class="stations-container">
+    <div class="station-list station-list-container">
+      <p-pickList
+        [source]="(loadingRutas$ | async) ? skeletonItems : rutasNoAsignadas"
+        [target]="(loadingRutas$ | async) ? skeletonItems : rutasAsignadas"
+        sourceHeader="Rutas No Asignadas"
+        targetHeader="Rutas Asignadas"
+        [dragdrop]="true"
+        [responsive]="true"
+        [sourceStyle]="{ height: '290px' }"
+        [targetStyle]="{ height: '290px' }"
+        (onMoveToTarget)="onMoveToTarget($event)"
+        (onMoveToSource)="onMoveToSource($event)"
+        breakpoint="1400px">
+        <p-toast></p-toast>
+        <ng-template let-ruta pTemplate="item">
+          <ng-container *ngIf="loadingRutas$ | async as isLoading; else routesTemplate">
+            <div *ngIf="isLoading" class="station-box skeleton">
+              <p-skeleton width="100%" height="20px" styleClass="mb-2" [style]="{'margin-bottom': '5px'}"></p-skeleton>
+              <p-skeleton width="100%" height="20px" styleClass="mb-2" [style]="{'margin-bottom': '5px'}"></p-skeleton>
+              <p-skeleton width="100%" height="20px" styleClass="mb-2"></p-skeleton>
+            </div>
+          </ng-container>
+
+          <ng-template #routesTemplate>
+            <div class="station-box">
+              <app-r-modulo-ruta [ruta]="ruta"></app-r-modulo-ruta>
+            </div>
+          </ng-template>
+        </ng-template>
+      </p-pickList>
+    </div>
+  </div>
+
+  <div class="action-buttons">
+    <p-toast></p-toast>
+    <p-confirmDialog></p-confirmDialog>
+    <p-button label="Guardar" severity="success" (onClick)="saveChanges($event)" [outlined]="true"></p-button>
+    <p-button label="Cancelar" severity="secondary" class="p-button-secondary" (onClick)="closeEdit()" [outlined]="true"></p-button>
+    <p-button label="Eliminar" severity="danger" (onClick)="deleteBus($event)" [outlined]="true"></p-button>
+  </div>
+</div>

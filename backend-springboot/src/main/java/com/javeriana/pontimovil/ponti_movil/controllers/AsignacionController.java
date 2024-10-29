@@ -38,49 +38,10 @@ public class AsignacionController {
         return asignacionService.obtenerAsignaciones();
     }
 
-    // SOLO PAGINA
-    @GetMapping("/{idConductor}/editar")
-    public ModelAndView obtenerAsignacionesPorConductor(@PathVariable UUID idConductor) {
-        Conductor conductor = conductorService.obtenerConductorPorId(idConductor);
-        List<Asignacion> asignaciones = asignacionService.obtenerAsignacionesPorConductor(idConductor);
-        List<Bus> buses = busService.obtenerBuses();
-
-        // !!! Mejorar el codigo de abajo, que sea una Query !!!.
-        // Crear un mapa de días disponibles para cada bus
-        Map<UUID, List<String>> diasDisponiblesPorBus = new HashMap<>();
-        buses.removeIf(bus -> {
-            List<String> diasDisponibles = asignacionService.obtenerDiasDisponibles(bus.getId());
-            if (diasDisponibles.isEmpty()) {
-                return true; // Remueve el bus si no tiene días disponibles
-            } else {
-                diasDisponiblesPorBus.put(bus.getId(), diasDisponibles);
-                return false;
-            }
-        });
-        ModelAndView modelAndView = new ModelAndView("coordinator/c-gestionar-asignaciones-buses");
-        modelAndView.addObject("asignaciones", asignaciones);
-        modelAndView.addObject("buses", buses);
-        modelAndView.addObject("conductor", conductor);
-        modelAndView.addObject("diasDisponiblesPorBus", diasDisponiblesPorBus);
-        return modelAndView;
-    }
-
     @PostMapping("/{idConductor}/asignarBus/{idBus}")
     public void asignarBus(@PathVariable UUID idConductor, @PathVariable UUID idBus, @RequestParam List<String> diasSemana) {
         for (String diaSemana : diasSemana) {
             asignacionService.asignarBus(idConductor, idBus, diaSemana);
-        }
-    }
-
-    @PostMapping("/{idConductor}/desasignarBus/{idBus}/{diaSemana}")
-    public void desasignarBus(@PathVariable UUID idConductor, @PathVariable UUID idBus, @PathVariable String diaSemana) {
-        asignacionService.desasignarBus(idConductor, idBus, diaSemana);
-    }
-
-    @PostMapping("/{idBus}/asignarRuta/{idRuta}")
-    public void asignarRuta(@PathVariable UUID idBus, @PathVariable UUID idRuta, @RequestParam List<String> diasSemana) {
-        for(String diaSemana : diasSemana) {
-            asignacionService.asignarRuta(idBus, idRuta, diaSemana);
         }
     }
 

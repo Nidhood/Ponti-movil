@@ -1,5 +1,8 @@
 package com.javeriana.pontimovil.ponti_movil.controllers;
 
+import com.javeriana.pontimovil.ponti_movil.dto.gestionar_conductores.conductor_enviado.cBusEnviandoDTO;
+import com.javeriana.pontimovil.ponti_movil.dto.gestionar_conductores.conductor_enviado.cConductorEnviandoDTO;
+import com.javeriana.pontimovil.ponti_movil.dto.gestionar_conductores.conductor_recibiendo.cConductorRecibiendoDTO;
 import com.javeriana.pontimovil.ponti_movil.entities.Conductor;
 import com.javeriana.pontimovil.ponti_movil.services.ConductorService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,55 +28,39 @@ public class ConductorController {
     }
 
     // Métodos:
-    @GetMapping
-    public ModelAndView obtenerConductores() {
-        List<Conductor> conductores = conductorService.obtenerConductores();
-        ModelAndView conductoresModelo = new ModelAndView("coordinator/c-gestionar-conductores");
-        conductoresModelo.addObject("conductores", conductores);
-        return conductoresModelo;
-    }
-
     @GetMapping("/{id}")
     public Conductor obtenerConductorPorId(@PathVariable UUID id) {
         return conductorService.obtenerConductorPorId(id);
     }
 
-    @GetMapping("/crear")
-    public ModelAndView mostrarFormularioCrearConductor() {
-        ModelAndView mav = new ModelAndView("coordinator/c-conductor-crear");
-        mav.addObject("conductor", new Conductor());
-        return mav;
+    @GetMapping
+    public List<cConductorRecibiendoDTO> listarConductores() {
+        return conductorService.listarConductores();
+    }
+
+    @GetMapping("/buses")
+    public List<cBusEnviandoDTO> obtenerBuses() {
+        return conductorService.obtenerBuses();
+    }
+
+    @GetMapping("/{id}/buses")
+    public List<cBusEnviandoDTO> obtenerBusesPorConductor(@PathVariable UUID id) {
+        return conductorService.obtenerBusesPorConductor(id);
     }
 
     @PostMapping("/crear")
-    public Object crearConductor(@Valid @ModelAttribute("conductor") Conductor conductor, BindingResult result) {
-        if (result.hasErrors()) {
-            return new ModelAndView("coordinator/c-conductor-crear");
-        }
+    public void crearConductor(@RequestBody cConductorEnviandoDTO conductor) {
         conductorService.crearConductor(conductor);
-        return new RedirectView("/conductores");
     }
 
-    @GetMapping("/{id}/editar")
-    public ModelAndView actualizarConductor(@PathVariable UUID id) {
-        Conductor c = conductorService.obtenerConductorPorId(id);
-        ModelAndView conductorActualizar = new ModelAndView("coordinator/c-conductor-actualizar");
-        conductorActualizar.addObject("conductor", c);
-        return conductorActualizar;
+    @PostMapping("/{id}/actualizar")
+    public void actualizarConductor(@PathVariable UUID id, @RequestBody cConductorEnviandoDTO conductor) {
+        conductorService.actualizarConductor(id, conductor);
     }
 
-    @PostMapping(value = "/actualizar")
-    public Object actualizarConductor(@Valid Conductor conductor, BindingResult result) {
-        if (result.hasErrors()) {
-            return new ModelAndView("coordinator/c-conductor-actualizar");
-        }
-        conductorService.actualizarConductor(conductor.getId(), conductor);
-        return new RedirectView("/conductores");
-    }
-
-    @GetMapping("/{id}/eliminar")
-    public Object eliminarConductor(@PathVariable UUID id) {
+    @DeleteMapping("/{id}/eliminar")
+    public void eliminarConductor(@PathVariable UUID id) {
         conductorService.eliminarConductor(id);
-        return new RedirectView("/conductores");
     }
+
 }

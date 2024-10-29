@@ -16,7 +16,7 @@ public class Asignacion {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     @ColumnDefault("gen_random_uuid()")
-    @Column(name = "id", nullable = false)
+    @Column(name = "id") // Puede ser nulo
     private UUID id;
 
     @ManyToOne(fetch = FetchType.EAGER, optional = false)
@@ -24,14 +24,14 @@ public class Asignacion {
     private Conductor conductor;
 
     @ManyToOne(fetch = FetchType.EAGER, optional = false)
-    @JoinColumn(name = "bus_id", nullable = false)
+    @JoinColumn(name = "bus_id") // Puede ser nulo
     private Bus bus;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "ruta_id") // Puede ser nulo
     private Ruta ruta;
 
-    @Column(name = "dia_semana", nullable = false)
+    @Column(name = "dia_semana", length = 20) // Puede ser nulo
     private String diaSemana;
 
     // Constructores:
