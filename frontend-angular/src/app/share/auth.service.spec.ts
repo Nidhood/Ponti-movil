@@ -1,7 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 import { AuthService } from './auth.service';
-import { HttpTestingController } from '@angular/common/http/testing';
-import { provideHttpClientTesting } from '@angular/common/http/testing'; // Importa provideHttpClientTesting
+import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { environment } from '../../environments/environment';
 
 describe('AuthService', () => {
@@ -10,10 +9,8 @@ describe('AuthService', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [
-        AuthService,
-        provideHttpClientTesting()
-      ]
+      imports: [HttpClientTestingModule],  // Usa HttpClientTestingModule aquí
+      providers: [AuthService]
     });
 
     service = TestBed.inject(AuthService);
@@ -22,7 +19,7 @@ describe('AuthService', () => {
 
   afterEach(() => {
     httpMock.verify();
-    sessionStorage.clear();
+    sessionStorage.clear(); // Limpia el almacenamiento después de cada prueba
   });
 
   it('should be created', () => {
