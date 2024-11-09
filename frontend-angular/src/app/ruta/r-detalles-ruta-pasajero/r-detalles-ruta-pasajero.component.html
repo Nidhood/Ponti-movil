@@ -1,0 +1,37 @@
+<div class="modal">
+  <div class="modal-header">
+    <h2 class="route-code">
+      <i class="icon-bus"></i>
+      {{ ruta.codigo }}
+    </h2>
+    <p-button icon="pi pi-times" severity="danger" (click)="cerrarDetalle()"></p-button>
+  </div>
+
+  <div class="modal-content">
+    <div class="schedule">
+      <i class="icon-clock"></i>
+      <span>{{ formatDate(horaInicioDate) }} - {{ formatDate(horaFinDate) }}</span>
+    </div>
+
+    <div class="section">
+      <h3><i class="pi pi-calendar"></i> Dias de la semana:</h3>
+      <ul>
+        <li *ngFor="let dia of ruta.diasSemana">{{ dia }}</li>
+      </ul>
+    </div>
+
+    <div class="section">
+      <h3><i class="icon-map-pin"></i> Paradas:</h3>
+      <ul>
+        <li *ngFor="let estacion of ruta.estaciones">{{ estacion.nombre }}</li>
+      </ul>
+    </div>
+
+    <div class="section">
+      <h3><i class="icon-bus"></i> Buses Asignados:</h3>
+      <ul>
+        <li *ngFor="let bus of ruta.buses">{{ bus.modelo }} - {{ bus.placa }}</li>
+      </ul>
+    </div>
+  </div>
+</div>

@@ -12,22 +12,23 @@ import { CMenuComponent } from './conductor/c-menu/c-menu.component';
 // Importa los guards
 import { AuthGuard } from './guards/auth.guard';
 import { RoleGuard } from './guards/role.guard';
+import {RMenuPasajeroComponent} from './ruta/r-menu-pasajero/r-menu-pasajero.component';
+import {Role} from './auth/models/role';
 
 export const routes: Routes = [
   { path: '', component: HIndexComponent },
   { path: 'h-login', component: HLoginComponent },
   { path: 'h-register', component: HRegistrarseComponent },
-  { path: 'h-select-function', component: HSelectFunctionComponent },
 
   // Rutas protegidas para el Administrador de rutas
-  { path: 'r-menu', component: RMenuComponent, canActivate: [AuthGuard, RoleGuard], data: { expectedRole: 'admin' } },
-  { path: 'r-editar-ruta', component: REditarRutaComponent, canActivate: [AuthGuard, RoleGuard], data: { expectedRole: 'admin' } },
+  { path: 'r-menu', component: RMenuComponent },
+  { path: 'r-editar-ruta', component: REditarRutaComponent },
 
   // Rutas protegidas para el Coordinador
-  { path: 'b-menu', component: BMenuComponent, canActivate: [AuthGuard, RoleGuard], data: { expectedRole: 'coordinador' } },
-  { path: 'c-menu', component: CMenuComponent, canActivate: [AuthGuard, RoleGuard], data: { expectedRole: 'coordinador' } },
+  { path: 'h-select-function', component: HSelectFunctionComponent },
+  { path: 'b-menu', component: BMenuComponent },
+  { path: 'c-menu', component: CMenuComponent },
 
   // Rutas para el Pasajero
-
-  { path: '**', component: ErrorComponent }
+  { path: 'r-menu-pasajero', component: RMenuPasajeroComponent },
 ];

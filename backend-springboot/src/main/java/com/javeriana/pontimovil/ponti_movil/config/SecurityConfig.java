@@ -49,6 +49,10 @@ public class SecurityConfig {
 
                         // Rutas públicas
                         .requestMatchers("/auth/**").permitAll()
+                        .requestMatchers("/estaciones/**").permitAll()
+                        .requestMatchers("/rutas/**").permitAll()
+                        .requestMatchers("/buses/**").permitAll()
+                        .requestMatchers("/conductores/**").permitAll()
 
                         // Cualquier otra solicitud requiere autenticación
                         .anyRequest().authenticated()

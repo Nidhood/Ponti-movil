@@ -25,13 +25,13 @@ public class RutaController {
     }
 
     // Métodos:
-    @Secured({ "Administrador", "Pasajero" })
+    // @Secured({ "Administrador", "Pasajero" })
     @GetMapping
     public List<Ruta> obtenerRutas() {
         return rutaService.obtenerRutas();
     }
 
-    @Secured({ "Administrador", "Pasajero" })
+    //  @Secured({ "Administrador", "Pasajero" })
     @GetMapping("/detalladas")
     public List<rRutaRecibidaDTO> obtenerRutasDetalladas(){return rutaService.obtenerRutasDetalladas();}
 
