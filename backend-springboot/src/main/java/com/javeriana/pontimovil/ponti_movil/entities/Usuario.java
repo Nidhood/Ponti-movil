@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.ColumnDefault;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
@@ -83,7 +84,7 @@ public class Usuario implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of();
+        return List.of(new SimpleGrantedAuthority(tipoUsuario.name()));
     }
 
     @Override
@@ -93,7 +94,7 @@ public class Usuario implements UserDetails {
 
     @Override
     public String getUsername() {
-        return nombreUsuario;
+        return correo;
     }
 
     @Override

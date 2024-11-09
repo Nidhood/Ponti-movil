@@ -49,10 +49,6 @@ public class SecurityConfig {
 
                         // Rutas públicas
                         .requestMatchers("/auth/**").permitAll()
-                        .requestMatchers("/estaciones/**").permitAll()
-                        .requestMatchers("/rutas/**").permitAll()
-                        .requestMatchers("/buses/**").permitAll()
-                        .requestMatchers("/conductores/**").permitAll()
 
                         // Cualquier otra solicitud requiere autenticación
                         .anyRequest().authenticated()
@@ -89,6 +85,7 @@ public class SecurityConfig {
             public void addCorsMappings(@NonNull CorsRegistry registry) {
                 registry.addMapping("/**")
                         .allowedOrigins("http://localhost:4200")
+                        .allowedHeaders("Authorization", "Content-Type")
                         .allowedMethods("PUT", "DELETE", "GET", "POST", "PATCH");
             }
         };

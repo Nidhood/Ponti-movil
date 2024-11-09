@@ -37,6 +37,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                                     @NonNull FilterChain filterChain)
             throws ServletException, IOException {
         try {
+
             final String authHeader = request.getHeader(HttpHeaders.AUTHORIZATION);
             final String jwt;
             final String userEmail;
@@ -45,12 +46,16 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                 return;
             }
             jwt = authHeader.substring(7);
-            userEmail = jwtService.extractUserName(jwt);
+            userEmail = jwtService.extractEmail(jwt);
             if (StringUtils.isNotEmpty(userEmail)
                     && SecurityContextHolder.getContext().getAuthentication() == null) {
                 UserDetails userDetails = userService.userDetailsService()
                         .loadUserByUsername(userEmail);
                 if (jwtService.isTokenValid(jwt, userDetails)) {
+                    // Registro de roles y usuario
+                    logUserRoles(userDetails);  // Agregar esta línea para registrar los roles
+
+                    // Establecer el contexto de seguridad
                     SecurityContext context = SecurityContextHolder.createEmptyContext();
                     UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(
                             userDetails, null, userDetails.getAuthorities());
@@ -67,5 +72,12 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         }
 
         filterChain.doFilter(request, response);
+    }
+
+    // Método para registrar los roles del usuario
+    private void logUserRoles(UserDetails userDetails) {
+        String username = userDetails.getUsername();
+        String roles = userDetails.getAuthorities().toString();
+        log.info("User: " + username + " Roles: " + roles);
     }
 }

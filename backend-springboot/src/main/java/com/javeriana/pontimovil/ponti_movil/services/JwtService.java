@@ -1,5 +1,6 @@
 package com.javeriana.pontimovil.ponti_movil.services;
 
+import com.javeriana.pontimovil.ponti_movil.entities.Usuario;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.io.Decoders;
@@ -27,8 +28,10 @@ public class JwtService {
 
     // Métodos:
 
-    // Extraer el nombre de usuario del token:
-    public String extractUserName(String token) { return extractClaim(token, Claims::getSubject); }
+    // Extraer el correo del usuario del token:
+    public String extractEmail(String token) {
+        return extractClaim(token, claims -> claims.get("correo", String.class)); // Extracción usando la clave "correo"
+    }
 
     // Generar un token:
     public String generateToken(UserDetails userDetails) {
@@ -37,8 +40,8 @@ public class JwtService {
 
     // Verificar si el token es válido:
     public boolean isTokenValid(String token, UserDetails userDetails) {
-        final String userName = extractUserName(token);
-        return (userName.equals(userDetails.getUsername())) && !isTokenExpired(token);
+        final String email = extractEmail(token);
+        return (email.equals(((Usuario) userDetails).getCorreo())) && !isTokenExpired(token);
     }
 
     // Extraer una reclamación del token:
@@ -49,9 +52,10 @@ public class JwtService {
 
     // Generar un token con reclamaciones adicionales:
     private String generateToken(Map<String, Object> extraClaims, UserDetails userDetails) {
-        return Jwts.builder().claims(extraClaims).subject(userDetails.getUsername())
-                .issuedAt(new Date(System.currentTimeMillis()))
-                .expiration(new Date(System.currentTimeMillis() + tokenDuration.toMillis()))
+        extraClaims.put("correo", ((Usuario) userDetails).getCorreo());
+        return Jwts.builder().setClaims(extraClaims).setSubject(userDetails.getUsername())
+                .setIssuedAt(new Date(System.currentTimeMillis()))
+                .setExpiration(new Date(System.currentTimeMillis() + tokenDuration.toMillis()))
                 .signWith(getSigningKey()).compact();
     }
 

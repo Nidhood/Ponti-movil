@@ -115,7 +115,7 @@ form button:hover {
   align-items: flex-start;
   position: relative;
   width: 100%;
-  max-width: 400px; /* Fija el ancho máximo de los campos */
+  max-width: 400px;
   margin: 0 auto 20px;
 }
 
@@ -126,7 +126,8 @@ form button:hover {
 }
 
 .field input,
-.field p-password {
+.field ::ng-deep p-password input,
+.field ::ng-deep .p-password {
   width: 100%;
   padding: 10px;
   border-radius: 5px;
@@ -136,15 +137,29 @@ form button:hover {
   transition: border-color 0.3s ease;
 }
 
+.field ::ng-deep .p-password {
+  display: block;
+  border: none;
+  padding: 0;
+}
+
 .field input:focus,
-.field p-password:focus {
+.field ::ng-deep p-password input:focus {
   border-color: #e60012;
   outline: none;
 }
 
 .field input.ng-invalid.ng-dirty,
-.field p-password.ng-invalid.ng-dirty {
+.field ::ng-deep p-password.ng-invalid.ng-dirty input {
   border-color: #e60012;
+}
+
+.field ::ng-deep .p-password-input {
+  width: 100% !important;
+}
+
+.field ::ng-deep .p-password-icon {
+  right: 10px;
 }
 
 .p-error {
@@ -156,4 +171,5 @@ form button:hover {
   left: 0;
   display: block;
 }
+
 

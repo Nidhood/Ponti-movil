@@ -142,8 +142,9 @@ a:hover {
 }
 
 .field input,
-.field p-password,
-.field p-dropdown {
+.field ::ng-deep p-password input,
+.field ::ng-deep .p-password,
+.field ::ng-deep p-dropdown .p-dropdown {
   width: 100%;
   padding: 10px;
   border-radius: 5px;
@@ -151,19 +152,78 @@ a:hover {
   font-size: 16px;
   box-sizing: border-box;
   transition: border-color 0.3s ease;
+  max-width: none;
+}
+
+.field ::ng-deep .p-password,
+.field ::ng-deep p-dropdown {
+  display: block;
+  border: none;
+  padding: 0;
+  width: 100% !important;
+}
+
+.field ::ng-deep .p-dropdown {
+  background: #ffffff;
+  width: 100% !important;
+}
+
+.field ::ng-deep .p-password-input {
+  width: 100% !important;
+}
+
+.field ::ng-deep .p-dropdown-panel {
+  border: 1px solid #ccc;
+  width: 100%
+}
+
+.field ::ng-deep .p-dropdown .p-dropdown-trigger {
+  padding: 0 10px;
+  border-left: 1px solid #ccc;
+}
+
+.field ::ng-deep .p-dropdown .p-dropdown-label {
+  padding: 10px;
 }
 
 .field input:focus,
-.field p-password:focus,
-.field p-dropdown:focus {
+.field ::ng-deep p-password input:focus,
+.field ::ng-deep .p-dropdown:focus,
+.field ::ng-deep .p-dropdown.p-focus {
   border-color: #e60012;
   outline: none;
+  box-shadow: none;
 }
 
 .field input.ng-invalid.ng-dirty,
-.field p-password.ng-invalid.ng-dirty,
-.field p-dropdown.ng-invalid.ng-dirty {
+.field ::ng-deep p-password.ng-invalid.ng-dirty input,
+.field ::ng-deep p-dropdown.ng-invalid.ng-dirty .p-dropdown {
   border-color: #e60012;
+}
+
+.field ::ng-deep .p-password-input {
+  width: 100% !important;
+}
+
+.field ::ng-deep .p-password-icon {
+  right: 10px;
+}
+
+.field ::ng-deep .p-dropdown-panel {
+  border-radius: 5px;
+}
+
+.field ::ng-deep .p-dropdown-items {
+  padding: 5px;
+}
+
+.field ::ng-deep .p-dropdown-item {
+  padding: 8px 10px;
+  border-radius: 3px;
+}
+
+.field ::ng-deep .p-dropdown-item:hover {
+  background-color: #f8f9fa;
 }
 
 .p-error {
@@ -173,4 +233,7 @@ a:hover {
   position: absolute;
   bottom: -20px;
   left: 0;
+  display: block;
 }
+
+
