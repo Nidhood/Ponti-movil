@@ -2,6 +2,9 @@ package com.javeriana.pontimovil.ponti_movil.services;
 
 import com.javeriana.pontimovil.ponti_movil.exceptions.UsuarioNotFoundException;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.server.ResponseStatusException;
 import com.javeriana.pontimovil.ponti_movil.entities.Usuario;
 import com.javeriana.pontimovil.ponti_movil.repositories.UsuarioRepository;
@@ -14,7 +17,6 @@ public class UsuarioService {
 
     // Repositorio:
     UsuarioRepository usuarioRepository;
-
 
     // Constructor:
     public UsuarioService(UsuarioRepository usuarioRepository) {
@@ -61,5 +63,14 @@ public class UsuarioService {
         usuarioRepository.delete(usuario);
     }
 
-
+    // Creamos un método que nos permita obtener un usuario por su correo:
+    public UserDetailsService userDetailsService() {
+        return new UserDetailsService() {
+            @Override
+            public UserDetails loadUserByUsername(String username) {
+                return usuarioRepository.findByCorreo(username)
+                        .orElseThrow(() -> new UsernameNotFoundException("User not found"));
+            }
+        };
+    }
 }

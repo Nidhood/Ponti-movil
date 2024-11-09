@@ -18,21 +18,6 @@ export class GestionarBusesService {
     return this.http.get<BBusRecibirDTO[]>(`${environment.SERVE_URL}/buses`);
   }
 
-  // Construimos el servicio para actualizar un bus:
-  actualizarBus(bus: any): Observable<BBusEnvioDTO> {
-    return this.http.post<BBusEnvioDTO>(`${environment.SERVE_URL}/buses/${bus.id}/actualizar`, bus);
-  }
-
-  // Construimos el servicio para crear un bus:
-  crearBus(bus: any): Observable<BBusEnvioDTO> {
-    return this.http.post<BBusEnvioDTO>(`${environment.SERVE_URL}/buses/crear`, bus);
-  }
-
-  // Construimos el servicio para eliminar un bus:
-  eliminarBus(id: string): Observable<void> {
-    return this.http.delete<void>(`${environment.SERVE_URL}/buses/${id}/eliminar`);
-  }
-
   // Construimos el servicio para conseguir todos los buses:
   obtenerRutas(): Observable<BRutaEnvioDTO[]> {
     return this.http.get<BRutaEnvioDTO[]>(`${environment.SERVE_URL}/buses/rutas`);
@@ -41,5 +26,20 @@ export class GestionarBusesService {
   // Construimos el servicio para conseguir los buses y rutas:
   obtenerRutasPorBuses(idBus: string): Observable<BRutaEnvioDTO[]> {
     return this.http.get<BRutaEnvioDTO[]>(`${environment.SERVE_URL}/buses/${idBus}/rutas`);
+  }
+
+  // Construimos el servicio para crear un bus:
+  crearBus(bus: any): Observable<BBusEnvioDTO> {
+    return this.http.post<BBusEnvioDTO>(`${environment.SERVE_URL}/buses/crear`, bus);
+  }
+
+  // Construimos el servicio para actualizar un bus:
+  actualizarBus(bus: any): Observable<BBusEnvioDTO> {
+    return this.http.post<BBusEnvioDTO>(`${environment.SERVE_URL}/buses/${bus.id}/actualizar`, bus);
+  }
+
+  // Construimos el servicio para eliminar un bus:
+  eliminarBus(id: string): Observable<void> {
+    return this.http.delete<void>(`${environment.SERVE_URL}/buses/${id}/eliminar`);
   }
 }

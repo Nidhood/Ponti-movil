@@ -10,6 +10,7 @@
   justify-content: center;
   align-items: center;
   height: 100vh;
+  overflow: hidden;
 }
 
 .container {
@@ -18,6 +19,11 @@
   padding: 40px;
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 600px;
+  max-height: 90vh;
+  overflow-y: auto;
+  overflow-x: hidden
 }
 
 .logo img {
@@ -107,4 +113,64 @@ form button {
 
 form button:hover {
   background-color: #cc0010;
+}
+
+a {
+  color: #e60012;
+  text-decoration: none;
+}
+
+a:hover {
+  color: #cc0010;
+  text-decoration: underline;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  position: relative;
+  width: 100%;
+  max-width: 400px;
+  margin: 0 auto 20px;
+}
+
+.field label {
+  font-size: 16px;
+  color: #333;
+  margin-bottom: 5px;
+}
+
+.field input,
+.field p-password,
+.field p-dropdown {
+  width: 100%;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  font-size: 16px;
+  box-sizing: border-box;
+  transition: border-color 0.3s ease;
+}
+
+.field input:focus,
+.field p-password:focus,
+.field p-dropdown:focus {
+  border-color: #e60012;
+  outline: none;
+}
+
+.field input.ng-invalid.ng-dirty,
+.field p-password.ng-invalid.ng-dirty,
+.field p-dropdown.ng-invalid.ng-dirty {
+  border-color: #e60012;
+}
+
+.p-error {
+  color: #e60012;
+  font-size: 14px;
+  margin-top: 5px;
+  position: absolute;
+  bottom: -20px;
+  left: 0;
 }

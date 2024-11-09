@@ -12,15 +12,20 @@ export class GestionarRutasService {
 
   constructor(private http: HttpClient) {}
 
-  // Construimos el servicio para conseguir rutas:
+
+  // Construimos el servicio para conseguir las estaciones:
+  obtenerEstaciones(): Observable<any[]> {
+    return this.http.get<any[]>(`${environment.SERVE_URL}/estaciones`);
+  }
+
+  // Construimos el servicio para conseguir las estaciones detalladas:
   listaRutas(): Observable<RRutaRecibidaDto[]> {
     return this.http.get<RRutaRecibidaDto[]>(`${environment.SERVE_URL}/rutas/detalladas`);
   }
 
-  // Construimos el servicio para actualizar una ruta:
-  actualizarRuta(ruta: RRutaEnviadaDto): Observable<RRutaEnviadaDto> {
-    console.log('Datos de la ruta a actualizar:', ruta);
-    return this.http.post<RRutaEnviadaDto>(`${environment.SERVE_URL}/rutas/${ruta.id}/actualizar`, ruta);
+  // Construimos el servicio para conseguir las estaciones por ruta:
+  obtenerEstacionesPorRuta(idRuta: string): Observable<any[]> {
+    return this.http.get<any[]>(`${environment.SERVE_URL}/estaciones/${idRuta}`);
   }
 
   // Construimos el servicio para crear una ruta:
@@ -29,18 +34,14 @@ export class GestionarRutasService {
     return this.http.post<RRutaEnviadaDto>(`${environment.SERVE_URL}/rutas/crear`, ruta);
   }
 
+  // Construimos el servicio para actualizar una ruta:
+  actualizarRuta(ruta: RRutaEnviadaDto): Observable<RRutaEnviadaDto> {
+    console.log('Datos de la ruta a actualizar:', ruta);
+    return this.http.post<RRutaEnviadaDto>(`${environment.SERVE_URL}/rutas/${ruta.id}/actualizar`, ruta);
+  }
+
   // Construimos el servicio para eliminar una ruta:
   eliminarRuta(id: string): Observable<void> {
     return this.http.delete<void>(`${environment.SERVE_URL}/rutas/${id}/eliminar`);
-  }
-
-  // Construimos el servicio para conseguir las estaciones por ruta:
-  obtenerEstacionesPorRuta(idRuta: string): Observable<any[]> {
-    return this.http.get<any[]>(`${environment.SERVE_URL}/estaciones/${idRuta}`);
-  }
-
-  // Construimos el servicio para conseguir las estaciones:
-  obtenerEstaciones(): Observable<any[]> {
-    return this.http.get<any[]>(`${environment.SERVE_URL}/estaciones`);
   }
 }

@@ -12,6 +12,7 @@ import com.javeriana.pontimovil.ponti_movil.entities.Conductor;
 import com.javeriana.pontimovil.ponti_movil.entities.Ruta;
 import com.javeriana.pontimovil.ponti_movil.services.BusService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -32,31 +33,37 @@ public class BusController {
     }
 
     // Métodos:
+    @Secured({ "Coordinador" })
     @GetMapping
     public List<bBusRecibirDTO> obtenerBuses() {
         return busService.obtenerBuses();
     }
 
+    @Secured({ "Coordinador" })
     @GetMapping("/rutas")
     public List<bRutaEnvioDTO> obtenerRutas(){
         return busService.obtenerRutas();
     }
 
+    @Secured({ "Coordinador" })
     @GetMapping("/{id}/rutas")
     public List<bRutaEnvioDTO> obtenerRutasPorBus(@PathVariable UUID id) {
         return busService.obtenerRutasPorBus(id);
     }
 
+    @Secured({ "Coordinador" })
     @PostMapping("/crear")
     public void crearBus(@RequestBody bBusRecibirDTO bus) {
         busService.crearBus(bus);
     }
 
+    @Secured({ "Coordinador" })
     @PostMapping("/{id}/actualizar")
     public void actualizarBus(@PathVariable UUID id, @RequestBody bBusRecibirDTO bus) {
         busService.actualizarBus(id, bus);
     }
 
+    @Secured({ "Coordinador" })
     @DeleteMapping("/{id}/eliminar")
     public void eliminarBus(@PathVariable UUID id) {
         busService.eliminarBus(id);
