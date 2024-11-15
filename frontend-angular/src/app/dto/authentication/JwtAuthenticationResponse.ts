@@ -1,3 +1,5 @@
+import { Role } from '../../auth/models/role';
+
 export class JwtAuthenticationResponse {
   token: string;
   email: string;
@@ -13,4 +15,3 @@ export class JwtAuthenticationResponse {
     this.role = role;
   }
 }
-

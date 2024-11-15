@@ -8,6 +8,7 @@ import java.util.UUID;
 
 import com.javeriana.pontimovil.ponti_movil.entities.Horario;
 import com.javeriana.pontimovil.ponti_movil.entities.Ruta;
+import com.javeriana.pontimovil.ponti_movil.repositories.HorarioRepository;
 import com.javeriana.pontimovil.ponti_movil.repositories.RutaRepository;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -31,12 +32,16 @@ public class RutaControllerIntegrationTest {
     @Autowired
     private RutaRepository rutaRepository;
 
+    @Autowired
+    private HorarioRepository horarioRepository;
+
     @BeforeEach
     void setup() {
-        // Crear un horario y una ruta, y guardar en la base de datos para los casos de prueba
+        // Crear un horario, guardarlo y asignarlo a la ruta
         Horario horario = new Horario();
         horario.setHoraInicio(LocalTime.of(6, 0));
         horario.setHoraFin(LocalTime.of(18, 0));
+        horarioRepository.save(horario); // Guardar primero el horario en la base de datos
 
         Ruta ruta = new Ruta();
         ruta.setCodigo("ruta-prueba-1");
@@ -65,11 +70,13 @@ public class RutaControllerIntegrationTest {
         Ruta rutaExistente = rutaRepository.findAll().get(0);
         UUID idRuta = rutaExistente.getId();
 
-        // Crear una ruta actualizada
+        // Crear y guardar un horario actualizado
         Horario horarioActualizado = new Horario();
         horarioActualizado.setHoraInicio(LocalTime.of(8, 0));
         horarioActualizado.setHoraFin(LocalTime.of(20, 0));
+        horarioRepository.save(horarioActualizado); // Guardar primero el horario
 
+        // Crear la ruta actualizada
         Ruta rutaActualizada = new Ruta();
         rutaActualizada.setCodigo("ruta-actualizada");
         rutaActualizada.setHorario(horarioActualizado);
