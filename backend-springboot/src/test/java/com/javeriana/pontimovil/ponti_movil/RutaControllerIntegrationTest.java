@@ -235,5 +235,22 @@ public class RutaControllerIntegrationTest {
                 .expectStatus().isEqualTo(HttpStatus.FORBIDDEN);
     }
 
+    @Test
+    void testConsultarRuta(){
 
+        JwtAuthenticationResponse pasajeroUsuario = login("pasajero@pasajero.com","pasajeroPass");
+        testCrearRuta();
+
+        webTestClient.get()
+                .uri(BASE_URL)
+                .header(HttpHeaders.AUTHORIZATION, "Bearer " + pasajeroUsuario.getToken())
+                .exchange()
+                .expectStatus().isOk()
+                .expectBodyList(Ruta.class)
+                .value(rutas -> {
+                    assertEquals(rutas.get(0).getCodigo(), "P001");
+                });
+        
+
+    }
 }
