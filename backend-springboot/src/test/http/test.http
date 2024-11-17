@@ -1,0 +1,103 @@
+# Pruebas de Autenticación y Autorización en el Backend de la Aplicación
+
+### Autenticación Exitosa (Administrador de rutas)
+# Resultado esperado: Respuesta con 200 OK, devuelve token JWT
+POST http://localhost:8080/auth/login
+Content-Type: application/json
+
+{
+  "email": "admin@admin.com",
+  "password": "admin123"
+}
+
+### Autenticación Exitosa (Coordinador)
+# Resultado esperado: Respuesta con 200 OK, devuelve token JWT
+POST http://localhost:8080/auth/login
+Content-Type: application/json
+
+{
+  "email": "coordinator@coordinator.com",
+  "password": "coord123"
+}
+
+### Autenticación Fallida (Usuario no registrado)
+# Resultado esperado: Respuesta con 401 Unauthorized
+POST http://localhost:8080/auth/login
+Content-Type: application/json
+
+{
+  "email": "fakeuser@noemail.com",
+  "password": "wrongpassword"
+}
+
+### Acceso con Token Inválido
+# Resultado esperado: Respuesta con 401 Unauthorized
+GET http://localhost:8080/rutas
+Authorization: Bearer invalid_token_example12345
+
+### Acceso Autorizado (Administrador de rutas)
+# Utilizando token de la respuesta de login de administrador
+# Resultado esperado: Respuesta con 200 OK, listado de rutas
+GET http://localhost:8080/rutas
+Authorization: Bearer {{login.response.body.token}}
+
+### Acceso Restringido (Coordinador intentando acceder a funcionalidades de rutas)
+# Utilizando token de la respuesta de login de coordinador
+# Resultado esperado: Respuesta con 403 Forbidden
+POST http://localhost:8080/rutas
+Content-Type: application/json
+Authorization: Bearer {{login.response.body.token}}
+
+{
+  "codigo": "Ruta01",
+  "estaciones": ["Estacion1", "Estacion2"],
+  "horario": {
+    "dia": "Lunes",
+    "horaInicio": "08:00",
+    "horaFin": "18:00"
+  }
+}
+
+### Registro de Nuevos Usuarios (Administrador de rutas)
+# Resultado esperado: Respuesta con 201 Created si el usuario es creado exitosamente
+POST http://localhost:8080/auth/signup
+Content-Type: application/json
+
+{
+  "firstName": "Nuevo",
+  "lastName": "Usuario",
+  "email": "newuser@domain.com",
+  "password": "newuser123",
+  "role": "Pasajero"
+}
+
+### Autenticación de Pasajero
+# Resultado esperado: Respuesta con 200 OK, devuelve token JWT
+POST http://localhost:8080/auth/login
+Content-Type: application/json
+
+{
+  "email": "pasajero@domain.com",
+  "password": "pass123"
+}
+
+### Acceso permitido a rutas (Pasajero)
+# Utilizando token de la respuesta de login de pasajero
+# Resultado esperado: Respuesta con 200 OK, listado de rutas
+GET http://localhost:8080/rutas
+Authorization: Bearer {{login.response.body.token}}
+
+### Acceso restringido a CRUD de conductores (Pasajero)
+# Utilizando token de la respuesta de login de pasajero
+# Resultado esperado: Respuesta con 403 Forbidden
+POST http://localhost:8080/conductores
+Content-Type: application/json
+Authorization: Bearer {{login.response.body.token}}
+
+{
+  "nombre": "Nuevo Conductor",
+  "cedula": "123456",
+  "telefono": "1234567890",
+  "direccion": "Calle 123",
+  "buses": []
+}

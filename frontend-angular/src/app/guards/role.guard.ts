@@ -1,4 +1,3 @@
-// role.guard.ts
 import { Injectable } from '@angular/core';
 import {CanActivate, ActivatedRouteSnapshot, Router, UrlTree} from '@angular/router';
 import { AuthService } from '../share/auth.service';

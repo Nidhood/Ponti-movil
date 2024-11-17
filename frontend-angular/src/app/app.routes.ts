@@ -13,7 +13,6 @@ import { CMenuComponent } from './conductor/c-menu/c-menu.component';
 import { AuthGuard } from './guards/auth.guard';
 import { RoleGuard } from './guards/role.guard';
 import {RMenuPasajeroComponent} from './ruta/r-menu-pasajero/r-menu-pasajero.component';
-import {Role} from './auth/models/role';
 
 export const routes: Routes = [
   { path: '', component: HIndexComponent },
