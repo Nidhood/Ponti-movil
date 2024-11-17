@@ -113,15 +113,13 @@ public class RutaControllerIntegrationTest {
     private static final String SERVER_URL = "http://localhost:8081";
     private static final String BASE_URL = SERVER_URL + "/rutas";
 
-    @Autowired
-    private TestRestTemplate restTemplate;
-
     @BeforeEach
     void init() {
 
         rutaService.eliminarTodasLasRutas();
         usuarioRepository.deleteAll();
         usuarioRepository.save(new Usuario("admin","admin","admin",passwordEncoder.encode("adminPass"),"admin@admin.com",Role.Administrador));
+        
     }
 
      private JwtAuthenticationResponse login(String email, String password) {
@@ -168,5 +166,36 @@ public class RutaControllerIntegrationTest {
                 .bodyValue(nuevaRuta)
                 .exchange()
                 .expectStatus().isOk();
+    }
+
+    @Test
+    void testCrearRutaSinLogin() {
+        rHorarioDTO horarioPrueba = new rHorarioDTO();
+        horarioPrueba.setHoraInicio(LocalTime.of(9, 0));
+        horarioPrueba.setHoraFin(LocalTime.of(18,0));
+
+        List<String> diasSemana = List.of("Lunes", "Martes", "Viernes");
+
+        rDireccionDTO direccionPrueba = new rDireccionDTO(UUID.fromString("01bf6e52-0843-4c09-b35b-6c0086b50892"),"Calle 136","Carrera 19","No. 136-01","Usaquén","Alcalá");
+        rEstacionEnviadaDTO estacionPrueba = new rEstacionEnviadaDTO(UUID.fromString("eb28f90c-8c01-4b37-957b-899b57988c06"),"Alcalá - Colegio Santo Tomás Dominicos",1,direccionPrueba);
+        
+        List<rEstacionEnviadaDTO> estacionesPrueba = new ArrayList<>();
+        estacionesPrueba.add(estacionPrueba);
+
+    
+        rRutaEnviadaDTO nuevaRuta = new rRutaEnviadaDTO();
+        UUID rutaPruebaID = UUID.randomUUID();
+        nuevaRuta.setId(rutaPruebaID);
+        nuevaRuta.setCodigo("P001");
+        nuevaRuta.setHorario(horarioPrueba);
+        nuevaRuta.setDiasSemana(diasSemana);
+        nuevaRuta.setEstaciones(estacionesPrueba);
+
+
+        webTestClient.post()
+                .uri(BASE_URL + "/crear")
+                .bodyValue(nuevaRuta)
+                .exchange()
+                .expectStatus().isEqualTo(HttpStatus.FORBIDDEN);
     }
 }
