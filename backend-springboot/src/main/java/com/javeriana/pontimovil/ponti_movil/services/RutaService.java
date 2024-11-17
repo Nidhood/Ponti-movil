@@ -1,6 +1,5 @@
 package com.javeriana.pontimovil.ponti_movil.services;
 
-
 import com.javeriana.pontimovil.ponti_movil.dto.gestion_rutas.ruta_enviada.rEstacionEnviadaDTO;
 import com.javeriana.pontimovil.ponti_movil.dto.gestion_rutas.ruta_enviada.rRutaEnviadaDTO;
 import com.javeriana.pontimovil.ponti_movil.dto.gestion_rutas.ruta_recibida.rRutaRecibidaDTO;
@@ -30,7 +29,9 @@ public class RutaService {
 
     // Constructor:
     @Autowired
-    public RutaService(RutaRepository rutaRepository, HorarioRepository horarioRepository, RutaEstacionRepository rutaEstacionRepository, AsignacionRepository asignacionRepository, EstacionRepository estacionRepository) {
+    public RutaService(RutaRepository rutaRepository, HorarioRepository horarioRepository,
+            RutaEstacionRepository rutaEstacionRepository, AsignacionRepository asignacionRepository,
+            EstacionRepository estacionRepository) {
         this.rutaRepository = rutaRepository;
         this.horarioRepository = horarioRepository;
         this.rutaEstacionRepository = rutaEstacionRepository;
@@ -44,32 +45,36 @@ public class RutaService {
     }
 
     public List<RutaEstacion> obtenerEstacionesPorRuta(UUID id) {
-        return rutaEstacionRepository.findByRuta(rutaRepository.findById(id).orElseThrow(()-> new RutaNotFoundException(id)));
+        return rutaEstacionRepository
+                .findByRuta(rutaRepository.findById(id).orElseThrow(() -> new RutaNotFoundException(id)));
     }
 
-    public List<rRutaRecibidaDTO> obtenerRutasDetalladas(){
+    public List<rRutaRecibidaDTO> obtenerRutasDetalladas() {
         List<rRutaRecibidaDTO> rutas = new ArrayList<>();
 
         // Obtenemos todas las rutas:
         List<Ruta> rutasList = rutaRepository.findAll();
 
         // Para cada ruta creamos un DTO:
-        for(Ruta ruta : rutasList) {
+        for (Ruta ruta : rutasList) {
 
-            // Obtenemos el  horario asociado a la ruta con el nuevo formato DTO:
+            // Obtenemos el horario asociado a la ruta con el nuevo formato DTO:
             rHorarioDTO horario = maptToHorarioDTO(ruta.getHorario());
 
             // Obtenemos los días de la semana asociados a la ruta (no puede ser nulo):
             List<String> diasSemana = mapToDiasSemana(asignacionRepository.findByRutaId(ruta.getId()));
 
             // Obtenemos las estaciones asociadas a la ruta:
-            List<rEstacionRecibidaDTO> estaciones = mapToEstacionDTO(rutaEstacionRepository.findByRuta(ruta).stream().map(RutaEstacion::getEstacion).toList());
+            List<rEstacionRecibidaDTO> estaciones = mapToEstacionDTO(
+                    rutaEstacionRepository.findByRuta(ruta).stream().map(RutaEstacion::getEstacion).toList());
 
             // Obtenemos los buses asociados a la ruta (Valores únicos):
-            List<rBusDTO> buses = mapToBusDTO(asignacionRepository.findByRutaId(ruta.getId()).stream().map(Asignacion::getBus).distinct().toList());
+            List<rBusDTO> buses = mapToBusDTO(asignacionRepository.findByRutaId(ruta.getId()).stream()
+                    .map(Asignacion::getBus).distinct().toList());
 
             // Obtenemos los conductores asociados a la ruta (Valores únicos):
-            List<rConductorDTO> conductores = mapToConductorDTO(asignacionRepository.findByRutaId(ruta.getId()).stream().map(Asignacion::getConductor).distinct().toList());
+            List<rConductorDTO> conductores = mapToConductorDTO(asignacionRepository.findByRutaId(ruta.getId()).stream()
+                    .map(Asignacion::getConductor).distinct().toList());
 
             // Creamos el nuevo DTO:
             rRutaRecibidaDTO rutaDTO = new rRutaRecibidaDTO(
@@ -79,8 +84,7 @@ public class RutaService {
                     diasSemana.stream().distinct().filter(Objects::nonNull).toList(),
                     estaciones,
                     buses,
-                    conductores
-                    );
+                    conductores);
 
             // Agregamos el DTO a la lista de rutas:
             rutas.add(rutaDTO);
@@ -96,8 +100,7 @@ public class RutaService {
         return new rHorarioDTO(
                 horario.getId(),
                 horario.getHoraInicio(),
-                horario.getHoraFin()
-                );
+                horario.getHoraFin());
     }
 
     public List<rEstacionRecibidaDTO> mapToEstacionDTO(List<Estacion> estaciones) {
@@ -107,9 +110,8 @@ public class RutaService {
                 .filter(Objects::nonNull) // Filtra los elementos nulos
                 .map(estacion -> new rEstacionRecibidaDTO(
                         estacion.getId(),
-                        estacion.getNombre()
-                )
-        ).toList();
+                        estacion.getNombre()))
+                .toList();
     }
 
     public List<rBusDTO> mapToBusDTO(List<Bus> buses) {
@@ -118,11 +120,9 @@ public class RutaService {
                 .filter(Objects::nonNull) // Filtra los elementos nulos
                 .map(bus -> new rBusDTO(
                         bus.getPlaca(),
-                        bus.getModelo()
-                ))
+                        bus.getModelo()))
                 .toList();
     }
-
 
     public List<rConductorDTO> mapToConductorDTO(List<Conductor> conductores) {
 
@@ -131,9 +131,8 @@ public class RutaService {
                 .filter(Objects::nonNull) // Filtra los elementos nulos
                 .map(conductor -> new rConductorDTO(
                         conductor.getNombre(),
-                        conductor.getApellido()
-                )
-        ).toList();
+                        conductor.getApellido()))
+                .toList();
     }
 
     public List<String> mapToDiasSemana(List<Asignacion> asignaciones) {
@@ -146,7 +145,8 @@ public class RutaService {
     }
 
     private List<String> ordenarDiasSemana(List<String> diasSemana) {
-        final List<String> ordenDias = Arrays.asList("Lunes", "Martes", "Miercoles", "Jueves", "Viernes", "Sabado", "Domingo");
+        final List<String> ordenDias = Arrays.asList("Lunes", "Martes", "Miercoles", "Jueves", "Viernes", "Sabado",
+                "Domingo");
 
         return diasSemana.stream()
                 .sorted(Comparator.comparingInt(ordenDias::indexOf))
@@ -154,7 +154,7 @@ public class RutaService {
     }
 
     public Ruta obtenerRutaPorId(UUID id) {
-        return rutaRepository.findById(id).orElseThrow(()-> new RutaNotFoundException(id));
+        return rutaRepository.findById(id).orElseThrow(() -> new RutaNotFoundException(id));
     }
 
     public void crearRuta(rRutaEnviadaDTO ruta) {
@@ -162,8 +162,10 @@ public class RutaService {
         Horario horario = null;
 
         // Buscamos si el horario ya existe, si no lo creamos:
-        if(horarioRepository.existsByHoraInicioAndHoraFin(ruta.getHorario().getHoraInicio(), ruta.getHorario().getHoraFin())) {
-            horario = horarioRepository.findByHoraInicioAndHoraFin(ruta.getHorario().getHoraInicio(), ruta.getHorario().getHoraFin());
+        if (horarioRepository.existsByHoraInicioAndHoraFin(ruta.getHorario().getHoraInicio(),
+                ruta.getHorario().getHoraFin())) {
+            horario = horarioRepository.findByHoraInicioAndHoraFin(ruta.getHorario().getHoraInicio(),
+                    ruta.getHorario().getHoraFin());
         } else {
             horario = new Horario();
             horario.setHoraInicio(ruta.getHorario().getHoraInicio());
@@ -190,7 +192,7 @@ public class RutaService {
             rutaEstacionId.setRutaId(nuevaRuta.getId()); // Usamos el ID de la nueva ruta
             rutaEstacionId.setEstacionId(estacionExistente.getId()); // Usamos el ID de la estación
 
-            rutaEstacion.setId(rutaEstacionId);  // Establecemos el identificador compuesto
+            rutaEstacion.setId(rutaEstacionId); // Establecemos el identificador compuesto
             rutaEstacion.setOrden(estacion.getOrden()); // Establecemos el orden de la estación
 
             // Guardamos la nueva estación asociada a la ruta
@@ -198,7 +200,7 @@ public class RutaService {
         }
 
         // Asignamos los días de la semana a la ruta:
-        for(String dia : ruta.getDiasSemana()) {
+        for (String dia : ruta.getDiasSemana()) {
             Asignacion asignacion = new Asignacion();
             asignacion.setDiaSemana(dia);
             asignacion.setRuta(nuevaRuta);
@@ -210,7 +212,7 @@ public class RutaService {
     public void actualizarRuta(UUID id, rRutaEnviadaDTO ruta) {
         Ruta rutaExistente = rutaRepository.findById(id).orElseThrow(() -> new RutaNotFoundException(id));
         Horario horarioExistente = rutaExistente.getHorario();
-        String[] diasSemana = {"Lunes", "Martes", "Miercoles", "Jueves", "Viernes", "Sabado", "Domingo"};
+        String[] diasSemana = { "Lunes", "Martes", "Miercoles", "Jueves", "Viernes", "Sabado", "Domingo" };
 
         // Actualizamos el horario existente
         horarioExistente.setHoraInicio(ruta.getHorario().getHoraInicio());
@@ -250,11 +252,13 @@ public class RutaService {
 
     @Transactional
     public void manejarAsignaciones(Ruta rutaExistente, List<String> diasSemana) {
-        List<String> todosDias = Arrays.asList("Lunes", "Martes", "Miercoles", "Jueves", "Viernes", "Sabado", "Domingo");
+        List<String> todosDias = Arrays.asList("Lunes", "Martes", "Miercoles", "Jueves", "Viernes", "Sabado",
+                "Domingo");
 
         // Primero, manejamos los días que deben tener asignaciones
         for (String dia : diasSemana) {
-            List<Asignacion> asignacionesExistentes = asignacionRepository.findByRutaIdAndDiaSemana(rutaExistente.getId(), dia);
+            List<Asignacion> asignacionesExistentes = asignacionRepository
+                    .findByRutaIdAndDiaSemana(rutaExistente.getId(), dia);
             if (asignacionesExistentes.isEmpty()) {
                 // Crear nueva asignación si no existe
                 Asignacion nuevaAsignacion = new Asignacion();
@@ -269,7 +273,8 @@ public class RutaService {
         diasAEliminar.removeAll(diasSemana);
 
         for (String dia : diasAEliminar) {
-            List<Asignacion> asignacionesAEliminar = asignacionRepository.findByRutaIdAndDiaSemana(rutaExistente.getId(), dia);
+            List<Asignacion> asignacionesAEliminar = asignacionRepository
+                    .findByRutaIdAndDiaSemana(rutaExistente.getId(), dia);
             for (Asignacion asignacion : asignacionesAEliminar) {
                 if (asignacion.getBus() != null || asignacion.getConductor() != null) {
                     // Desvincular ruta
@@ -286,18 +291,20 @@ public class RutaService {
 
     @Transactional
     public void eliminarRuta(UUID id) {
-        Ruta ruta = rutaRepository.findById(id).orElseThrow(()-> new RutaNotFoundException(id));
+        Ruta ruta = rutaRepository.findById(id).orElseThrow(() -> new RutaNotFoundException(id));
         List<Asignacion> asignaciones = asignacionRepository.findByRutaId(ruta.getId());
 
         // Eliminamos todas las rutas que tengan asignaciones asociadas:
-        for(Asignacion asignacion : asignaciones) {
+        for (Asignacion asignacion : asignaciones) {
 
-            // Si no tiene asignaciones asociadas (solamente existe la ruta) eliminamos la asignación:
-            if( asignacion.getConductor() == null || asignacion.getBus() == null) {
+            // Si no tiene asignaciones asociadas (solamente existe la ruta) eliminamos la
+            // asignación:
+            if (asignacion.getConductor() == null || asignacion.getBus() == null) {
                 asignacionRepository.delete(asignacion);
             }
 
-            // Si tiene asignaciones asociadas (solo eliminamos la ruta dentro de cada asignación):
+            // Si tiene asignaciones asociadas (solo eliminamos la ruta dentro de cada
+            // asignación):
             else {
                 asignacion.setRuta(null);
                 asignacionRepository.save(asignacion);
@@ -309,5 +316,34 @@ public class RutaService {
 
         // Eliminamos la ruta y todos sus horarios asociados:
         rutaRepository.deleteByCodigo(ruta.getCodigo());
+    }
+
+    @Transactional
+    public void eliminarTodasLasRutas() {
+        // Obtenemos todas las rutas de la base de datos
+        List<Ruta> rutas = rutaRepository.findAll();
+
+        // Iteramos sobre cada ruta y eliminamos las asignaciones y estaciones asociadas
+        for (Ruta ruta : rutas) {
+            List<Asignacion> asignaciones = asignacionRepository.findByRutaId(ruta.getId());
+
+            // Eliminamos las asignaciones asociadas a la ruta
+            for (Asignacion asignacion : asignaciones) {
+                // Si no tiene conductor ni bus, eliminamos la asignación
+                if (asignacion.getConductor() == null || asignacion.getBus() == null) {
+                    asignacionRepository.delete(asignacion);
+                } else {
+                    // Si tiene conductor y bus, solo eliminamos la referencia de la ruta
+                    asignacion.setRuta(null);
+                    asignacionRepository.save(asignacion);
+                }
+            }
+
+            // Eliminamos las estaciones asociadas a la ruta
+            rutaEstacionRepository.deleteByRuta(ruta);
+
+            // Finalmente eliminamos la ruta
+            rutaRepository.delete(ruta);
+        }
     }
 }

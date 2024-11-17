@@ -24,3 +24,4 @@ TestResults.xml
 .DS_Store
 target/
 node_modules/
+.db
