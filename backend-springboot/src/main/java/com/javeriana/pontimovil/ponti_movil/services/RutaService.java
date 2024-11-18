@@ -310,4 +310,33 @@ public class RutaService {
         // Eliminamos la ruta y todos sus horarios asociados:
         rutaRepository.deleteByCodigo(ruta.getCodigo());
     }
+
+    @Transactional
+    public void eliminarTodasLasRutas() {
+        // Obtenemos todas las rutas de la base de datos
+        List<Ruta> rutas = rutaRepository.findAll();
+
+        // Iteramos sobre cada ruta y eliminamos las asignaciones y estaciones asociadas
+        for (Ruta ruta : rutas) {
+            List<Asignacion> asignaciones = asignacionRepository.findByRutaId(ruta.getId());
+
+            // Eliminamos las asignaciones asociadas a la ruta
+            for (Asignacion asignacion : asignaciones) {
+                // Si no tiene conductor ni bus, eliminamos la asignación
+                if (asignacion.getConductor() == null || asignacion.getBus() == null) {
+                    asignacionRepository.delete(asignacion);
+                } else {
+                    // Si tiene conductor y bus, solo eliminamos la referencia de la ruta
+                    asignacion.setRuta(null);
+                    asignacionRepository.save(asignacion);
+                }
+            }
+
+            // Eliminamos las estaciones asociadas a la ruta
+            rutaEstacionRepository.deleteByRuta(ruta);
+
+            // Finalmente eliminamos la ruta
+            rutaRepository.delete(ruta);
+        }
+    }
 }
