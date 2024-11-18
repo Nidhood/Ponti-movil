@@ -37,7 +37,7 @@ public class GestionRutasSystemTest {
     @BeforeEach
     void init() {
         this.playwright = Playwright.create();
-        this.browser = playwright.chromium().launch(new BrowserType.LaunchOptions().setHeadless(false));
+        this.browser = playwright.chromium().launch(new BrowserType.LaunchOptions().setHeadless(true));
         this.browserContext = browser.newContext();
         this.page = browserContext.newPage();
     }
