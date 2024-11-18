@@ -22,7 +22,7 @@ import com.microsoft.playwright.Page;
 import com.microsoft.playwright.Playwright;
 import com.microsoft.playwright.assertions.PlaywrightAssertions;
 
-@ActiveProfiles("system-test")
+@ActiveProfiles("integration-testing")
 @DirtiesContext(classMode = ClassMode.BEFORE_EACH_TEST_METHOD)
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
 public class GestionRutasSystemTest {
@@ -37,7 +37,7 @@ public class GestionRutasSystemTest {
     @BeforeEach
     void init() {
         this.playwright = Playwright.create();
-        this.browser = playwright.chromium().launch(new BrowserType.LaunchOptions().setHeadless(false));
+        this.browser = playwright.chromium().launch(new BrowserType.LaunchOptions().setHeadless(true));
         this.browserContext = browser.newContext();
         this.page = browserContext.newPage();
     }
@@ -55,9 +55,9 @@ public class GestionRutasSystemTest {
         Thread.sleep(2000);
 
         // Realizar login
-        page.locator("#email").fill("davz@gmail.com");
+        page.locator("#email").fill("admin@admin.com");
         Thread.sleep(2000);
-        page.locator("#password input").fill("123456");
+        page.locator("#password input").fill("adminPass");
         Thread.sleep(2000);
         page.locator("button[type='submit']").click();
         Thread.sleep(2000);
@@ -73,12 +73,16 @@ public class GestionRutasSystemTest {
         // Llenar el formulario de agregar ruta
         page.locator("#code").fill("RUTA001");
         Thread.sleep(2000);
-        page.locator("#horaInicioInput").fill("08:00");
+        page.locator("#horaInicioInput").click();
+        Thread.sleep(1000);
+
+        for (int i = 0; i < 4; i++) {
+            page.locator("div.p-hour-picker button[aria-label='Next Hour']").click();
+            Thread.sleep(500);
+        }
         page.keyboard().press("Enter");
         Thread.sleep(2000);
-        page.locator("#horaFinInput").fill("18:00");
-        page.keyboard().press("Enter");
-        Thread.sleep(2000);
+
 
         // Seleccionar días
         page.locator("p-multiSelect#dias").click();
@@ -90,7 +94,13 @@ public class GestionRutasSystemTest {
         page.locator("p-multiSelect#dias").click();
         Thread.sleep(2000);
 
-        // Guardar la nueva ruta
+        page.locator("li#pn_id_2_source_0").click();
+        Thread.sleep(1000);
+
+
+        page.locator("button[data-pc-section='sourceMoveDownButton']").click();
+        Thread.sleep(2000);
+
 
         page.locator("p-button[label='Crear']").click();
         Thread.sleep(2000);
@@ -98,6 +108,13 @@ public class GestionRutasSystemTest {
         page.locator("button.p-button-danger:has-text('Yes')").click();
         Thread.sleep(2000);
 
+        // Cerrar la ventana de agregar ruta
+        page.locator("p-button[label='Cancelar']").click();
+        Thread.sleep(2000);
+
+        // Recargar la página
+        page.reload();
+        Thread.sleep(2000);
 
         // Verificar que la nueva ruta aparece en la lista
         Locator rutas = page.locator("app-r-modulo-ruta .card h2");
@@ -108,24 +125,55 @@ public class GestionRutasSystemTest {
         // Editar la ruta agregada
         page.locator("app-r-modulo-ruta .card:has(h2:has-text('RUTA001'))").click();
         Thread.sleep(2000);
-        page.locator("app-r-editar-ruta p-button[label='Editar']").click();
+        page.locator("app-r-detalles-ruta .edit-btn p-button").click();
         Thread.sleep(2000);
-        page.locator("#horaInicioInput").fill("09:00");
-        Thread.sleep(2000);
+
+        page.locator("#horaFinInput").click();
+        Thread.sleep(1000);
+
+        for (int i = 0; i < 13; i++) {
+            page.locator("div.p-hour-picker button[aria-label='Next Hour']").click();
+            Thread.sleep(500);
+        }
+
+        page.keyboard().press("Enter");
+
+        Thread.sleep(1000);
+
         page.locator("p-button[label='Guardar']").click();
         Thread.sleep(2000);
 
-        // Verificar que el cambio se ha aplicado
-        Locator horaInicio = page.locator("app-r-modulo-ruta .card:has(h2:has-text('RUTA001')) .card-content span");
-        PlaywrightAssertions.assertThat(horaInicio).hasText("09:00 - 18:00");
+        page.locator("button.p-button-danger:has-text('Yes')").click();
+        Thread.sleep(2000);
+
+
+
+        page.locator("p-button[label='Cancelar']").click();
+        Thread.sleep(2000);
+
+        // Recargar la página
+        page.reload();
+        Thread.sleep(2000);
+
+        Locator horaActualizada = page.locator("app-r-modulo-ruta .card-content div:has-text('04:00 - 13:00')");
+        if (!horaActualizada.isVisible()) {
+            throw new RuntimeException("Error al verificar la edición de la hora.");
+        }
+
         Thread.sleep(2000);
 
         // Eliminar la ruta
         page.locator("app-r-modulo-ruta .card:has(h2:has-text('RUTA001'))").click();
         Thread.sleep(2000);
+        page.locator("app-r-detalles-ruta .edit-btn p-button").click();
+        Thread.sleep(2000);
         page.locator("app-r-editar-ruta p-button[label='Eliminar']").click();
         Thread.sleep(2000);
-        page.locator("p-button[label='Aceptar']").click();
+        page.locator("button.p-button-danger:has-text('Yes')").click();
+        Thread.sleep(2000);
+
+        // Recargar la página
+        page.reload();
         Thread.sleep(2000);
 
         // Verificar que la ruta ya no está en la lista
@@ -133,4 +181,5 @@ public class GestionRutasSystemTest {
         assertEquals(false, rutasCodigos.contains("RUTA001"));
         Thread.sleep(2000);
     }
+
 }
