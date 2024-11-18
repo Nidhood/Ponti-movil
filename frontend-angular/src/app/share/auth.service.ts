@@ -26,37 +26,35 @@ export class AuthService {
   constructor(
     private http: HttpClient,
     private router: Router
-  ) {
-    // Log token on service initialization
-    console.log('AuthService initialized. Current token:', this.getToken());
-  }
+  ) {}
 
   private navigateByRole(role: string): void {
+    console.log('Navigating based on role:', role); // Log the role received
+
     const route = this.roleRoutes[role as Role];
     if (route) {
-      this.router.navigate([route]).then(r => console.log(`Navigated to ${route}`));
+      console.log(`Found route for role "${role}": ${route}`);
+      this.router.navigate([route]).then(() => {
+        console.log(`Successfully navigated to ${route}`);
+      });
     } else {
-      console.error(`No route defined for role: ${role}`);
-      this.router.navigate(['/h-login']).then(r => console.log('Navigated to /h-login'));
+      console.error(`Role "${role}" is not recognized. Redirecting to login.`);
+      this.router.navigate(['/h-login']).then(() => {
+        console.log('Navigated to default login page');
+      });
     }
   }
 
   signup(registrationData: UserRegistrationDTO): Observable<JwtAuthenticationResponse> {
-    console.log('Attempting signup with data:', registrationData);
     return this.http.post<JwtAuthenticationResponse>(`${environment.apiUrl}/auth/signup`, registrationData)
       .pipe(
         tap(response => {
-          console.log('Signup response received:', response);
-          if (response && response.token) {
+          if (response?.token) {
             this.setSession(response);
+            console.log('Signup successful. Token and role set.');
             this.navigateByRole(response.role);
-            console.log('AuthService initialized. Current token:', this.getToken());
-            // ROle:
-            console.log('AuthService initialized. Current role:', this.getRole());
-            // Get email:
-            console.log('AuthService initialized. Current email:', this.getEmail());
           } else {
-            console.error('No token received in signup response');
+            console.error('Signup response did not include a token.');
           }
         }),
         catchError(this.handleError)
@@ -64,17 +62,16 @@ export class AuthService {
   }
 
   login(credentials: LoginDTO): Observable<JwtAuthenticationResponse> {
-    console.log('Attempting login with credentials:', credentials);
     return this.http.post<JwtAuthenticationResponse>(`${environment.apiUrl}/auth/login`, credentials)
       .pipe(
         tap(response => {
           console.log('Login response received:', response);
-          if (response && response.token) {
+          if (response?.token) {
             this.setSession(response);
-            console.log('Token stored successfully:', this.getToken());
+            console.log('Login successful. Token stored.');
             this.navigateByRole(response.role);
           } else {
-            console.error('No token received in login response');
+            console.error('Login response did not include a token.');
           }
         }),
         catchError(this.handleError)
@@ -83,39 +80,37 @@ export class AuthService {
 
   private setSession(response: JwtAuthenticationResponse): void {
     try {
-      if (!response.token) {
-        console.error('Attempting to set session with null token');
-        return;
-      }
-      sessionStorage.setItem(TOKEN_KEY, response.token);
-      sessionStorage.setItem(ROLE_KEY, response.role);
-      sessionStorage.setItem(EMAIL_KEY, response.email);
+      if (response.token) {
+        sessionStorage.setItem(TOKEN_KEY, response.token);
+        sessionStorage.setItem(ROLE_KEY, response.role);
+        sessionStorage.setItem(EMAIL_KEY, response.email);
 
-      // Verify storage
-      const storedToken = sessionStorage.getItem(TOKEN_KEY);
-      console.log('Session set. Stored token:', storedToken ? 'Token present' : 'Token missing');
+        console.log('Session set successfully:', {
+          token: response.token,
+          role: response.role,
+          email: response.email
+        });
+      } else {
+        console.error('Attempting to set session with null or undefined token.');
+      }
     } catch (error) {
       console.error('Error setting session:', error);
     }
   }
 
   logout(): void {
-    console.log('Logging out, removing session data');
+    console.log('Logging out and clearing session storage.');
     sessionStorage.removeItem(TOKEN_KEY);
     sessionStorage.removeItem(ROLE_KEY);
     sessionStorage.removeItem(EMAIL_KEY);
   }
 
   isAuthenticated(): boolean {
-    const isAuth = sessionStorage.getItem(TOKEN_KEY) !== null;
-    console.log('Checking authentication status:', isAuth);
-    return isAuth;
+    return sessionStorage.getItem(TOKEN_KEY) !== null;
   }
 
   getToken(): string | null {
-    const token = sessionStorage.getItem(TOKEN_KEY);
-    console.log('Getting token:', token ? 'Token exists' : 'No token found');
-    return token;
+    return sessionStorage.getItem(TOKEN_KEY);
   }
 
   getRole(): string | null {
@@ -127,18 +122,15 @@ export class AuthService {
   }
 
   private handleError(error: HttpErrorResponse) {
-    let errorMessage = 'An error occurred';
-    console.error('HTTP Error occurred:', error);
-
+    let errorMessage = 'An unknown error occurred.';
     if (error.error instanceof ErrorEvent) {
       errorMessage = error.error.message;
     } else if (error.status === 401) {
-      errorMessage = 'Invalid email or password';
+      errorMessage = 'Unauthorized: Invalid email or password.';
     } else if (error.status === 400) {
-      errorMessage = 'Invalid input data';
+      errorMessage = 'Bad Request: Invalid input data.';
     }
-
-    console.error('Error message:', errorMessage);
+    console.error('Error occurred:', errorMessage);
     return throwError(() => errorMessage);
   }
 }

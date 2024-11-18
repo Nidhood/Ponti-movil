@@ -8,6 +8,7 @@ import { AuthGuard } from './guards/auth.guard';
 import { RoleGuard } from './guards/role.guard';
 import {authInterceptor} from './share/auth-interceptor.component';
 import {AuthService} from './share/auth.service';
+import {MessageService} from 'primeng/api';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -20,6 +21,7 @@ export const appConfig: ApplicationConfig = {
     provideAnimations(),
     AuthGuard,
     RoleGuard,
-    AuthService
+    AuthService,
+    MessageService
   ]
 };

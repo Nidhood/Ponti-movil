@@ -55,9 +55,9 @@ public class GestionRutasSystemTest {
         Thread.sleep(2000);
 
         // Realizar login
-        page.locator("#email").fill("admin@example.com");
+        page.locator("#email").fill("davz@gmail.com");
         Thread.sleep(2000);
-        page.locator("#password input").fill("password123");
+        page.locator("#password input").fill("123456");
         Thread.sleep(2000);
         page.locator("button[type='submit']").click();
         Thread.sleep(2000);
