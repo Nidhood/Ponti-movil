@@ -15,7 +15,7 @@ export class AuthGuard implements CanActivate {
       return true;
     }
 
-    this.router.navigate(['/h-login']).then(r => console.log('Navigated to /h-login'));
+    this.router.navigate(['/not-found']).then(() => console.log('Navigated to /not-found'));
     return false;
   }
 }

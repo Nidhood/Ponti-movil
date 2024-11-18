@@ -253,4 +253,50 @@ public class RutaControllerIntegrationTest {
 
 
     }
+
+    @Test
+    void eliminarRuta(){
+        testCrearRuta();
+        List<Ruta> rutas = rutaRepository.findAll();
+
+        JwtAuthenticationResponse adminUsuario = login("admin@admin.com","adminPass");
+
+        webTestClient.delete()
+                .uri(BASE_URL +"/"+ rutas.get(0).getId()+ "/eliminar")
+                .header(HttpHeaders.AUTHORIZATION, "Bearer " + adminUsuario.getToken())
+                .exchange()
+                .expectStatus().isOk();
+    }
+
+    @Test
+    void actualizarRuta(){
+        testCrearRuta();
+        List<Ruta> rutas = rutaRepository.findAll();
+
+        JwtAuthenticationResponse adminUsuario = login("admin@admin.com","adminPass");
+
+        Horario horarioActual = rutas.get(0).getHorario();
+
+        rHorarioDTO horarioActualizado = new rHorarioDTO(horarioActual.getId(),horarioActual.getHoraInicio(),horarioActual.getHoraFin());
+
+        rDireccionDTO direccionPrueba = new rDireccionDTO(UUID.fromString("01bf6e52-0843-4c09-b35b-6c0086b50892"),"Calle 136","Carrera 19","No. 136-01","Usaquén","Alcalá");
+        rEstacionEnviadaDTO estacionActualizada = new rEstacionEnviadaDTO(UUID.fromString("eb28f90c-8c01-4b37-957b-899b57988c06"),"Alcalá - Colegio Santo Tomás Dominicos",1,direccionPrueba);
+        List <rEstacionEnviadaDTO> listaActualizada = new ArrayList<>();
+        listaActualizada.add(estacionActualizada);
+        List<String> diasSemana = List.of("Lunes", "Martes", "Viernes");
+
+        rRutaEnviadaDTO rutaActualizada = new rRutaEnviadaDTO();
+        rutaActualizada.setCodigo("P002");
+        rutaActualizada.setHorario(horarioActualizado);
+        rutaActualizada.setEstaciones(listaActualizada);
+        rutaActualizada.setDiasSemana(diasSemana);
+
+        webTestClient.post()
+                .uri(BASE_URL +"/"+ rutas.get(0).getId()+ "/actualizar")
+                .header(HttpHeaders.AUTHORIZATION, "Bearer " + adminUsuario.getToken())
+                .bodyValue(rutaActualizada)
+                .exchange()
+                .expectStatus().isOk();
+    }
+
 }
