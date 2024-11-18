@@ -86,12 +86,12 @@ public class RutaControllerIntegrationTest {
     private RutaService rutaService;
 
     @Autowired
-    private JwtService jwtService; 
+    private JwtService jwtService;
 
     @Autowired
     private HorarioRepository horarioRepository;
 
-     @Autowired
+    @Autowired
     private UsuarioService usuarioService;
 
     @Autowired
@@ -123,7 +123,7 @@ public class RutaControllerIntegrationTest {
 
     }
 
-     private JwtAuthenticationResponse login(String email, String password) {
+    private JwtAuthenticationResponse login(String email, String password) {
         return webTestClient.post()
                 .uri(SERVER_URL + "/auth/login")
                 .bodyValue(new LoginDTO(email, password))
@@ -147,11 +147,11 @@ public class RutaControllerIntegrationTest {
 
         rDireccionDTO direccionPrueba = new rDireccionDTO(UUID.fromString("01bf6e52-0843-4c09-b35b-6c0086b50892"),"Calle 136","Carrera 19","No. 136-01","Usaquén","Alcalá");
         rEstacionEnviadaDTO estacionPrueba = new rEstacionEnviadaDTO(UUID.fromString("eb28f90c-8c01-4b37-957b-899b57988c06"),"Alcalá - Colegio Santo Tomás Dominicos",1,direccionPrueba);
-        
+
         List<rEstacionEnviadaDTO> estacionesPrueba = new ArrayList<>();
         estacionesPrueba.add(estacionPrueba);
 
-    
+
         rRutaEnviadaDTO nuevaRuta = new rRutaEnviadaDTO();
         UUID rutaPruebaID = UUID.randomUUID();
         nuevaRuta.setId(rutaPruebaID);
@@ -179,11 +179,11 @@ public class RutaControllerIntegrationTest {
 
         rDireccionDTO direccionPrueba = new rDireccionDTO(UUID.fromString("01bf6e52-0843-4c09-b35b-6c0086b50892"),"Calle 136","Carrera 19","No. 136-01","Usaquén","Alcalá");
         rEstacionEnviadaDTO estacionPrueba = new rEstacionEnviadaDTO(UUID.fromString("eb28f90c-8c01-4b37-957b-899b57988c06"),"Alcalá - Colegio Santo Tomás Dominicos",1,direccionPrueba);
-        
+
         List<rEstacionEnviadaDTO> estacionesPrueba = new ArrayList<>();
         estacionesPrueba.add(estacionPrueba);
 
-    
+
         rRutaEnviadaDTO nuevaRuta = new rRutaEnviadaDTO();
         UUID rutaPruebaID = UUID.randomUUID();
         nuevaRuta.setId(rutaPruebaID);
@@ -213,11 +213,11 @@ public class RutaControllerIntegrationTest {
 
         rDireccionDTO direccionPrueba = new rDireccionDTO(UUID.fromString("01bf6e52-0843-4c09-b35b-6c0086b50892"),"Calle 136","Carrera 19","No. 136-01","Usaquén","Alcalá");
         rEstacionEnviadaDTO estacionPrueba = new rEstacionEnviadaDTO(UUID.fromString("eb28f90c-8c01-4b37-957b-899b57988c06"),"Alcalá - Colegio Santo Tomás Dominicos",1,direccionPrueba);
-        
+
         List<rEstacionEnviadaDTO> estacionesPrueba = new ArrayList<>();
         estacionesPrueba.add(estacionPrueba);
 
-    
+
         rRutaEnviadaDTO nuevaRuta = new rRutaEnviadaDTO();
         UUID rutaPruebaID = UUID.randomUUID();
         nuevaRuta.setId(rutaPruebaID);
@@ -250,7 +250,7 @@ public class RutaControllerIntegrationTest {
                 .value(rutas -> {
                     assertEquals(rutas.get(0).getCodigo(), "P001");
                 });
-        
+
 
     }
 }

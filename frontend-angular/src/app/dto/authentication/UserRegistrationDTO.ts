@@ -1,4 +1,4 @@
-import {Role} from '../../auth/models/role';
+import { Role } from '../../auth/models/role';
 
 export class UserRegistrationDTO {
   constructor(
