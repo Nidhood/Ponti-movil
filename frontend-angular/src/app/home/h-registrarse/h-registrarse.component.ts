@@ -57,7 +57,7 @@ export class HRegistrarseComponent implements OnInit {
   ngOnInit() {
     this.roles = [
       { label: 'Administrador', value: Role.Administrador },
-      { label: 'Conductor', value: Role.Coordinador },
+      { label: 'Coordinador', value: Role.Coordinador },
       { label: 'Pasajero', value: Role.Pasajero }
     ];
   }
